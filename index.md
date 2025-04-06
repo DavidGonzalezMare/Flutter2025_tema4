@@ -1,10 +1,6 @@
-﻿*Unidad 4. Formularios y Navegación*
+﻿# Unitat 4. Formularios y Navegación
 
-Unitat 4. Formularios y Navegación
-
-![Logotipo
-
-Descripción generada automáticamente](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.001.png)
+![Navegación](./images/imagen01.png)
 
 En la unidad anterior vimos cómo organizar las interfaces de usuario mediante widgets en diferentes pantallas. En esta unidad vamos a abordar los dos aspectos que quedan con el fin de implementar interfaces en una aplicación informática: Los formularios y la navegación.
 
@@ -13,7 +9,8 @@ La librería Material nos ofrece varios widgets con el fin de recoger la interac
 En la segunda parte de la unidad veremos el widget Navigator, que será el encargado de facilitar la navegación entre las diferentes pantallas de la aplicación.
 
 
-1. # Formularios. Widgets para formularios
+# 1. Formularios. Widgets para formularios
+
 ## Introducción
 La librería Material nos ofrece varios widgets con el fin de recoger la interacción y la entrada de datos por parte del usuario. 
 
@@ -22,362 +19,260 @@ Estos widgets por ellos mismos no tendrán la capacidad de mantener la informaci
 Por otro lado, al tratarse de widgets de la librería Material, deben tener un antecesor de tipo Material (generalmente el propio *Scaffold*) en el árbol de widgets, dentro de una aplicación Material. 
 
 A continuación, vamos a ver algunos de estos widgets y sus principales propiedades, y se os proporcionarán referencias a la documentación oficial de Flutter para cada widget, donde podéis encontrar su descripción completa, más ejemplos y vídeos.
-## El widgets TextField
-Para capturar la entrada de texto del usuario podemos hacer uso de una caja de texto mediante el widget **TextField**. 
 
-![Interfaz de usuario gráfica, Aplicación
+## El widget TextField
+Para capturar la entrada de texto del usuario podemos hacer uso de una caja de texto mediante el widget `TextField`. 
 
-Descripción generada automáticamente](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.002.png)
+![TextField](./images/imagen02.png)
 
 Algunas de las propiedades más interesantes de este widget son:
 
-- **bool autofocus**: Para poner el foco de la aplicación sobre este widget,
-- **int? maxLength**: Nos permite establecer el número máximo de caracteres.
-- **TextInputType? keyboardType**: Establece el tipo de teclado en función de la información a introducir. Para ello hace uso de la clase TextInputType, con valores como TextInputType.datetime, TextInputType.emailAddress, TextInputType.multiline, TextInputType.name, TextInputType.number o TextInputType.phone.
-- **InputDecoration? decoration**: Permite establecer una decoración para la caja que rodea el widget.
-- **bool obscureText**: Se trata de un valor booleano con el fin de ocultar los caracteres que escribimos, en campos que puedan contener información sensible, como un *password*.
-- **String osbcuringCharanter**: Nos permite modificar el carácter a utilizar para ocultar campos sensibles.
-- **void Function(String)? onChanged**: Se trata de una propiedad que contiene una función de *callback* que se dispara cuando el valor del texto cambia.
-- **TextEditingController?** nos permite controlar el texto contenido en el TextView.
+- `bool autofocus`: Para poner el foco de la aplicación sobre este widget,
+  
+- `int? maxLength`: Nos permite establecer el número máximo de caracteres.
+- `TextInputType? keyboardType`: Establece el tipo de teclado en función de la información a introducir. Para ello hace uso de la clase TextInputType, con valores como TextInputType.datetime, TextInputType.emailAddress, TextInputType.multiline, TextInputType.name, TextInputType.number o TextInputType.phone.
+- `InputDecoration? decoration` Permite establecer una decoración para la caja que rodea el widget.
+- `bool obscureText`: Se trata de un valor booleano con el fin de ocultar los caracteres que escribimos, en campos que puedan contener información sensible, como un *password*.
+- `String osbcuringCharanter`: Nos permite modificar el carácter a utilizar para ocultar campos sensibles.
+- `void Function(String)? onChanged`: Se trata de una propiedad que contiene una función de *callback* que se dispara cuando el valor del texto cambia.
+- `TextEditingController?` nos permite controlar el texto contenido en el TextView.
 
-### **Sobre el atributo decoration**
-El atributo decoration nos permite especificar mediante un guiño de tipo **inputDecoration** el aspecto de la caja que rodea el campo de texto. Algunos de los aspectos que podemos modificar son:
+### **Sobre el atributo decoration
+**
+El atributo `decoration` nos permite especificar mediante un widget de tipo `inputDecoration` el aspecto de la caja que rodea el campo de texto. Algunos de los aspectos que podemos modificar son:
 
-- **hintText**: Un texto de ayuda que se mostrará como valor cuando todavía no hemos introducido nada.
-- **labelText**: Un texto descriptivo que acompaña al TextoInput.
-- **Widget? label**: Sirve para añadir un texto como etiqueta. Esta propiedad no es compatible con la etiqueta labelText.
-- **Widget? icono**: Para añadir un icono antes del cuadro de texto.
-- **Widget? Prefijo**: Para añadir un icono al inicio del cuadro de texto, pero dentro del mismo.
-- **Widget? suffixIcon**: Para añadir un icono al final del cuadro de texto.
-- **counterText**: Indica un texto que aparece en lugar del contador de caracteres, en la parte de abajo y a la derecha de la caja de texto.
-- **helperText**: Indica un texto que aparece en la parte de abajo y a la izquierda de la caja de texto.
+- `hintText`: Un texto de ayuda que se mostrará como valor cuando todavía no hemos introducido nada.
+  
+- `labelText`: Un texto descriptivo que acompaña al TextInput.
+- `Widget? label`: Sirve para añadir un texto como etiqueta. Esta propiedad no es compatible con la etiqueta labelText.
+- `Widget? icon`: Para añadir un icono antes del cuadro de texto.
+- `Widget? prefixIcon`: Para añadir un icono al inicio del cuadro de texto, pero dentro del mismo.
+- `Widget? suffixIcon`: Para añadir un icono al final del cuadro de texto.
+- `counterText`: Indica un texto que aparece en lugar del contador de caracteres, en la parte de abajo y a la derecha de la caja de texto.
+- `helperText`: Indica un texto que aparece en la parte de abajo y a la izquierda de la caja de texto.
 
 Veamos algunas de estas propiedades en el siguiente ejemplo:
 
-` `TextField(
+```dart
+ TextField(
+        keyboardType: TextInputType.text,
+        maxLength: 4,
+        obscureText: true,
+        obscuringCharacter: "?",
+        //readOnly: true,
+        decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            icon: const Icon(Icons.access_alarms_outlined),
+            hintText: 'Esto es un hintText',
+            labelText: 'Este es el labelText',
+            suffixIcon: const Icon(Icons.people),
+            prefixIcon: const Icon(Icons.email_rounded),
+            prefix: const Text("Prefix/"),
+            suffix: const Text("/Suffix"),
+            helperText: "Este es el HelperText"
+            ),
+      )
+```
 
-`        `keyboardType: TextInputType.text,
+![TexField2](./images/imagen03.png)
 
-`        `maxLength: 4,
+![TextField3](./images/imagen04.png)
 
-`        `obscureText: true,
+### **Accediendo al valor del TextField**
 
-`        `obscuringCharacter: "?",
-
-`        `//readOnly: true,
-
-`        `decoration: InputDecoration(
-
-`            `border: OutlineInputBorder(
-
-`              `borderRadius: BorderRadius.circular(20),
-
-`            `),
-
-`            `icon: const Icon(Icons.access\_alarms\_outlined),
-
-`            `hintText: 'Això és un hintText',
-
-`            `labelText: 'Aquest és el labelText',
-
-`            `suffixIcon: const Icon(Icons.people),
-
-`            `prefixIcon: const Icon(Icons.email\_rounded),
-
-`            `prefix: const Text("Prefix/"),
-
-`            `suffix: const Text("/Suffix"),
-
-`            `helperText: "Aquest el HelperText"
-
-`            `),
-
-`      `)              
-
-![](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.003.png)
-
-![Interfaz de usuario gráfica, Texto, Aplicación
-
-Descripción generada automáticamente](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.004.png)
-
-### **Accedint al valor del TextField**
-Si queremos acceder al valor del campo de texto, debemos hacerlo a través del evento onChanged, que se dispara cuando se modifica su contenido.
+Si queremos acceder al valor del campo de texto, debemos hacerlo a través del evento `onChanged`, que se dispara cuando se modifica su contenido.
 
 Un sencillo ejemplo, para mostrar el resultado por la terminal sería:
 
+```dart
 TextField(
+    onChanged: (text) {
+        debugPrint("Texto instroducido: "+text);
+    },
+)
+```
 
-`    `onChanged: (text) {
-
-`        `debugPrint("Text introduit: $text");
-
-`    `},
-
-)      
-
-Como vemos, este evento recibe un *String* con el contenido del **TextField**.
+Como vemos, este evento recibe un *String* con el contenido del `TextField`.
 
 Si lo que queremos es que este valor pueda ser accesible desde otro lugar del mismo widget, habría que trabajar ya con widgets con estado, de manera que mantuviéramos en el mismo estado el valor de este texto y lo pudiéramos consultar desde otro lugar.
 
 Vemos cómo hacerlo en el siguiente ejemplo, donde se recoge el valor introducido en el TextField y se muestra en un Texto:
 
+```dart
 import 'package:flutter/material.dart';
 
-// En primer lloc, definim el giny com a un giny amb estat
+// En primer lugar, definimos el widget como un widget con estado
+class EjemploForms2 extends StatefulWidget {
+  const EjemploForms2({super.key});
 
-class ExempleForms2 extends StatefulWidget {
-
-`  `const ExempleForms2({super.key});
-
-`  `// Sobreescrivim el mètode createState() per crear l'estat
-
-`  `@override
-
-`  `State<ExempleForms2> createState() => \_ExempleForms2State();
-
+  // Sobreescrimbimos el método createState() para crear el estado  @override
+  State<EjemploForms2> createState() => _EjemploForms2State();
 }
 
-// Classe per a l'estat
+// Clase para el estado
+class _EjemploForms2State extends State<EjemploForms2> {
+  // Definimos el contenido como propiedad
+  String? contenido;
 
-class \_ExempleForms2State extends State<ExempleForms2> {
+  @override
+  void initState() {
+    super.initState();
+    // Inicializamos el contenido
+    contenido = "";
+  }
 
-`  `// Definim el contingut com a propietat
-
-`  `String? contingut;
-
-`  `@override
-
-`  `void initState() {
-
-`    `super.initState();
-
-`    `// Inicialitzem el contingut
-
-`    `contingut = "";
-
-`  `}
-
-`  `// Construim el giny
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return Center(
-
-`      `child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-
-`        `TextField(
-
-`          `decoration: InputDecoration(
-
-`            `border: OutlineInputBorder(
-
-`              `borderRadius: BorderRadius.circular(10),
-
-`            `),
-
-`          `),
-
-`          `onChanged: (text) {
-
-`            `// Quan canvie el contingut, actualitzarem
-
-`            `// la propietat corresponent de l'estat i
-
-`            `// ho notificarem a Flutter amb setStat
-
-`            `setState(() {
-
-`              `contingut = text;
-
-`            `});
-
-`          `},
-
-`        `),
-
-`        `const Divider(),
-
-`        `// Afegim un segon giny de tipus text que
-
-`        `// mostra el contingut
-
-`        `Text("$contingut"),
-
-`      `]),
-
-`    `);
-
-`  `}
-
+  // Construimos el widget
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        TextField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          onChanged: (text) {
+            // Cuando cambie el contenido, actualizaremos
+            // la propiedad correspondiente de el estado y 
+            // lo notificaremos con setStat
+            setState(() {
+              contenido = text;
+            });
+          },
+        ),
+        const Divider(),
+        // Añadimos un segundo widget de tipo texto que 
+        // muestra el contenido
+        Text("$contenido"),
+      ]),
+    );
+  }
 }
 
+```
 
-Tenéis este ejemplo en funcionamiento en el siguiente Gist: <https://dartpad.dev/?id=ef5d88698212b09d5644230eace13cca>.
+En *el siguiente gist* podéis encontrar este código funcionando: 
+[https://dartpad.dev/embed-flutter.html?id=b2d92eaf6e3fd76d9f1ad7a43dd73524](https://dartpad.dev/embed-flutter.html?id=b2d92eaf6e3fd76d9f1ad7a43dd73524)
+
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=b2d92eaf6e3fd76d9f1ad7a43dd73524"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
+
 ### **TextEditingController**
-En el ejemplo anterior hemos visto cómo acceder al contenido de un *TextField* cuando se producen cambios en el mismo, pero no hemos visto cómo acceder directamente a su contenido, bien sea para consultarlo o para establecer, por ejemplo, un valor inicial.
 
-Para ello, necesitamos asociar al widget un objeto de la clase **TextEditingController**, dentro de la propiedad **controller**, a través del cual podremos acceder a su propiedad texto.
+En el ejemplo anterior hemos visto cómo acceder al contenido de un `TextField` cuando se producen cambios en el mismo, pero no hemos visto cómo acceder directamente a su contenido, bien sea para consultarlo o para establecer, por ejemplo, un valor inicial.
 
-Cuando un **TextField** que tiene asociado un **TextEditingController** es actualizado por el usuario, la propiedad texto del controlador se modifica al valor introducido por el usuario, y el propio controlador será quien notifique sus propios *listeners*. Estos *listeners* podrán ahora acceder a las propiedades **text** y **selection** actualizadas. Del mismo modo, cuando actualicemos por código estas propiedades, el contenido del TextField también se modificará.
+Para ello, necesitamos asociar al widget un objeto de la clase `TextEditingController`, dentro de la propiedad `controller`, a través del cual podremos acceder a su propiedad texto.
+
+Cuando un `TextField` que tiene asociado un `TextEditingController` es actualizado por el usuario, la propiedad `text` del controlador se modifica al valor introducido por el usuario, y el propio controlador será quien notifique sus propios *listeners*. Estos *listeners* podrán ahora acceder a las propiedades `text` y `selection` actualizadas. Del mismo modo, cuando actualicemos por código estas propiedades, el contenido del TextField también se modificará.
 
 Vemos cómo hacerlo en el siguiente ejemplo:
 
-import 'package:flutter/material.dart';
+```dart
 
-// Definim un giny amb estat per a l'exemple
+// En primer lugar, definimos el widget como un widget con estado
+class EjemploFormTextEditController extends StatefulWidget {
+  const EjemploFormTextEditController({super.key});
 
-class ExempleFormTextEditController extends StatefulWidget {
-
-`  `const ExempleFormTextEditController({super.key});
-
-`  `// Mètode creteState, per crear l'estat associat al giny
-
-`  `// Crea un objecte de tipus estat (\_ExempleFormTextEditControllerState)
-
-`  `@override
-
-`  `State<ExempleFormTextEditController> createState() =>
-
-`      `\_ExempleFormTextEditControllerState();
-
+  // Sobreescrimbimos el método createState() para crear el estado  @override
+  @override
+  State<EjemploFormTextEditController> createState() =>
+      _EjemploFormTextEditControllerState();
 }
 
-// Definim la classe corresponent a l'estat
+// Definimos la clase correspondiente a el estado
 
-class \_ExempleFormTextEditControllerState
+class _EjemploFormTextEditControllerState
+    extends State<EjemploFormTextEditController> {      
+  // El estaod contiene un TextEditController, que
+  // asociaremos al TextEdit
+  final TextEditingController controlador = TextEditingController();
 
-`    `extends State<ExempleFormTextEditController> {
+  @override
+  void initState() {
+    super.initState();
+    // En el método initState del ciclo de vida del estado
+    // podemos dar un valor inicial a la propiedad
+    // text del controlador.
+    controlador.text = "ValorInicial";
+  }
 
-`  `// L'estat conté un TextEditController, que
+  // Construimos el widget que estará compuesto por
+  // un TextField, un Divider y un botón.
+  // Tanto el TextField como el botón, se crean en
+  // métodos aparte (creaTextField() i 
+  // creaBotonSubmit()) per facilitar la legibilitat.
 
-`  `// associarem al TextEdit
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          creaTextField(), 
+          const Divider(),
+          creaBotonSubmit(),
+        ],
+      ),
+    );
+  }
 
-`  `final TextEditingController controlador = TextEditingController();
+  @override
+  void dispose() {
+    // Liberamos el controlador cuando el widget
+    // se elimina del árbol de widgets
+    controlador.dispose();
+    super.dispose();
+  }
 
-`  `@override
+  TextField creaTextField() {
+    return TextField(
+      // Asociamos el controlador al controller
+      // del TextField
 
-`  `void initState() {
+      controller: controlador,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+  }
 
-`    `super.initState();
-
-`    `// Al mètode initState del cicle de vida de l'estat
-
-`    `// podem donar una valor inicial a la propietat
-
-`    `// text del controlador.
-
-`    `controlador.text = "ValorInicial";
-
-`  `}
-
-`  `// Construim el giny, que estarà compost per
-
-`  `// un TextField, un Divider i un botó.
-
-`  `// Tant el TextFiels com el botó, es creen en
-
-`  `// mètodes a banda (creaTextField() i 
-
-`  `// creaBotoSubmit()) per facilitar la legibilitat.
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return Center(
-
-`      `child: Column(
-
-`        `mainAxisAlignment: MainAxisAlignment.center,
-
-`        `children: [
-
-`          `creaTextField(), 
-
-`          `const Divider(),
-
-`          `creaBotoSubmit(),
-
-`        `],
-
-`      `),
-
-`    `);
-
-`  `}
-
-`  `@override
-
-`  `void dispose() {
-
-`    `// Alliberem el controlador quan el giny
-
-`    `// s'elimine de l'arbre de ginys.
-
-`    `controlador.dispose();
-
-`    `super.dispose();
-
-`  `}
-
-`  `TextField creaTextField() {
-
-`    `return TextField(
-
-`      `// Associem el controlador al controller
-
-`      `// del TextField
-
-`      `controller: controlador,
-
-`      `decoration: InputDecoration(
-
-`        `border: OutlineInputBorder(
-
-`          `borderRadius: BorderRadius.circular(10),
-
-`        `),
-
-`      `),
-
-`    `);
-
-`  `}
-
-`  `// Aquesta funció retornarà un ElevatedButton,
-
-`  `// la funció del qual serà únicament mostrar
-
-`  `// un text per consola quan fem clic en ell.
-
-`  `ElevatedButton creaBotoSubmit() {
-
-`    `return ElevatedButton(
-
-`      `onPressed: () {
-
-`        `debugPrint(controlador.text);
-
-`      `},
-
-`      `child: const Text("Enviar formulari"),
-
-`    `);
-
-`  `}
-
+  // Esta función devolverá un ElevatedButton,
+  // cuya función será únicamente mostrar
+  // un texto por consola cuando hacemos click en el mismo.
+  ElevatedButton creaBotonSubmit() {
+    return ElevatedButton(
+      onPressed: () {
+        debugPrint(controlador.text);
+      },
+      child: const Text("Enviar formualario"),
+    );
+  }
 }
+```
+En *el siguiente gist* podéis encontrar este código funcionando: 
+[https://dartpad.dev/embed-flutter.html?id=792d2c8f3966077da10240c9fa9acd48](https://dartpad.dev/embed-flutter.html?id=792d2c8f3966077da10240c9fa9acd48)
 
-Podéis ver su funcionamiento en el siguiente Gist: <https://dartpad.dev/?id=7f9e6aba49f964de8982aa9a456d8bca>.
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=792d2c8f3966077da10240c9fa9acd48"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
 
 Ten en cuenta que para ver el mensaje que se muestra por consola tenéis que abrir ésta en el Visual Studio Code.
 
 ## Los Widgets DropDownButton y DropDownMenuItem
-![Interfaz de usuario gráfica, Aplicación
 
-Descripción generada automáticamente](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.005.png)
+![DropDown](./images/imagen05.png)
 
 El *DropDownButton* es un widget de las especificaciones de Material Design, y consiste en un botón desplegable que permite al usuario realizar una selección de entre una lista de elementos. También se conoce como *spinner* o *combobox*. El botón mostrará el elemento seleccionado actualmente y una flecha que indica que podemos desplegar el menú para seleccionar otro elemento.
 
@@ -385,256 +280,197 @@ Este widget necesita un tipo genérico, que será el tipo de valor (*value*) que
 
 Los parámetros más importantes del constructor son:
 
-- **required List<DropDownMenuItem<T>> children**: Con la lista de elementos de tipo *DropDownMenuItem* parametrizada a un tipo *T*, que será el tipo genérico al que corresponderá el value. Los diferentes *DropDownMenuItems* necesitarán dos parámetros para construirse: un child con el widget que queremos visualizar, y un value con el valor 
-- **required void Function(<T>) onChanged**: Que especifica el callback que se disparará cuando cambie la selección del usuario.
-- **<T> value**: Con el valor asociado al elemento de la lista.
+- `required List<DropDownMenuItem<T>> children`: Con la lista de elementos de tipo *DropDownMenuItem* parametrizada a un tipo *T*, que será el tipo genérico al que corresponderá el `value`. Los diferentes *DropDownMenuItems* necesitarán dos parámetros para construirse: un `child` con el widget que queremos visualizar, y un `value` con el valor 
+  
+- `required void Function(<T>) onChanged`: Que especifica el callback que se disparará cuando cambie la selección del usuario.
+- `<T> value`: Con el valor asociado al elemento de la lista.
 
 Veámoslo con un ejemplo sencillo:
 
+```dart
 DropdownButton(
-
-`  `value: 1,
-
-`  `onChanged: (int? valor) {
-
-`    `debugPrint("Valor Escollit: $valor");
-
-`  `},
-
-`  `items: const [
-
-`    `DropdownMenuItem(
-
-`      `value: 1,
-
-`      `child: Text('Element 1'),
-
-`    `),
-
-`    `DropdownMenuItem(
-
-`      `value: 2,
-
-`      `child: Text('Elenent 2'),
-
-`    `),
-
-`    `DropdownMenuItem(
-
-`      `value: 3,
-
-`      `child: Text('Element 3'),
-
-`    `),
-
-`  `],
-
+  value: 1,
+  onChanged: (int? valor) {
+    debugPrint("Valor Escogido: $valor");
+  },
+  items: const [
+    DropdownMenuItem(
+      value: 1,
+      child: Text('Elemento 1'),
+    ),
+    DropdownMenuItem(
+      value: 2,
+      child: Text('Elenento 2'),
+    ),
+    DropdownMenuItem(
+      value: 3,
+      child: Text('Elemento 3'),
+    ),
+  ],
 )
+```
 
-Como vemos, estamos definiendo un botón que mostrará tres opciones: *"Elemento 1"*, *"Elemento 2"* y *"Elemento 3"*. Estas opciones tendrán los valores 1, 2 y 3 respectivamente, de manera que el tipo genérico que se utilizará será un int. El valor seleccionado de manera predeterminada será el primero y cuando el usuario cambie la selección y se dispare el evento onChanged, se mostrará por la terminal un mensaje con la opción seleccionada.
+Como vemos, estamos definiendo un botón que mostrará tres opciones: *"Elemento 1"*, *"Elemento 2"* y *"Elemento 3"*. Estas opciones tendrán los valores 1, 2 y 3 respectivamente, de manera que el tipo genérico que se utilizará será un `int`. El valor seleccionado de manera predeterminada será el primero y cuando el usuario cambie la selección y se dispare el evento `onChanged`, se mostrará por la terminal un mensaje con la opción seleccionada.
 
 Hay que tener en cuenta que cuando el usuario cambie la selección, en este ejemplo sólo se mostrará por la terminal el valor seleccionado, pero no se actualizará la interfaz.
 
 Para actualizar la interfaz, deberemos:
 
 1. Definir el widget donde se ubica el botón como un widget con estado,
-1. Guardarnos en el estado del widget la opción seleccionada. En caso de querer darle un valor inicial, podemos hacerlo al **initState().**
-1. Enlazar la propiedad **value** del widget con el valor del estado.
-1. Hacer uso del método setState() cuando se modifique la opción y, por lo tanto, cambie el value, con el fin de redibujar el widget con la nueva selección.
+   
+2. Guardarnos en el estado del widget la opción seleccionada. En caso de querer darle un valor inicial, podemos hacerlo al `initState()`.
+3. Enlazar la propiedad `value` del widget con el valor del estado.
+4. Hacer uso del método `setState()` cuando se modifique la opción y, por lo tanto, cambie el value, con el fin de redibujar el widget con la nueva selección.
 
 Así pues, la clase quedaría de la siguiente manera:
 
+```dart
+// Definimos la clase para el botón como un widget con estado
 class MyDropdownButton extends StatefulWidget {
+  const MyDropdownButton({
+    Key? key,
+  }) : super(key: key);
 
-`  `const MyDropdownButton({
 
-`    `Key? key,
-
-`  `}) : super(key: key);
-
-`  `@override // Creació de l'estat associat
-
-`  `State<MyDropdownButton> createState() => \_MyDropdownButtonState();
-
+  @override // Creación del estado asociado
+  State<MyDropdownButton> createState() => _MyDropdownButtonState();
 }
 
-// Definim la classe que represente l'estat
+// Definimos la clase que representa el estado
+class _MyDropdownButtonState extends State<MyDropdownButton> {
+  // Incorporamos el valor de la selección como estado del widget
+  int? valorSeleccionado;
 
-class \_MyDropdownButtonState extends State<MyDropdownButton> {
+  @override
+  void initState() {   // Damos valor inicial
+    super.initState();
+    valorSeleccionado = 1;
+  }
 
-`  `// Incorporem el valor de la selecció com a estat del giny
-
-`  `int? valorSeleccionat;
-
-`  `@override
-
-`  `void initState() {   // Donem valor inicial
-
-`    `super.initState();
-
-`    `valorSeleccionat = 1;
-
-`  `}
-
-`  `@override // Construcció del giny
-
-`  `Widget build(BuildContext context) {
-
-`    `return DropdownButton(
-
-`      `value: valorSeleccionat, // Associem value al valor seleccionat
-
-`      `onChanged: (int? valor) {
-
-`        `debugPrint("Valor Escollit: $valor");
-
-`        `setState(() {
-
-`          `// Quan es canvia la selecció actualitzem l'estat
-
-`          `valorSeleccionat = valor ?? 1;
-
-`        `});
-
-`      `},
-
-`      `// Els items de la llista seran elements de tipus Text
-
-`      `// associats a un valor enter.
-
-`      `items: const [
-
-`        `DropdownMenuItem(
-
-`          `value: 1,
-
-`          `child: Text('Element 1'),
-
-`        `),
-
-`        `DropdownMenuItem(
-
-`          `value: 2,
-
-`          `child: Text('Elenent 2'),
-
-`        `),
-
-`        `DropdownMenuItem(
-
-`          `value: 3,
-
-`          `child: Text('Element 3'),
-
-`        `),
-
-`      `],
-
-`    `);
-
-`  `}
-
+  @override // Construcción del widget
+  Widget build(BuildContext context) {
+    return DropdownButton(
+      value: valorSeleccionado, // Asociamos value al valor seleccionado
+      onChanged: (int? valor) {
+        debugPrint("Valor Elegido: $valor");
+        setState(() {
+          // Cuando se cambia la selección actualizamos el estado
+          valorSeleccionado = valor ?? 1;
+        });
+      },
+      // Los items de la lista serán elementos de tipo Text
+      // asociados a un valor entero
+      items: const [
+        DropdownMenuItem(
+          value: 1,
+          child: Text('Elemento 1'),
+        ),
+        DropdownMenuItem(
+          value: 2,
+          child: Text('Elenento 2'),
+        ),
+        DropdownMenuItem(
+          value: 3,
+          child: Text('Elemento 3'),
+        ),
+      ],
+    );
+  }
 }
+```
 
-Vemos el funcionamiento en el siguiente Gist: <https://dartpad.dev/?id=8dabf96b35c2d5ed7a21375a48c8a93a>.
+En *el siguiente gist* podéis encontrar este código funcionando: 
+[https://dartpad.dev/embed-flutter.html?id=a220026119048ef7803a5c8ab10454ab](https://dartpad.dev/embed-flutter.html?id=a220026119048ef7803a5c8ab10454ab)
 
-El tipo de datos que usamos tanto para el **value** del DropdownButton, como para el **value** del DropdownMenuItem, como para el valor que guardaremos en el estado (**valorSeleccionado** al ejemplo), así como para el tipo de datos que recibimos en el **onChanged** debe ser el mismo.
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=a220026119048ef7803a5c8ab10454ab"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
+
+
+El tipo de datos que usamos tanto para el `value` del DropdownButton, como para el `value` del DropdownMenuItem, como para el valor que guardaremos en el estado (`valorSeleccionado` en el ejemplo), así como para el tipo de datos que recibimos en el `onChanged` debe ser el mismo.
 
 Tengamos en cuenta  que la lista de opciones no tiene por qué ser una lista de elementos estática, sino que la podemos obtener también desde una estructura dinámica. Vemos en el siguiente ejemplo cómo añadiríamos una lista al estado y cómo crearíamos esta lista de opciones. Además, vamos ahora a utilizar valores de tipo *String* en lugar de enteros.
 
-// Definim la classe per a l'estat
+```dart
+// Definimos la clase para el botón como un widget con estado
+class MyDropdownButton extends StatefulWidget {
+  const MyDropdownButton({
+    Key? key,
+  }) : super(key: key);
 
-class \_MyDropdownButtonState2 extends State<MyDropdownButton2> {
-
-`  `// Incorporem la llista d'opcions a l'estat del giny
-
-`  `// La declarem com a late perquè li donarem valor posteriorment
-
-`  `late List<String> llistaOpcions;
-
-`  `// Incorporem també a l'estat el valor seleccionat
-
-`  `String? valorSeleccionat;
-
-`  `@override
-
-`  `void initState() {
-
-`    `// Donem valors inicials
-
-`    `super.initState();
-
-`    `valorSeleccionat = "Opcio 1";
-
-`    `llistaOpcions = ["Opcio 1", "Opcio 2", "Opcio 3"];
-
-`  `}
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `// Construcció del giny
-
-`    `return DropdownButton(
-
-`        `// Associem la propietat value amb el valor seleccionat
-
-`        `value: valorSeleccionat,
-
-`        `// Associem el callback a l'event onchange
-
-`        `// Ara el valor és String, no int
-
-`        `onChanged: (String? valor) {   
-
-`          `debugPrint("Valor Escollit: $valor");
-
-`          `setState(() {
-
-`            `valorSeleccionat = valor ?? "Opcio 1";
-
-`          `});
-
-`        `},
-
-`        `// Per a la llista d'items fem ús d'una funció a banda
-
-`        `items: \_creaLlistaItems());
-
-`  `}
-
-`  `// Generació de la llista de DropdownMenuItems a partir
-
-`  `// de la llista d'elements.
-
-`  `List<DropdownMenuItem<String>> \_creaLlistaItems() {
-
-`    `List<DropdownMenuItem<String>> llista = [];
-
-`    `for (var element in llistaOpcions) {
-
-`      `llista.add(DropdownMenuItem(
-
-`        `value: element,
-
-`        `child: Text(element),
-
-`      `));
-
-`    `}
-
-`    `return llista;
-
-`  `}
-
+  @override
+  State<MyDropdownButton> createState() => _MyDropdownButtonState();
 }
 
-Podéis ver su funcionamiento en el siguiente Gist: <https://dartpad.dev/?id=b0a71629b568a2e1837ffc02c82e321d>.
+// Definimos la clase que representa el estado
+class _MyDropdownButtonState extends State<MyDropdownButton> {
+  // Incorporamos la lista de opciones al estado del widget
+  // La declaramos late porque le daremos valor posteriormente
+  late List<String> listaOpciones;
+
+  // Incorporem també a l'estat el valor seleccionat
+  String? valorSeleccionado;
+
+  @override
+  void initState() {
+    // Damos valores iniciales
+    super.initState();
+    valorSeleccionado = "Opcion 1";
+    listaOpciones = ["Opcion 1", "Opcion 2", "Opcion 3"];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Construcción del widget
+    return DropdownButton(
+        // Asociamos la propiedad value con el valor seleccionado
+        value: valorSeleccionado,
+        // Asociamos el callback en el evento onChange
+        // Ahora el valor es String, no int
+        onChanged: (String? valor) {   
+          debugPrint("Valor Escogido: $valor");
+          setState(() {
+            valorSeleccionado = valor ?? "Opcion 1";
+          });
+        },
+        // Para la lista de items hacemos una función aparte
+        items: _creaListaItems());
+  }
+
+  // Generación de la lista de DropdownMenuItems a partir
+  // de la lista de elementos
+  List<DropdownMenuItem<String>> _creaListaItems() {
+    List<DropdownMenuItem<String>> lista = [];
+    for (var element in listaOpciones) {
+      lista.add(DropdownMenuItem(
+        value: element,
+        child: Text(element),
+      ));
+    }
+
+    return lista;
+  }
+}
+```
+
+En *el siguiente gist* podéis encontrar este código funcionando: 
+[https://dartpad.dev/embed-flutter.html?id=b8ea5457046bd348f41c33c6aaa5b5fa](https://dartpad.dev/embed-flutter.html?id=b8ea5457046bd348f41c33c6aaa5b5fa)
+
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=b8ea5457046bd348f41c33c6aaa5b5fa"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
+
 
 [Referència a la classe DropdownButton](https://api.flutter.dev/flutter/material/DropdownButton-class.html)
 
-Actividad Voluntaria
+---
+### Actividad Voluntaria
 
 Crea un widget con estado que contenga los tres elementos siguientes organizados en forma de columna:
 
@@ -649,206 +485,174 @@ El usuario puede escribir lo que desee sobre el *TextField*, y cuando prema la t
 - Añadir una nueva opción al *DropDownButton* con el valor del TextField.
 - Dejar esta última opción añadida como seleccionada.
 - Borrar el contenido del TextField.
-
+---
 
 
 ## Los widgets Checkbox y CheckboxListTile
-![Imagen que contiene Texto
+![CheckBox](./images/imagen06.png)
 
-Descripción generada automáticamente](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.006.png)
+Los widgets `Checkbox` y `CheckboxListTile` representan una casilla de selección típica de *Material Design*. El giny `Checkbox` representa una casilla aislada, mientras que el giny `CheckboxListTile`, además, acompaña esta casilla de selección con determinado contenido, generalmente un texto.
 
-Los widgets **Checkbox** y **CheckboxListTile** representan una casilla de selección típica de *Material Design*. El giny Checkbox representa una casilla aislada, mientras que el giny CheckboxListTile, además, acompaña esta casilla de selección con determinado contenido, generalmente un texto.
+Estas clases, por sí mismas no representarán visualmente su estado, sino que deberemos ser nosotros quienes proporcionemos esta funcionalidad. Para ello, cuando el usuario hace clic en la casilla provoca que se dispare el evento `onChanged()`, proporcionando el estado de la selección. El callback que gestione este evento será pues quien reconstruya el *checkbox* con el nuevo valor.
 
-Estas clases, por sí mismas no representarán visualmente su estado, sino que deberemos ser nosotros quienes proporcionemos esta funcionalidad. Para ello, cuando el usuario hace clic en la casilla provoca que se dispare el evento **onChanged()**, proporcionando el estado de la selección. El callback que gestione este evento será pues quien reconstruya el *checkbox* con el nuevo valor.
-
-Las casillas de selección pueden llegar a contener hasta tres estados. Aparte de *cierto* y *falso*, su valor también puede ser ***null*** si definimos la propiedad **tristate** a **true**. En este caso, cuando el valor del *Checkbox* sea nulo, se muestra un guión.
+Las casillas de selección pueden llegar a contener hasta tres estados. Aparte de *cierto* y *falso*, su valor también puede ser ***null*** si definimos la propiedad `tristate` a `true`. En este caso, cuando el valor del *Checkbox* sea nulo, se muestra un guión.
 
 Al igual que el resto de componentes definidos en Material, requiere que alguno de sus padres sea un widget de tipo Material.
 
-El constructor del **Checkbox** tiene varios parámetros, entre los que podemos destacar:
+El constructor del `Checkbox` tiene varios parámetros, entre los que podemos destacar:
 
-- **required bool? value**: con el valor que contendrá el **Checkbox** (*true*, *false* o *null*). Lo que haremos será utilizar una propiedad en el estado del widget que mantenga este valor.
-- **required void Function(bool?)? onChanged**: Define el *callback* que se dispara cuando el usuario hace click para cambiar la selección del botón.
-- **{bool tristate = false}**: Indica si el *Checkbox* admitirá también como valor null o no.
-- **{Widget? title}**: Para los guiños de tipo CheckboxListTile contiene un guiño que será el que acompañe, a modo de título en la casilla. Generalmente, contendrá un Texto, pero puede contener cualquier elemento.
+- `required bool? value`: con el valor que contendrá el Checkbox (*true*, *false* o *null*). Lo que haremos será utilizar una propiedad en el estado del widget que mantenga este valor.
+  
+- `required void Function(bool?)? onChanged`: Define el *callback* que se dispara cuando el usuario hace click para cambiar la selección del botón.
+- `{bool tristate = false}`: Indica si el *Checkbox* admitirá también como valor null o no.
+- `{Widget? title}`: Para los guiños de tipo `CheckboxListTile` contiene un widget que será el que acompañe, a modo de título en la casilla. Generalmente, contendrá un Text, pero puede contener cualquier elemento.
 
-Veiem un exemple d'ús:
+Veamos un ejemplo de uso:
 
+```dart
 class MyCheckbox extends StatefulWidget {
+  const MyCheckbox({super.key});
 
-`  `const MyCheckbox({super.key});
-
-`  `@override
-
-`  `State<MyCheckbox> createState() => \_MyCheckboxState();
-
+  @override
+  State<MyCheckbox> createState() => _MyCheckboxState();
 }
 
-// Definim l'estat associat a la classe
+// Definimos el estado asociado a la clase
+class _MyCheckboxState extends State<MyCheckbox> {
+  // Definimos la propiedad isChecked en el estado
+  bool? isChecked;
 
-class \_MyCheckboxState extends State<MyCheckbox> {
+  @override
+  void initState() {
+    // Inicializamos la propiedad isChecked
+    super.initState();
+    isChecked = false;
+  }
 
-`  `// Definim la propietat isChecked a l'estat
-
-`  `bool? isChecked;
-
-`  `@override
-
-`  `void initState() {
-
-`    `// Inicialitzem la propetat isChecked
-
-`    `super.initState();
-
-`    `isChecked = false;
-
-`  `}
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return CheckboxListTile(
-
-`      `// Associem el callback a l'event onChanged
-
-`      `onChanged: (val) {
-
-`        `// Actualitzem l'estat amb el valor proporcionat
-
-`        `setState(() {
-
-`          `isChecked = val;
-
-`        `});
-
-`      `},
-
-`      `tristate: true, // Indiquem que pot contindre null
-
-`      `// Enllacem el valor amb la propietat isChecked de l'estat
-
-`      `value: isChecked,
-
-`      `// Establim el contingut per al títol
-
-`      `title: const Text("Text per al checkbox"),
-
-`    `);
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return CheckboxListTile(
+      // Asociamos el callback en el evento onChanged
+      onChanged: (val) {
+        // Actualizamos el estado con el valor proporcionado
+        setState(() {
+          isChecked = val;
+        });
+      },
+      tristate: true, // Inidicamos que puede contener null
+      // Enlazamos el valor con la propiedad isChecked del estado
+      value: isChecked,
+      // Establecemos el contenido para el título
+      title: const Text("Texto para el checkbox"),
+    );
+  }
 }
+```
 
-Podéis ver su funcionamiento en el siguiente Gist: <https://dartpad.dev/?id=5bd2ee112976d3a8f901279b27b6b47f>.
+En *el siguiente gist* podéis encontrar este código funcionando: 
+[https://dartpad.dev/embed-flutter.html?id=9256717e898d633d67dc990d3838593b](https://dartpad.dev/embed-flutter.html?id=9256717e898d633d67dc990d3838593b)
+
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=9256717e898d633d67dc990d3838593b"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
+
 
 - [La classe Checkbox](https://api.flutter.dev/flutter/material/Checkbox-class.html)
 - [La classe CheckboxListTile](https://api.flutter.dev/flutter/material/CheckboxListTile-class.html)
 
 
 ## Los widgets Switch y SwitchListTile
-![Patrón de fondo
+![Switch](./images/imagen07.png)
 
-Descripción generada automáticamente con confianza baja](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.007.png)
-
-Los *switch* (*interruptores*) son otro de los componentes introducidos por Material Design, y que sirven para activar o desactivar el estado de un elemento, de manera muy parecida a un Checkbox. Al igual que éste, el *switch* tampoco mantiene el estado por sí mismo, sino que dispara el evento **onChanged** cuando el usuario interactúa con él. Para mantener su estado, deberemos capturar este evento y reconstruir el widget con el nuevo aspecto.
+Los *switch* (*interruptores*) son otro de los componentes introducidos por Material Design, y que sirven para activar o desactivar el estado de un elemento, de manera muy parecida a un Checkbox. Al igual que éste, el *switch* tampoco mantiene el estado por sí mismo, sino que dispara el evento `onChanged` cuando el usuario interactúa con él. Para mantener su estado, deberemos capturar este evento y reconstruir el widget con el nuevo aspecto.
 
 También, al tratarse de un widget de Material, requiere descender en el árbol de widgets de un widget de este tipo.
 
 Las propiedades más relevantes del Switch son:
 
-- **value**: De tipo bool, contiene el valor activado/desactivado del widget. Es un parámetro obligatorio al constructor.
-- **onChanged**: Se trata de la función de callback que se dispara cuando el usuario interactúa con el Switch. Esta función recibirá un valor lógico con el estado del widget.
+- `value`: De tipo bool, contiene el valor activado/desactivado del widget. Es un parámetro obligatorio al constructor.
+  
+- `onChanged`: Se trata de la función de callback que se dispara cuando el usuario interactúa con el Switch. Esta función recibirá un valor lógico con el estado del widget.
 
-Hay que tener en cuenta que no tiene el mismo efecto asociar una función vacía al evento **onChanged** que asociarle un valor *nulo*. En el primer caso, el widget estará activo, aunque no cambiará de estado cuando hagamos *clic* en él, mientras que en el segundo, el componente estará inhabilitado.
+Hay que tener en cuenta que no tiene el mismo efecto asociar una función vacía al evento `onChanged` que asociarle un valor *nulo*. En el primer caso, el widget estará activo, aunque no cambiará de estado cuando hagamos *clic* en él, mientras que en el segundo, el componente estará inhabilitado.
 
-Por su parte, el giny **SwitchListTile** sería para el Switch lo que el **CheckBoxListTile** es para el **Checkbox**. Es decir, un Switch con un widget (generalmente un texto) asociado. Además de las propiedades value y onChanged este giny, entre otros, admite:
+Por su parte, el widget `SwitchListTile` sería para el Switch lo que el `heckBoxListTile` es para el `Checkbox` Es decir, un Switch con un widget (generalmente un texto) asociado. Además de las propiedades value y onChanged este widget, entre otros, admite:
 
-- title: Un widget que sirve como título para el switch y que se ubica a la izquierda del interruptor. En este caso, el widget ocupará todo el ancho disponible del contenedor padre.
-- subtitle: Un giny que sirve de subtítulo, y que se ubica centrado y en la parte inferior.
+- `title`: Un widget que sirve como título para el switch y que se ubica a la izquierda del interruptor. En este caso, el widget ocupará todo el ancho disponible del contenedor padre.
+  
+- `subtitle`: Un widget que sirve de subtítulo, y que se ubica centrado y en la parte inferior.
 
-![Exemples de Switch](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.008.png)
+![Exemples de Switch](./images/imagen08.png)
 
 Si deseamos gestionar el estado del componente, será necesario que creamos un wiget con estado personalizado y lo actualicemos siempre que se interactúe con él, al igual que hacemos en el *CheckBox*. El código para ello será:
 
-// 1. Definim el giny amb estat
-
+```dart
+// 1. Deinimos el widger con estado
 class MySwitch extends StatefulWidget {
+  const MySwitch({
+    Key? key,
+  }) : super(key: key);
 
-`  `const MySwitch({
-
-`    `Key? key,
-
-`  `}) : super(key: key);
-
-`  `@override
-
-`  `State<MySwitch> createState() => \_MySwitchState();
-
+  @override
+  State<MySwitch> createState() => _MySwitchState();
 }
 
-// 2. Definim la classe estat, amb el valor del 
 
-//    switch com a propietat.
+// 2. Definimos la clase estado con el valor del
+//    switch como propiedad.
 
-class \_MySwitchState extends State<MySwitch> {
+class _MySwitchState extends State<MySwitch> {
+  bool? valor;
 
-`  `bool? valor;
+  // 3. Inicializamos el valor del switch
+  @override
+  void initState() {
+    super.initState();
+    valor = false;
+  }
 
-`  `// 3. Inicialitzem el valor del switch
-
-`  `@override
-
-`  `void initState() {
-
-`    `super.initState();
-
-`    `valor = false;
-
-`  `}
-
-`  `// Mètode de construcció del giny
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return SwitchListTile(
-
-`      `value: valor ?? false,
-
-`      `onChanged: (val) {
-
-`        `// 4. Quan es produeix un canvi d'estat
-
-`        `//    Tornem a dibuixar el giny, canviant
-
-`        `//    la propietat valor.
-
-`        `setState(() {
-
-`          `valor = val;
-
-`        `});
-
-`      `},
-
-`      `title: const Text("Aquest és el Title"),
-
-`    `);
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return SwitchListTile(
+      value: valor ?? false,
+      onChanged: (val) {
+        // 4. Cuando se produce un cambio de estado
+        //    Volvemos a dibujar el widget cambiando 
+        //    la propiedad valor.
+        setState(() {
+          valor = val;
+        });
+      },
+      title: const Text("Este es el Título"),
+    );
+  }
 }
+```
+
+En *el siguiente gist* podéis encontrar este código funcionando: 
+[https://dartpad.dev/embed-flutter.html?id=c2fd1aff0e23e49daba43e058baa67f7](https://dartpad.dev/embed-flutter.html?id=c2fd1aff0e23e49daba43e058baa67f7)
+
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=c2fd1aff0e23e49daba43e058baa67f7"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
+
+
 
 - [Referència de la classe Switch](https://api.flutter.dev/flutter/material/Switch-class.html)
 - [Referència de la classe SwitchListTile](https://api.flutter.dev/flutter/material/SwitchListTile-class.html)
 
 
 ## Los widgets Radio y RadioListTile
-![Exemple de RadioListTile. Font: api.flutter.dev](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.009.png)
 
-Los widgets **Radio** y **RadioListTile** son botones de opciones utilizados para realizar una selección de entre una serie de valores excluyentes entre ellos, de manera que cuando se selecciona un botón de opción de un grupo, el resto de botones dejan de estar seleccionados.
+![Radio](./images/imagen09.png)
+
+Los widgets `Radio` y `RadioListTile` son botones de opciones utilizados para realizar una selección de entre una serie de valores excluyentes entre ellos, de manera que cuando se selecciona un botón de opción de un grupo, el resto de botones dejan de estar seleccionados.
 
 Estas clases deben estar parametrizadas por un tipo genérico, que generalmente será un enumerado.
 
@@ -856,231 +660,179 @@ Como los widgets vistos anteriormente, también dependen de un antecesor de tipo
 
 Las propiedades obligatorias para estos tipos de giny son:
 
-- **value**: El valor asociado al botón en sí, y será del tipo genérico del mismo.
-- **groupValue**: El valor seleccionado actualmente en un grupo de botones de opciones. 
-- **onChanged**: El callback que se llama cuando se selecciona un botón.
+- `value`: El valor asociado al botón en sí, y será del tipo genérico del mismo.
+  
+- `groupValue`: El valor seleccionado actualmente en un grupo de botones de opciones. 
+- `onChanged`: El callback que se llama cuando se selecciona un botón.
 
-El widget **Radio**, por sí mismo no tiene ningún texto asociado, por lo que si queremos utilizarlo habría que crear otro widget donde el ***Radio*** estuviera acompañado por algún **Text**, como un **Row** o un **Column**. 
+El widget `Radio`, por sí mismo no tiene ningún texto asociado, por lo que si queremos utilizarlo habría que crear otro widget donde el `Radio` estuviera acompañado por algún `Text`, como un `Row` o un `Column`. 
 
-En cambio, el guiño **RadioListTile** sí nos permite acompañar el botón de un texto, por lo que nos resultará más sencillo de utilizar. Este widget tendrá pues las siguientes propiedades:
+En cambio, el guiño `RadioListTile` sí nos permite acompañar el botón de un texto, por lo que nos resultará más sencillo de utilizar. Este widget tendrá pues las siguientes propiedades:
 
-- **title**: Con el widget (generalmente un **Text**) que hará de texto principal
-- subtitle: Con el widget (generalmente un **Text**) que hará de texto secundario.
+- `title`: Con el widget (generalmente un `Text`) que hará de texto principal
+- `subtitle`: Con el widget (generalmente un `Text`) que hará de texto secundario.
 
-Vemos un ejemplo completo haciendo un conjunto de dos botones de tipo **RadioListTile**:
+Vemos un ejemplo completo haciendo un conjunto de dos botones de tipo `RadioListTile`:
 
-// 1. Definim els enumerats que utilitzarem com a valors.
+```dart
+// 1. Definimos los enumerados que utilizaremos como valores.
+enum ValoresEnumerados { enumerado1, enumerado2 }
 
-enum ValorsEnumerats { enumerat1, enumerat2 }
-
-// 2. Definim el giny personalitzat
-
+// 2. Definimos el widget
 class MyRadioWidget extends StatefulWidget {
+  const MyRadioWidget({super.key});
 
-`  `const MyRadioWidget({super.key});
-
-`  `@override
-
-`  `State<MyRadioWidget> createState() => \_MyRadioWidgetState();
-
+  @override
+  State<MyRadioWidget> createState() => _MyRadioWidgetState();
 }
 
-// 3. Definim l'estat associat al giny
+// 3. Definimos el estado asociado al widget
 
-class \_MyRadioWidgetState extends State<MyRadioWidget> {
+class _MyRadioWidgetState extends State<MyRadioWidget> {
+  // 3.1. Añadimos al estado una propiedad de tipo valoresEnumerados
+  ValoresEnumerados? _valor;
 
-`  `// 3.1. Afegim a l'estat una propietat de tipus ValorsEnumerats
+  @override
+  void initState() {
+    // 3.2. Inicializamos la propiedad
+    super.initState();
+    _valor = ValoresEnumerados.enumerado1;
+  }
 
-`  `ValorsEnumerats? \_valor;
-
-`  `@override
-
-`  `void initState() {
-
-`    `// 3.2. Inicialitzem la propietat
-
-`    `super.initState();
-
-`    `\_valor = ValorsEnumerats.enumerat1;
-
-`  `}
-
-`  `// 3.3. Construcció del giny
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return Column(
-
-`      `// Organitzarem els diferents Radio Buttons en forma de columna
-
-`      `children: [
-
-`        `RadioListTile(
-
-`          `// Text principal
-
-`          `title: const Text("Text per a la primera opció"),
-
-`          `// Text secundari
-
-`          `subtitle: Text("El valor associat és: ${ValorsEnumerats.enumerat1}"),
-
-`          `// Definim el grup en què es trobarà aquest Radio, que coincidirà
-
-`          `// amb la propietat \_valor que hem definit a l'estat.
-
-`          `groupValue: \_valor,
-
-`          `onChanged: (ValorsEnumerats? valor) {
-
-`            `// Quan es canvie la selecció, s'actualitzarà l'estat.
-
-`            `// Si el valor seleccionat coincideix amb el groupValue,
-
-`            `// aquest giny se seleccionarà, i s'eliminarà la selecció
-
-`            `// dels altres Radios amb el mateix groupValue.
-
-`            `setState(() {
-
-`              `\_valor = valor;
-
-`            `});
-
-`          `},
-
-`          `value: ValorsEnumerats.enumerat1,
-
-`        `),
-
-`        `// Segon botó de ràdio, amb el comportament semblant a l'anterior
-
-`        `RadioListTile(
-
-`          `title: const Text("Text per a la segona opció"),
-
-`          `subtitle: Text("El valor associat és: ${ValorsEnumerats.enumerat2}"),
-
-`          `groupValue: \_valor,
-
-`          `onChanged: (ValorsEnumerats? valor) {
-
-`            `setState(() {
-
-`              `\_valor = valor;
-
-`            `});
-
-`          `},
-
-`          `value: ValorsEnumerats.enumerat2,
-
-`        `),
-
-`      `],
-
-`    `);
-
-`  `}
-
+  // 3.3. Construcción del widget
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      // Organizamos los diferentes Radio Buttons en forma de columna
+      children: [
+        RadioListTile(
+          // Texto principal
+          title: const Text("Texto para la primera opción"),
+          // Text secundario
+          subtitle: Text("El valor asociado es: ${ValoresEnumerados.enumerado1}"),
+          // Definimos el grupo donde se encontrará este Radio, que coincidirà          
+          // con la propiedad _valor que hemos definido en el estado.
+          groupValue: _valor,
+          onChanged: (ValoresEnumerados? valor) {
+            // Cuando se cambie la selección, se actualizará el estado
+            // Si el valor seleccionado coincide con el groupValue,
+            // este widget se seleccionarà, y se eliminará de la selección
+            // de los otros Radios con el mismo groupValue
+            setState(() {
+              _valor = valor;
+            });
+          },
+          value: ValoresEnumerados.enumerado1,
+        ),
+        // Segon botó de ràdio, amb el comportament semblant a l'anterior
+        RadioListTile(
+          title: const Text("Text per a la segona opció"),
+          subtitle: Text("El valor associat és: ${ValoresEnumerados.enumerado2}"),
+          groupValue: _valor,
+          onChanged: (ValoresEnumerados? valor) {
+            setState(() {
+              _valor = valor;
+            });
+          },
+          value: ValoresEnumerados.enumerado2,
+        ),
+      ],
+    );
+  }
 }
+```
 
-La clave para gestionar este tipo de widgets se encuentra en la propiedad privada **\_value** que es la que define el estado del widget, así como en las propiedades value y groupValue de cada Radio. La primera (value) define el valor predeterminado para cada opción, mientras que la segunda (groupValue) define para el mismo grupo de botones qué valor está seleccionado. Como asociamos con los botones al valor **\_valor** definido en el estado, ambos botones estarán en el mismo grupo.
+La clave para gestionar este tipo de widgets se encuentra en la propiedad privada `_value` que es la que define el estado del widget, así como en las propiedades `value` y `groupValue` de cada `Radio`. La primera (`value`) define el valor predeterminado para cada opción, mientras que la segunda (`groupValue`) define para el mismo grupo de botones qué valor está seleccionado. Como asociamos con los botones al valor `_valor` definido en el estado, ambos botones estarán en el mismo grupo.
 
-Veámoslo en funcionamiento en el siguiente Gist: <https://dartpad.dev/?id=1493b006b853124f61f23b621a7d33df>.
+En *el siguiente gist* podéis encontrar este código funcionando: 
+[https://dartpad.dev/embed-flutter.html?id=0143d202d9fdabb65acb8c933916a9a5](https://dartpad.dev/embed-flutter.html?id=0143d202d9fdabb65acb8c933916a9a5)
+
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=0143d202d9fdabb65acb8c933916a9a5"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
+
 
 - [La classe Radio](https://api.flutter.dev/flutter/material/Radio-class.html)
 - [La classe RadioListTile](https://api.flutter.dev/flutter/material/RadioListTile-class.html)
 
 
 ## El widget Slider
-![Exemple d'Slider. Font: api.flutter.dev](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.010.png)
+![Slider](./images/imagen10.png)
 
 Este componente de Material consiste en una barra de desplazamiento utilizada con el fin de escoger un valor en un rango de valores posibles.
 
 Las propiedades obligatorias para el constructor serán:
 
-- **value**: Contendrá el valor actual del Slider.
-- **onChanged**: Define el método que se invocará cuando se produce un cambio en la barra de desplazamiento.
+- `value`: Contendrá el valor actual del Slider.
+  
+- `onChanged`* Define el método que se invocará cuando se produce un cambio en la barra de desplazamiento.
 
 Otras propiedades que podremos establecer en el constructor, entre otras son:
 
-- **min**: El valor mínimo que se puede seleccionar. Si no se especifica nada, este valor será 0.0.
-- **max**: El valor máximo que se puede seleccionar. Si no se especifica, el valor másimo será 1.0.
-- **divisions**: El número de divisiones *discretas* que tiene el Slider. Si no se indica nada, podrá tomar cualquier valor entre el mínimo y el máximo definidos. El valor que nos devolverá siempre el Slider será con decimales, por lo que, si queremos valores enteros habrá que hacer una conversión.
-- **label**: El texto que se muestra al lado del widget cuando cambia de valor. value.
+- `min`: El valor mínimo que se puede seleccionar. Si no se especifica nada, este valor será 0.0.
+  
+- `max`: El valor máximo que se puede seleccionar. Si no se especifica, el valor másimo será 1.0.
+- `divisions`: El número de divisiones *discretas* que tiene el Slider. Si no se indica nada, podrá tomar cualquier valor entre el mínimo y el máximo definidos. El valor que nos devolverá siempre el Slider será con decimales, por lo que, si queremos valores enteros habrá que hacer una conversión.
+- `label`: El texto que se muestra al lado del widget cuando cambia de valor.
 
 Como el resto de elementos vistos en este apartado, la gestión del estado del giny la tendremos que hacer nosotros.
 
 Veámoslo con un ejemplo:
 
+```dart
 class MySlider extends StatefulWidget {
+  const MySlider({
+    Key? key,
+  }) : super(key: key);
 
-`  `const MySlider({
-
-`    `Key? key,
-
-`  `}) : super(key: key);
-
-`  `@override
-
-`  `State<MySlider> createState() => \_MySliderState();
-
+  @override
+  State<MySlider> createState() => _MySliderState();
 }
 
-class \_MySliderState extends State<MySlider> {
+class _MySliderState extends State<MySlider> {
+  double? _valor;
+  @override
+  void initState() {
+    super.initState();
+    _valor = 100;
+  }
 
-`  `double? \_valor;
-
-`  `@override
-
-`  `void initState() {
-
-`    `super.initState();
-
-`    `\_valor = 100;
-
-`  `}
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return Slider(
-
-`      `divisions: 5,
-
-`      `min: 100,
-
-`      `max: 1000,
-
-`      `label: \_valor.toString(),
-
-`      `onChanged: (double val) {
-
-`        `setState(() {
-
-`          `\_valor = val;
-
-`        `});
-
-`      `},
-
-`      `value: \_valor ?? 0.0,
-
-`    `);
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return Slider(
+      divisions: 5,
+      min: 100,
+      max: 1000,
+      label: _valor.toString(),
+      onChanged: (double val) {
+        setState(() {
+          _valor = val;
+        });
+      },
+      value: _valor ?? 0.0,
+    );
+  }
 }
+```
 
-Veámoslo en funcionamiento en el segünt Gist: <https://dartpad.dev/?id=c4c190efb5f4a55a9aafdb9a468e8550>.
+En *el siguiente gist* podéis encontrar este código funcionando: 
+[https://dartpad.dev/embed-flutter.html?id=063baba175f67f9037e43e2e7849c59d](https://dartpad.dev/embed-flutter.html?id=063baba175f67f9037e43e2e7849c59d)
 
-Ejercicio voluntario
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=063baba175f67f9037e43e2e7849c59d"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
 
-Crea un selector de color mitjançant els seus components de roig, verd i blau. Per a això, utilitza un contenidor de 500x500, que mostre el color resultant, i tres Sliders, amb valors possibles del 0 al 255, i que ens permeten seleccionar la quantitat de roig, verd i blau del color del contenidor.
+---
+### Ejercicio voluntario
+
+Crea un selector de color mediante sus componentes de rojo, verde y azul. Para ello utiliza un contenedor de 500x500, que muestre el color resultante, y tres Sliders, con valores posibles  del 0 al 255, y que nos permitan seleccionar la cantidad de rojo, verde y azul del color del contenedor.
+
 
 [**La clase Slider**](https://api.flutter.dev/flutter/material/Slider-class.html)
 
