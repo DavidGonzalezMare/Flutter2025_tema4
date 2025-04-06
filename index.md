@@ -8,8 +8,19 @@ La librería Material nos ofrece varios widgets con el fin de recoger la interac
 
 En la segunda parte de la unidad veremos el widget Navigator, que será el encargado de facilitar la navegación entre las diferentes pantallas de la aplicación.
 
+[*1. Formularios. Widgets para formularios*](#_apartado1)
 
-# 1. Formularios. Widgets para formularios
+[*2. Trabajando con formularios*](#_apartado2)
+
+[*3. Navegación*](#_apartado3)
+
+[*4. Widgets de navegación*](#_apartado4)
+
+[*5. Diálogos*](#_apartado5)
+
+
+
+# <a name="_apartado1"></a> 1. Formularios. Widgets para formularios
 
 ## Introducción
 La librería Material nos ofrece varios widgets con el fin de recoger la interacción y la entrada de datos por parte del usuario. 
@@ -832,16 +843,18 @@ En *el siguiente gist* podéis encontrar este código funcionando:
 ### Ejercicio voluntario
 
 Crea un selector de color mediante sus componentes de rojo, verde y azul. Para ello utiliza un contenedor de 500x500, que muestre el color resultante, y tres Sliders, con valores posibles  del 0 al 255, y que nos permitan seleccionar la cantidad de rojo, verde y azul del color del contenedor.
-
+***
 
 [**La clase Slider**](https://api.flutter.dev/flutter/material/Slider-class.html)
 
 
-1. # Trabajando con formularios
+# <a name="_apartado1"></a>2. Trabajando con formularios
+
 ## Formularios con validaciones
+
 A menudo, cuando trabajamos con formularios necesitamos realizar validaciones o acceder desde un componente del formulario a otro. Para ello necesitaremos indicar de alguna manera qué widgets pertenecen al mismo formulario, y por lo tanto, tienen acceso al resto de widgets del mismo.
 
-El widget **Form** es un contenedor pensado expresamente para esta finalidad: agrupar diversos widgets y, además, posibilitar las validaciones sobre determinados campos. Para ello, cada widget individual debe rodearse de un widget de tipo **FormField** que aporta diversas funcionalidades al widget como las validaciones y actualizaciones del formulario.
+El widget `Form` es un contenedor pensado expresamente para esta finalidad: agrupar diversos widgets y, además, posibilitar las validaciones sobre determinados campos. Para ello, cada widget individual debe rodearse de un widget de tipo `FormField` que aporta diversas funcionalidades al widget como las validaciones y actualizaciones del formulario.
 
 Ahí es donde vamos a hacer uso, por primera vez de las claves de los widgets. Con ellas podremos identificar el formulario con el que estamos trabajando y hacer posibles las validaciones posteriormente.
 
@@ -850,187 +863,142 @@ En el cookbook [*Build a form with validation*](https://docs.flutter.dev/cookboo
 En general, y tal y como se comenta en la documentación, el procedimiento a seguir será:
 
 1. Crear un widget con estado personalizado, cuyo estado contenga una clave global (*GlobalKey*) con el que identificar el formulario. El método build del estado devolverá un widget de tipo Form con el formulario.
-1. Dentro del ***Form***, añadiremos tantos widgets de tipo **FormField** como necesitemos, con la lógica de validación de cada uno.
-1. Añadir un botón para la validación y procesado del formulario.
+   
+2. Dentro del `Form`, añadiremos tantos widgets de tipo `FormField` como necesitemos, con la lógica de validación de cada uno.
+3. Añadir un botón para la validación y procesado del formulario.
 
-La clase GlobalKey es una subclase de Key, con la peculiaridad de que no sólo permite su acceso desde la propia jerarquía en el árbol de guiños, sino que lo permite desde cualquier lugar de la aplicación.
+La clase `GlobalKey` es una subclase de `Key`, con la peculiaridad de que no sólo permite su acceso desde la propia jerarquía en el árbol de widgets, sino que lo permite desde cualquier lugar de la aplicación.
 
 Veámoslo con un poco de código en el siguiente ejemplo.
+
 ### **Paso 1. Creación del widget con estado personalizado.**
-En primer lugar, creamos un **StatefulWidget**. Podemos hacerlo a partir del ***snippet*** correspondiente, que nos genera tanto la clase para el widget como la clase para su estado. Es en esta clase donde deberemos definir una propiedad de tipo **GlobalKey**, para la clave, de manera que con ella se pueda identificar éste dentro del árbol de ginys. Esta clave será de tipo GlobalKey y estará parametrizada en la clase FormState (estado asociado a un formulario).
 
-// Widget amb estat per al formulari
+En primer lugar, creamos un **StatefulWidget**. Podemos hacerlo a partir del ***snippet*** correspondiente, que nos genera tanto la clase para el widget como la clase para su estado. Es en esta clase donde deberemos definir una propiedad de tipo `GlobalKey`, para la clave, de manera que con ella se pueda identificar éste dentro del árbol de widgets. Esta clave será de tipo `GlobalKey` y estará parametrizada en la clase `FormState` (estado asociado a un formulario).
 
-class FormulariPersonalitzat extends StatefulWidget {
+```dart
+// Widget con estado para el formulario
+class FormularioPersonalizado extends StatefulWidget {
+  const FormularioPersonalizado({super.key});
 
-`  `const FormulariPersonalitzat({super.key});
-
-`  `@override
-
-`  `FormulariPersonalitzatState createState() {
-
-`    `return FormulariPersonalitzatState();
-
-`  `}
-
+  @override
+  FormularioPersonalizadoState createState() {
+    return FormularioPersonalizadoState();
+  }
 }
 
-// Estat del formulari
+// Estado del formulario
+class FormularioPersonalizadoState extends State<FormularioPersonalizado> {
 
-class FormulariPersonalitzatState extends State<FormulariPersonalitzat> {
+  // Añadimos al estado la GlobalKey, que llamamos _formKey.
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-`  `// Agefim a l'estat la GlobalKey, que anomenem \_formKey.
-
-`  `final GlobalKey<FormState> \_formKey = GlobalKey<FormState>();
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return Form(...);
-
-`  `}
+  @override
+  Widget build(BuildContext context) {
+    return Form(...);
+  }
+}
+```
 
 ### **Paso 2. Añadiendo widgets al formulario**
-El método **build** del estado de nuestro widget devolverá un **Form**, el cual requiere una propiedad **child** con el contenido. Dentro de este **child** podemos crear cualquier agrupación de widgets. Una opción habitual de organización, si se espera una cantidad considerable de elementos en el formulario es añadirlos dentro de un ListView, que ya ofrece la posibilidad de mostrar una barra de desplazamiento si el contenido sobrepasa los márgenes de la pantalla.
+El método `build` del estado de nuestro widget devolverá un `Form` el cual requiere una propiedad `child` con el contenido. Dentro de este `child` podemos crear cualquier agrupación de widgets. Una opción habitual de organización, si se espera una cantidad considerable de elementos en el formulario es añadirlos dentro de un ListView, que ya ofrece la posibilidad de mostrar una barra de desplazamiento si el contenido sobrepasa los márgenes de la pantalla.
 
-Cuando creamos el **Form**, le proporcionaremos la clave del formulario que hemos creado:
+Cuando creamos el `Form`, le proporcionaremos la clave del formulario que hemos creado:
 
-@override
+```dart
+class FormularioPersonalizadoState extends State<FormularioPersonalizado> {
 
-`  `Widget build(BuildContext context) {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-`    `return Form(
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      // Añadimos como clave del formulario la clave _formKey que hemos generado      key: _formKey,
+      // Organitzem els diferents ginys del formulari dins un ListView
+      child: ListView(
+        children: <Widget>[
+           ... // Aquí van los diferentes widgets del formulario
+        ],
+      ),
+    );
+  }
+}
+```
 
-`      `// Afegim com a clau del formulari la clau \_formKey que hem generat
+Aquellos widgets que recogen la interacción del usuario deberán ir dentro de un **widget con estado** de tipo `FormField`. El constructor de este `FormField` requerirá de un parámetro `builder` consistente en una función para construir el widget en cuestión. 
 
-`      `key: \_formKey,
+Algunos de los parámetros que podemos proporcionarle al `FormField` en su construcción serán:
 
-`      `// Organitzem els diferents widgets del formulari dins un ListView
+- `initialValue`, para especificar un valor inicial. En caso de que no se indique, será *nulo*.
+- `validator`, con un método para validar la entrada. Recibirá como argumento el valor, y devolverá un texto con el mensaje de error a mostrar o *null* en caso contrario.
 
-`      `child: ListView(
+El método `builder`, además, recibirá un argumento de tipo `FormFieldState`, que contendrá el valor almacenado en el *FormField*. De esta manera, podremos construir el widget según este valor, y modificarlo en caso de que sea necesario (por ejemplo cuando el widget detecta el evento `onChanged`).
 
-`        `children: <Widget>[
+Vemos un ejemplo para crear un `FormField` que contenga un `CheckBox`, y nos permita darle un valor inicial y añadirle validación:
 
-... // Aci van els diferents widgets del formulari
-
-`        `],
-
-`      `),
-
-`    `);
-
-`  `}
-
-Aquellos widgets que recogen la interacción del usuario deberán ir dentro de un **widget con estado** de tipo **FormField**. El constructor de este **FormField** requerirá de un parámetro **builder** consistente en una función para construir el widget en cuestión. 
-
-Algunos de los parámetros que podemos proporcionarle al **FormField** en su construcción serán:
-
-- **initialValue**, para especificar un valor inicial. En caso de que no se indique, será *nulo*.
-- **validator**, con un método para validar la entrada. Recibirá como argumento el valor, y devolverá un texto con el mensaje de error a mostrar o *null* en caso contrario.
-
-El método **builder**, además, recibirá un argumento de tipo **FormFieldState**, que contendrá el valor almacenado en el *FormField*. De esta manera, podremos construir el widget según este valor, y modificarlo en caso de que sea necesario (por ejemplo cuando el widget detecta el evento onChanged).
-
-Vemos un ejemplo para crear un **FormField** que contenga un **CheckBox**, y nos permita darle un valor inicial y añadirle validación:
-
+```dart
 FormField(
+    // Valor inicial a false
+    initialValue: false,
+    // Definimos las validaciones sobre el valor
+    // En este caso queremos comprobar que se haya marcado el check.
+    validator: (value) {
+      // La primera "!" és para hacer la negación
+      // La segona "!" para  indicar que el valor no será null
+      if (!value!) { 
+        return 'Se debe marcar la casilla';
+      }
+      // Si llegamo saquí, el formulario es correcto
+      // Esta línea sería opcional
+      return null; 
+    },
 
-`    `// Valor inicial a False
+    // En la construcción del widget recibimos el argumento field
+    // con el estado del FormField.
+    builder: (FormFieldState<dynamic> field) {
+      return Checkbox(
+        // El valor del widget será el que tenga el FormField
+        value: field.value,
 
-`    `initialValue: false,
+        // Cuano se haga click en el chkecbox
+        // se llama a onChanged, el cual deberá notificar al
+        // formField que éste ha canviado de valor, haciendo uso
+        // del método didChange.
+        onChanged: (bool? value) {
+          setState(() {
+            field.didChange(value);
+          });
+        },
+      );
+    },
+  );
+```
 
-`    `// Definim les validacions sobre el valor
+Observe bien cómo se producen los cambios de estado en el ***FormField***: Cuando el `Checkbox` captura el evento `onChanged` recibe en este el nuevo valor del estado `(bool? value)`. Entonces, lo que hacemos es actualitar el estado invocando el método `didChange` del field, y proporcionándole a éste el nuevo valor (`SetState(){ field.diChanhe(value); }`). Este método actualizará el estado del campo con el valor que le proporcionamos. Por otro lado, observamos también cómo este valor del campo debe asignarse a la propiedad `value` del `Checkbox`, para que el widget refleje el estado.
 
-`    `// En aquest cas, volem comprovar que s'haja marca el check.
-
-`    `validator: (value) {
-
-`      `// La primera "!" és per fer la negació
-
-`      `// La segona "!" per indicar que el valor no serà nul
-
-`      `if (!value!) { 
-
-`        `return 'Cal marcar la casella';
-
-`      `}
-
-`      `// Si arribem aci, el formulari és correcte
-
-`      `// Aquesta línia sería opcional
-
-`      `return null; 
-
-`    `},
-
-`    `// En la construcció del giny rebem l'argument field
-
-`    `// amb l'estat del FormField.
-
-`    `builder: (FormFieldState<dynamic> field) {
-
-`      `return Checkbox(
-
-`        `// El valor del giny serà el que tinga el FormField
-
-`        `value: field.value,
-
-`        `// Quan es faça click en el checkbox,
-
-`        `// s'invoca onChanged, el qual haurà de notificar el
-
-`        `// formField que aquest ha canviat de valor, fent ús
-
-`        `// del mètode didChange.
-
-`        `onChanged: (bool? value) {
-
-`          `setState(() {
-
-`            `field.didChange(value);
-
-`          `});
-
-`        `},
-
-`      `);
-
-`    `},
-
-`  `),
-
-Observe bien cómo se producen los cambios de estado en el ***FormField***: Cuando el **Checkbox** captura el evento onChanged recibe en este el nuevo valor del estado (bool? value). Entonces, lo que hacemos es actualitar el estado invocando el método didChange del field, y proporcionándole a éste el nuevo valor (**SetState(){ field.diChanhe(value); }**). Este método actualizará el estado del campo con el valor que le proporcionamos. Por otro lado, observamos también cómo este valor del campo debe asignarse a la propiedad **value** del **Checkbox**, para que el widget refleje el estado.
-
-Un caso particular de ***FormField*** es el widget ***TextFormField***. Este widget es equivalente a un ***TextField*** pero con propiedades características de un ***FormField***, como por ejemplo, el parámetro **validator** para realizar las validaciones.
+Un caso particular de ***FormField*** es el widget ***TextFormField***. Este widget es equivalente a un ***TextField*** pero con propiedades características de un ***FormField***, como por ejemplo, el parámetro `validator` para realizar las validaciones.
 
 Otra opción que suele usarse en lugar de rodear nuestro widget con el ***FormField*** es crear una nueva clase que sea una especialización del FormField, de manera que herede todas sus propiedades, y que defina adicionalmente el widget que queremos representar. De esta manera, podremos utilizar nuestro widget de manera similar a como utilizaríamos el TextFormField. Podéis leer el procedimiento en los artículos [Making en Custom FordField y Flutter](https://uncoded-decimal.medium.com/making-a-custom-formfield-in-flutter-135558c22f05) y [Creating Custom Form Fields in Flutter](https://medium.com/saugo360/creating-custom-form-fields-in-flutter-85a8f46c2f41).
 
 ### **Paso 3. Procesamiento del formulario**
 Generalmente, haremos uso de un botón con el fin de validar y procesar la información del formulario. En caso de que los campos del mismo sean correctos se procesará el formulario, y en caso contrario, se marcarán los errores que se han cometido.
 
-Aquí es donde entrará en juego la ***key*** asociada al ***Form***. Esta clave ofrece el método **currentState** para acceder al estado (objeto de la clase **FormState**) del formulario, que es generado de manera automática cuando se crea el formulario. 
+Aquí es donde entrará en juego la ***key*** asociada al ***Form***. Esta clave ofrece el método `currentState` para acceder al estado (objeto de la clase `FormState`) del formulario, que es generado de manera automática cuando se crea el formulario. 
 
-La clase **FormState** dispone también de un método validado que lanzará las diferentes funciones **validator** para cada uno de los campos del formulario. Si todos los ***validators*** son correctos el método devolverá **true**, y se podrá procesar el formulario. En caso de que algún ***validador*** falle, se mostrará el mensaje de error para el campo en concreto y devolverá false.
+La clase `FormState` dispone también de un método validado que lanzará las diferentes funciones `validator` para cada uno de los campos del formulario. Si todos los ***validators*** son correctos el método devolverá `true`, y se podrá procesar el formulario. En caso de que algún ***validador*** falle, se mostrará el mensaje de error para el campo en concreto y devolverá false.
 
 Esquemáticamente, el código de un botón con este comportamiento sería el siguiente:
 
+```dart
 ElevatedButton(
-
-`  `onPressed: () {
-
-`    `if (\_formKey.currentState?.validate() ?? false) {
-
-`      `//  Aquest bloc només s'executarà en cas que 
-
-`      `//  no hi haja errors al formulari.
-
-`    `}
-
-`  `},
-
-`  `child: const Text('Enviar'),
-
+  onPressed: () {
+    if (_formKey.currentState?.validate() ?? false) {
+      //  Este bloque únicamente se ejecutará en el caso que
+      //  no haya errores en el formulario.
+    }
+  },
+  child: const Text('Enviar'),
 )
+```
 
 ## Ejemplo completo
 En el siguiente código dispone de un ejemplo completo, que simula un formulario de registro simplificado, con un campo de texto para recoger un correo electrónico y un ***checkbox*** para aceptar las condiciones del registro.
@@ -1045,319 +1013,167 @@ Las validaciones que se realizarán serán:
 
 El código completo y comentado de esta aplicación sería el siguiente. 
 
-import 'package:flutter/material.dart';
-
-void main() => runApp(const MyApp());
-
-class MyApp extends StatelessWidget {
-
-`  `const MyApp({super.key});
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `const titol = 'Formulari amb validacions';
-
-`    `return MaterialApp(
-
-`      `title: titol,
-
-`      `home: Scaffold(
-
-`        `appBar: AppBar(
-
-`          `title: const Text(titol),
-
-`        `),
-
-`        `body: const MyRegisterForm(),
-
-`      `),
-
-`    `);
-
-`  `}
-
-}
-
-// Creem un giny amb estat que anomentarem MyRegisterForm
-
+```dart
+// Creamos un widget con estado
 class MyRegisterForm extends StatefulWidget {
+  const MyRegisterForm({super.key});
 
-`  `const MyRegisterForm({super.key});
-
-`  `@override
-
-`  `MyRegisterFormState createState() {
-
-`    `return MyRegisterFormState();
-
-`  `}
-
+  @override
+  MyRegisterFormState createState() {
+    return MyRegisterFormState();
+  }
 }
 
-// Creem ara una classe de tipus State associada al nostre giny.
-
+// Creamos una clase de tipo State
 class MyRegisterFormState extends State<MyRegisterForm> {
-
-`  `// Per a aquesta classe, anem a crear una clau global, de tipus
-
-`  `// FormState que ens serviscaper identificar el giny a
-
-`  `// l'arbre de ginys i per tant, poder validar el formulari.
-
-`  `final GlobalKey<FormState> \_formKey = GlobalKey<FormState>();
-
-`  `final TextEditingController \_controlador = TextEditingController();
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return Form(
-
-`      `// Afegim com a clau del formulari la clau \_formKey que hem generat
-
-`      `key: \_formKey,
-
-`      `// Organitzem els diferents ginys del formulari dins un ListView
-
-`      `child: ListView(
-
-`        `padding: const EdgeInsets.all(16.0),
-
-`        `children: <Widget>[
-
-`          `// Per crear els diferents ginys hem creat els tres mètodes
-
-`          `// següents, de manera que alleugerem de codi el mètode build:
-
-`          `createRegisterNameFormField(),
-
-`          `createCheckboxConditionsFormField(),
-
-`          `createSubmitButton(context),
-
-`        `],
-
-`      `),
-
-`    `);
-
-`  `}
-
-`  `@override
-
-`  `void initState() {
-
-`    `super.initState();
-
-`    `// Inicialitzem el text del controlador
-
-`    `\_controlador.text = "";
-
-`  `}
-
-`  `@override
-
-`  `void dispose() {
-
-`    `// Alliberem el controlador quan el giny
-
-`    `// s'elimine de l'arbre de ginys.
-
-`    `\_controlador.dispose();
-
-`    `super.dispose();
-
-`  `}
-
-`  `TextFormField createRegisterNameFormField() {
-
-`    `// Crea el giny de tipus TextFormField
-
-`    `return TextFormField(
-
-`      `// Definim el controller
-
-`      `controller: \_controlador,
-
-`      `// Amb la propietat validator definim les validacions
-
-`      `validator: (value) {
-
-`        `if (value?.isEmpty ?? true) {
-
-`          `return 'El nom no pot ser buit';
-
-`        `}
-
-`        `// Expressió regular per validar un correu
-
-`        `final regexCorreu = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-
-`        `// Validació del correu amb l'expressió regular
-
-`        `if (!regexCorreu.hasMatch(value ?? "")) {
-
-`          `return 'L\'adreça de correu no és vàlida';
-
-`        `}
-
-`        `return null;
-
-`      `},
-
-`      `decoration: InputDecoration(
-
-`          `border: OutlineInputBorder(
-
-`            `borderRadius: BorderRadius.circular(10),
-
-`          `),
-
-`          `icon: const Icon(Icons.email),
-
-`          `labelText: "Adreça de correu"),
-
-`    `);
-
-`  `}
-
-`  `FormField<bool> createCheckboxConditionsFormField() {
-
-`    `// Creem un FormField per envoltar el Checkbox
-
-`    `return FormField(
-
-`      `// Donem un valor inicial
-
-`      `initialValue: false,
-
-`      `// Definim les validacions sobre el valor
-
-`      `validator: (value) {
-
-`        `if (!value!) {
-
-`          `return 'Heu d\'acceptar les condicions';
-
-`        `}
-
-`        `return null;
-
-`      `},
-
-`      `// Constructor del giny. Rebem en field l'estat
-
-`      `// del FormField.
-
-`      `builder: (FormFieldState<dynamic> field) {
-
-`        `return CheckboxListTile(
-
-`          `// El valor del giny serà el que tinga el FormField
-
-`          `value: field.value,
-
-`          `title: const Text("He llegit i accepte les condicions"),
-
-`          `// Utilitzem el subtítol per indicar els missatges d'error
-
-`          `subtitle: Text(
-
-`            `field.errorText ?? "",
-
-`            `style: TextStyle(
-
-`                `fontStyle: FontStyle.normal,
-
-`                `fontSize: 12,
-
-`                `color: Colors.red[700],
-
-`                `height: 0.5),
-
-`          `),
-
-`          `// Quan es faça click en el checkbox,
-
-`          `// s'invoca onChanged, el qual haurà de notificar el
-
-`          `// formField que aquest ha canviat de valor, fent ús
-
-`          `// del mètode didChange (sense necessitat d'invocar setState!)
-
-`          `onChanged: (bool? value) {
-
-`            `field.didChange(value);
-
-`          `},
-
-`        `);
-
-`      `},
-
-`    `);
-
-`  `}
-
-`  `// Botó per enviar el formulari, prèvia validació
-
-`  `Widget createSubmitButton(BuildContext context) {
-
-`    `return Padding(
-
-`      `padding: const EdgeInsets.symmetric(vertical: 16.0),
-
-`      `child: ElevatedButton(
-
-`        `onPressed: () {
-
-`          `// Accedim al formulari fent ús de \_formKey.
-
-`          `// Des d'aci, accedim a l'estat actual mitjançant currentState,
-
-`          `// i validem aquest, amb el mètode "validate".
-
-`          `// Aquest mètode invocarà totes les validacions de cada giny.
-
-`          `// Si totessón vàlides, el formulari és vàlid.
-
-`          `if (\_formKey.currentState?.validate() ?? false) {
-
-`            `// De moment, mostrarem un Snackbar per indicar
-
-`            `// que el formulari és correcte.
-
-`            `ScaffoldMessenger.of(context).showSnackBar(
-
-`              `SnackBar(
-
-`                `content: Text(
-
-`                    `'Les dades s\'han processat correctament: ${\_controlador.text}'),
-
-`              `),
-
-`            `);
-
-`          `}
-
-`        `},
-
-`        `child: const Text('Registra\'t'),
-
-`      `),
-
-`    `);
-
-`  `}
-
+  // Para esta clase vamos a crear una clve global, de tipo
+  // FormState que nos sirva para identificar el widget en 
+  // el árbolo de widgets y por tanto poder validar el formulario.
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _controlador = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      // Añadimos como clave del formulario la clave _formKey que hemos generado
+      key: _formKey,
+      // Organizamos los diferentes widgets del formulario en un ListView
+      child: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: <Widget>[
+          // Para crear los distintos widgets hemos creado los tres métodos siguientes
+          // de manera que aligeremos el código del método build:
+          createRegisterNameFormField(),
+          createCheckboxConditionsFormField(),
+          createSubmitButton(context),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Inicializamos el texto del controlador
+    _controlador.text = "";
+  }
+
+  @override
+  void dispose() {
+    // Liberamos el controlador cuando el widget se elimine
+    _controlador.dispose();
+    super.dispose();
+  }
+
+  TextFormField createRegisterNameFormField() {
+    // Crea el widget de tipo TextFormField
+    return TextFormField(
+      // Definimos el controlador
+      controller: _controlador,
+      // Con la propiedad validator definimos las validaciones
+      validator: (value) {
+        if (value?.isEmpty ?? true) {
+          return 'El nombre no puede estar vacío';
+        }
+        // Expresión regular para validar un correo electrónico
+        final regexCorreu = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+
+        // Validación del correo con la expresión regular
+        if (!regexCorreu.hasMatch(value ?? "")) {
+          return 'La dirección de correo no es válida';
+        }
+        return null;
+      },
+
+      decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          icon: const Icon(Icons.email),
+          labelText: "Dirección de correo"),
+    );
+  }
+
+  FormField<bool> createCheckboxConditionsFormField() {
+    // Creamos un FormField para envolver al Checkbox
+    return FormField(
+      // Damos un valor inicial
+      initialValue: false,
+      // Definimos las validaciones sobre el valor
+      validator: (value) {
+        if (!value!) {
+          return 'Ha de aceptar las condiciones';
+        }
+        return null;
+      },
+      // Constructor del widget. Recibimos en field 
+      // el estado del FormField.
+      builder: (FormFieldState<dynamic> field) {
+        return CheckboxListTile(
+          // El valor del widget será el que tenga el FormField
+          value: field.value,
+          title: const Text("He leído y acepto las condiciones"),
+          // Utilizamos el subtítulo para indicar los mensajes de error
+          subtitle: Text(
+            field.errorText ?? "",
+            style: TextStyle(
+                fontStyle: FontStyle.normal,
+                fontSize: 12,
+                color: Colors.red[700],
+                height: 0.5),
+          ),
+          // Cuando se haga click en el checkbox,
+          // se llama a onChanged, que habrá de notificar al
+          // formField que este ha cambiado de valor haciondo uso
+          // del método didChange (sin necesidad de llamar a setState!)
+          onChanged: (bool? value) {
+            field.didChange(value);
+          },
+        );
+      },
+    );
+  }
+
+  // Botón para enviar el formulario previa validación
+  Widget createSubmitButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: ElevatedButton(
+        onPressed: () {
+          // Accedemos al formulario haciendo uso de _formKey.
+          // Desde aquí accedemos al estado actual mediante currentState,
+          // y lo validamos con el método "validate".
+          // Este método llamará a todas las validaciones de cada widget.
+          // Si todas son válidas, el formulario es válido.
+
+          if (_formKey.currentState?.validate() ?? false) {
+            // De momento, mostraremos un Snackbar para indicar
+            // que el formulario es correcto.
+
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                    'Los datos se han procesado correctamente: ${_controlador.text}'),
+              ),
+            );
+          }
+        },
+        child: const Text('Regístrate'),
+      ),
+    );
+  }
 }
+```
+En *el siguiente gist* podéis encontrar este código funcionando: 
+[https://dartpad.dev/embed-flutter.html?id=7295ca31234ec8ec2141452868436365](https://dartpad.dev/embed-flutter.html?id=7295ca31234ec8ec2141452868436365)
 
-Disponemos de este ejemplo completo al siguiente Gist: <https://dartpad.dev/?id=cd4375318b5aa03dd2253af3dabee7b7>.
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=7295ca31234ec8ec2141452868436365"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
 
 
 1. # Navegación
