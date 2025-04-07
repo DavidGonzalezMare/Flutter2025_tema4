@@ -1778,51 +1778,54 @@ class Pantalla3 extends StatelessWidget {
 - Como vemos, cuando tenemos más de una pantalla en la pila de rutas, y por lo tanto se puede hacer `pop`, dispondremos de un icono en forma de flecha para ir atrás a la parte izquierda de la barra de la aplicación. Además, algunas plataformas ofrecen un sistema de navegación integrado en la misma interfaz de usuario, como por ejemplo Android, con el botón de ir atrás.
 - Finalmente, en la *Pantalla3* del ejemplo, aparece comentado el método `Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);`. Este método, lo que hace ahora es *vaciar* la pila y añadir la ruta que le indicamos al tope de la misma. Este método recibe un tercer parámetro, que es una función que indica qué rutas se deben eliminar de la pila. En este caso, como devolvemos siempre *false* indicamos que hay que borrar todas las rutas.
 
+# <a name="_apartado4"></a>4. Widgets de navegación
 
-1. # Widgets de navegación
 En el apartado anterior hemos visto cómo trabaja la navegación entre diferentes pantallas mediante el componente *Navigator* y las rutas. 
 
 Presentaremos ahora algunos widgets que nos serán de gran ayuda en la navegación, como los Drawers (literalmente *cajoneras*, por su aspecto), las pestañas o las barras y *raíls* de navegación.
+
 ## El componente Drawer
-![Interfaz de usuario gráfica, Aplicación
 
-Descripción generada automáticamente]
+![Drawer](./images/imagen12.png)
 
-![Exemples de Drawer. Font: m3.material.io]
 
 El componente *Drawer* (Navigation Drawer) junto con los Tabs es uno de los mecanismos de navegación entre pantallas más habitual en aplicaciones Material Design. Un *Drawer* consiste en un menú lateral de navegación, que nos permite desplazarnos entre diferentes pantallas, y se compone principalmente de una cabecera y una lista de opciones.
 
-El componente **Scaffold**, como vimos, dispone de una propiedad **drawer** para integrar este componente en el esqueleto de una aplicación Material. 
+El componente `Scaffold`, como vimos, dispone de una propiedad `drawer` para integrar este componente en el esqueleto de una aplicación Material. 
 
-El widget **Drawer** tendrá un widget hijo que será un **ListView**, de manera que podamos mostrar las diferentes opciones y hagamos posible que el usuario pueda desplazarse por ellas si no hay suficiente espacio vertical. El primer elemento de esta lista será un widget de tipo **DrawHeader** con la cabecera del *Drawer*. El resto de elementos serán de tipo **ListTitle** con las diferentes opciones. Estos widgets, internamente se compondrán otros widgets como textos o imágenes.
+El widget `Drawer` tendrá un widget hijo que será un `ListView`, de manera que podamos mostrar las diferentes opciones y hagamos posible que el usuario pueda desplazarse por ellas si no hay suficiente espacio vertical. El primer elemento de esta lista será un widget de tipo `DrawHeader` con la cabecera del *Drawer*. El resto de elementos serán de tipo `ListTitle` con las diferentes opciones. Estos widgets, internamente se compondrán otros widgets como textos o imágenes.
 
-Además, cada ListTitle tendrá asociado un *callback* asociado al evento **onTap**, dentro del cual gestionaremos la navegación en sí. Para esta navegación deberemos tener en cuenta en qué ruta nos encontramos y hacia qué rutas podemos ir, así como gestionar la pila de las diferentes rutas.
+Además, cada ListTitle tendrá asociado un *callback* asociado al evento `onTap`, dentro del cual gestionaremos la navegación en sí. Para esta navegación deberemos tener en cuenta en qué ruta nos encontramos y hacia qué rutas podemos ir, así como gestionar la pila de las diferentes rutas.
 
 Esquemáticamente, e introduciendo un poco de código tendríamos lo siguiente:
 
-![Interfaz de usuario gráfica
+![Esquema Drawer](./images/imagen14.png)
 
-Descripción generada automáticamente con confianza media](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.014.png)
+Como vemos, dentro del gestor del evento `onTap` se hace uso de la clase abstracta `ModalRoute` para obtener la ruta en la que nos encontramos:
 
-Como vemos, dentro del gestor del evento **onTap** se hace uso de la clase abstracta **ModalRoute** para obtener la ruta en la que nos encontramos:
-
+```dart
 String currentRoute = (ModalRoute.of(context)?.settings.name).toString();
+```
 
-Con **ModalRoute.of(context)** obtenemos la ruta más cercana a nuestro contexto, y desde ésta accedimos a su propiedad **settings.name**, que nos devolverá el nombre de esta ruta. 
+Con `ModalRoute.of(context)` obtenemos la ruta más cercana a nuestro contexto, y desde ésta accedimos a su propiedad `settings.name`, que nos devolverá el nombre de esta ruta. 
 
 De esta manera, compararemos esta *ruta actual* con la ruta destino, de manera que sólo realizamos la navegación si esta ruta no es la misma:
 
-String currentRoute =  (ModalRoute.of(context)?.settings.name).toString();
+```dart
+String currentRoute = (ModalRoute.of(context)?.settings.name).toString();
+```
 
-if (currentRoute != "/ruta\_desti") {
+Observe también que estamos haciendo uso del método `pushReplacementNamed`, con el fin de reemplazar la ruta en la pila, de manera que sea el *Drawer* quien gestione la navegación y no nos aparezca el icono de *Ir Atrás*. De hecho, en su lugar, aparecerá el icono del menú para desplegar el Drawer.
 
-`    `Navigator.of(context).pushReplacementNamed('/ruta\_desti');
+[https://dartpad.dev/embed-flutter.html?id=4714cff25cc4fb552c81763132234601](https://dartpad.dev/embed-flutter.html?id=4714cff25cc4fb552c81763132234601)
 
-}
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=4714cff25cc4fb552c81763132234601"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
 
-Observe también que estamos haciendo uso del método pushReplacementNamed, con el fin de reemplazar la ruta en la pila, de manera que sea el *Drawer* quien gestione la navegación y no nos aparezca el icono de *Ir Atrás*. De hecho, en su lugar, aparecerá el icono del menú para desplegar el Drawer.
-
-Podemos ver su funcionamiento en el siguiente Gist: <https://dartpad.dev/?id=28ffa02adbeac469f644728ba3dbd806>.
 
 ## Navegación con Tabs
 Otro mecanismo de navegación definido en la librería Material son los Tabs o pestañas, que nos permiten organizar el contenido en diferentes pantallas o agrupaciones de datos.
@@ -1832,421 +1835,283 @@ Material define dos tipos de pestañas: las principales y las secundarias, de ma
 Estas pestañas se ubican una al lado de la otra, distinguiendo entre categorías de igual importancia, y admiten desplazamiento horizontal, de manera que podemos disponer de tantas pestañas como sea necesario.
 
 ### **Los Widgets TabBar y TabBarView**
-![Imagen que contiene Escala de tiempo
+![TabBar](./images/imagen15.png)
 
-Descripción generada automáticamente](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.015.png)
+Con Flutter podemos crear una fila de pestañas con el componente `TabBar`, que generalmente se ubicará en la parte inferior de la barra de la aplicación. Además, el `TabBar` trabajará conjuntamente con el widget `TabBarView`, que será el contenedor donde se visualizará el contenido de las diferentes pestañas, y con un `TabController`, para controlar el comportamiento de las mismas.
 
-Con Flutter podemos crear una fila de pestañas con el componente **TabBar**, que generalmente se ubicará en la parte inferior de la barra de la aplicación. Además, el **TabBar** trabajará conjuntamente con el giny **TabBarView**, que será el contenedor donde se visualizará el contenido de las diferentes pestañas, y con un **TabController**, para controlar el comportamiento de las mismas.
-
-La forma más sencilla de implementar pestañas es haciendo uso del controlador predeterminado **DefaultTabController**, con lo que especificamos cuántas pestañas contendrá la fila y cuál será la pestaña inicial.
+La forma más sencilla de implementar pestañas es haciendo uso del controlador predeterminado `DefaultTabController`, con lo que especificamos cuántas pestañas contendrá la fila y cuál será la pestaña inicial.
 
 Esquemáticamente, podemos ver los diferentes widgets que componen este esquema de navegación en el siguiente árbol:
 
-![Interfaz de usuario gráfica
+![Esquema Navegación](./images/imagen16.png)
 
-Descripción generada automáticamente](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.016.png)
+Como vemos, el widget principal será el `DefaultTabController`, que es quien controlará la cantidad de pestañas y cuál será la pestaña inicial. Este controlador tendrá por hijo al *Scaffold*. Dentro de la *AppBar* del mismo, en la propiedad `bottom` ubicaremos la fila de pestañas, mediante el widget `TabBar`, que contendrá una lista de widgets de tipo `Tab` (tantos como se haya indicado en el *DefaultTabController*). Por otro lado, en el componente `body` del ***Scaffold*** tendremos un widget `TabBarView`, que contendrá tantos elementos hijos como pestañas se haya indicado en el controlador. **La correspondencia entre las pestañas y su contenido será en el orden en que se han definido: la primera pestaña lleva al primer widget, la segunda al segundo, etc.**
 
-Como vemos, el widget principal será el **DefaultTabController**, que es quien controlará la cantidad de pestañas y cuál será la pestaña inicial. Este controlador tendrá por hijo al *Scaffold*. Dentro de la *AppBar* del mismo, en la propiedad **bottom** ubicaremos la fila de pestañas, mediante el widget **TabBar**, que contendrá una lista de widgets de tipo **Tab** (tantos como se haya indicado en el *DefaultTabController*). Por otro lado, en el componente **body** del ***Scaffold*** tendremos un widget **TabBarView**, que contendrá tantos elementos hijos como pestañas se haya indicado en el controlador. **La correspondencia entre las pestañas y su contenido será en el orden en que se han definido: la primera pestaña lleva al primer widget, la segunda al segundo, etc.**
-
-Según todo esto, la longitud que definimos en el *DefaultTabController* debe ser igual a la longitud de la lista de pestañas (**TabBar.tabs**) y a la de la lista de ginys (**TabBarView.children**).
+Según todo esto, la longitud que definimos en el *DefaultTabController* debe ser igual a la longitud de la lista de pestañas (`TabBar.tabs`) y a la de la lista de ginys (`TabBarView.children`).
 
 Veámoslo todo más claro con el siguiente ejemplo basado en la misma documentación de Flutter:
 
+```dart
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-`  `const MyApp({super.key});
+  static const String _title = 'Ejemplo de Pestañas';
 
-`  `static const String \_title = 'Exemple de Pestanyes';
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return const MaterialApp(
-
-`      `title: \_title,
-
-`      `home: MyStatelessWidget(),
-
-`    `);
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: _title,
+      home: MyStatelessWidget(),
+    );
+  }
 }
 
 class MyStatelessWidget extends StatelessWidget {
+  const MyStatelessWidget({super.key});
 
-`  `const MyStatelessWidget({super.key});
+  @override
+  Widget build(BuildContext context) {
+    /* 
+    El widget comienza con un DefaultTabController, donde indicamos
+    el número de pestañas (length) y el índice de la pestaña
+    predeterminada (initialIndex)
+    */
+    return DefaultTabController(
+      initialIndex: 1,
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Ejemplo de Pestañas'),
+          /*
+          El componente bottom de la AppBar contiene el 
+          TabBar, que define las diferentes pestañas.
+          Los tabs pueden contener un texto y un icono, 
+          pero al menos una de las dos cosas.
 
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `/\* 
-
-`    `El giny comença amb un DefaultTabController, on indiquem
-
-`    `el número de pestanyes (length) i l'índex de la pestanya
-
-`    `predeterminada (initialIndex)
-
-`    `\*/
-
-`    `return DefaultTabController(
-
-`      `initialIndex: 1,
-
-`      `length: 3,
-
-`      `child: Scaffold(
-
-`        `appBar: AppBar(
-
-`          `title: const Text('Exemple de Pestanyes'),
-
-`          `/\*
-
-`          `El component bottom de l'AppBar conté el 
-
-`          `TabBar, que defineix les diferents pestanyes.
-
-`          `Els tabs poden contindre un text i una icona, 
-
-`          `però al menys una de les dos coses.
-
-`          `\*/
-
-`          `bottom: const TabBar(
-
-`            `tabs: <Widget>[
-
-`              `Tab(
-
-`                `text: "Sol",
-
-`                `icon: Icon(Icons.sunny),
-
-`              `),
-
-`              `Tab(
-
-`                `text: "Núvol",
-
-`                `icon: Icon(Icons.cloud\_outlined),
-
-`              `),
-
-`              `Tab(
-
-`                `text: "Pluja",
-
-`                `icon: Icon(Icons.beach\_access\_sharp),
-
-`              `),
-
-`            `],
-
-`          `),
-
-`        `),
-
-`        `// El giny TabBarWidget defineix els diferents
-
-`        `// contenidors per al contingut de cada pestanya
-
-`        `// Aquesta llista de ginys, poden ser tant ginys predefinits
-
-`        `// com ginys personalitzats amb tot el congingut que volguem.
-
-`        `body: const TabBarView(
-
-`          `children: <Widget>[ // Contingut de la primera pestanya
-
-`            `Center(
-
-`              `child: Text("Assolellat"),
-
-`            `),
-
-`            `Center( // Contingut de la segona pestanya
-
-`              `child: Text("Núvol"),
-
-`            `),
-
-`            `Center( // Contingut de la tercara pestanya
-
-`              `child: Text("Pluja"),
-
-`            `),
-
-`          `],
-
-`        `),
-
-`      `),
-
-`    `);
-
-`  `}
-
+          */
+          bottom: const TabBar(
+            tabs: <Widget>[
+              Tab(
+                text: "Sol",
+                icon: Icon(Icons.sunny),
+              ),
+              Tab(
+                text: "Nubes",
+                icon: Icon(Icons.cloud_outlined),
+              ),
+              Tab(
+                text: "Lluvia",
+                icon: Icon(Icons.beach_access_sharp),
+              ),
+            ],
+          ),
+        ),
+        // El widget TabBarWidget define los distintos
+        // contenedores para el contenido de cada pestaña
+        // Esta lista de widgets, pueden ser tanto predefinidos
+        // como widgets personalizados con todo el contenido que queramos.
+        body: const TabBarView(
+          children: <Widget>[ // Contenido de la primera pestaña
+            Center(
+              child: Text("Soleado"),
+            ),
+            Center( // Contenido de la segunda 
+              child: Text("Nuboso"),
+            ),
+            Center( // Contenido de la tercera pestaña
+              child: Text("Lluvia"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
+```
 
-Podemos ver su funcionamiento en el siguiente Gist: <https://dartpad.dev/?id=478a93cbd07d27057b6b93314b55e3bf>.
+[https://dartpad.dev/embed-flutter.html?id=37a03cce1d60ad90865f1ab200afbe83](https://dartpad.dev/embed-flutter.html?id=37a03cce1d60ad90865f1ab200afbe83)
 
-Como veis, cada elemento hijo del **TabBarView** lo hemos definido como un widget de tipo **Center** con un texto. Cuando creamos nuestras aplicaciones con esta navegación, lo que haremos será instanciar aquí nuestros widgets personalizados.
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=37a03cce1d60ad90865f1ab200afbe83"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
+
+
+Como veis, cada elemento hijo del `TabBarView` lo hemos definido como un widget de tipo `Center` con un texto. Cuando creamos nuestras aplicaciones con esta navegación, lo que haremos será instanciar aquí **nuestros widgets personalizados**.
 
 ## Navigation bar
-![Exemples de Navigation Bar. Font: m3.material.io](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.017.png)
+
+![Navigation Bar](./images/imagen17.png)
 
 Otra forma propuesta por Material 3 de navegar por los destinos principales de una aplicación es mediante la barra de navegación (*NavigationBar*).
 
-Se trata de un widget que contiene una colección de destinos, normalmente de tipo *NavigationDestinations.* Este widget, además, tiene dos propiedades importantes: **selectedIndex**, con el índice del destino seleccionado, y **onDestionationSelected**, que tiene asociado un callback que se dispara cuando el usuario selecciona algún destino en la barra:
+Se trata de un widget que contiene una colección de destinos, normalmente de tipo *NavigationDestinations.* Este widget, además, tiene dos propiedades importantes: `selectedIndex`, con el índice del destino seleccionado, y `onDestionationSelected`, que tiene asociado un callback que se dispara cuando el usuario selecciona algún destino en la barra:
 
-NavigationBar(
-
-`    `onDestinationSelected: (int index) {...},
-
-`    `selectedIndex: indexActual,
-
-`    `destinations: const <Widget>[
-
-`      `NavigationDestination(...),
-
-`      `NavigationDestination(...),
-
-...
-
+```dart
+ NavigationBar(
+    onDestinationSelected: (int index) {...},
+    selectedIndex: indexActual,
+    destinations: const <Widget>[
+      NavigationDestination(...),
+      NavigationDestination(...),
+      ...
 )
+```
 
-El widget **NavigationBar**, generalmente se ubica en el componente **bottomNavigationBar** del **Scaffold**. El componente donde definimos esta barra de navegación **deberá ser un widget con estado**, y el estado de éste, almacenará el índice seleccionado en cada momento (que llamaremos **indexActual**), y que como vemos en el código de arriba, es quien marca el valor para **selectedIndex** al **NavigationBar**. Además, el componente **body** del **Scaffold** se obtendrá a partir de una lista de widgets, de entre la que se cogerá el widget que se ubique en cada momento en la posición que marque **indexActual**:
+El widget `NavigationBar`, generalmente se ubica en el componente `bottomNavigationBar` del `Scaffold`. El componente donde definimos esta barra de navegación **deberá ser un widget con estado**, y el estado de éste, almacenará el índice seleccionado en cada momento (que llamaremos `indexActual`), y que como vemos en el código de arriba, es quien marca el valor para `selectedIndex` al `NavigationBar`. Además, el componente `body` del `Scaffold` se obtendrá a partir de una lista de widgets, de entre la que se cogerá el widget que se ubique en cada momento en la posición que marque `indexActual`:
 
-` `class ExempleBottomNavigationBar extends StatefulWidget {
+```dart
+class ExempleBottomNavigationBar extends StatefulWidget {
+  ...
 
-...
+  @override
+  State<ExempleBottomNavigationBar> createState() =>
+      _ExempleBottomNavigationBarState(); }
 
-`  `@override
+class _ExempleBottomNavigationBarState
+    extends State<ExempleBottomNavigationBar> {
 
-`  `State<ExempleBottomNavigationBar> createState() =>
+  int indexActual = 0;
 
-`      `\_ExempleBottomNavigationBarState(); }
-
-class \_ExempleBottomNavigationBarState
-
-`    `extends State<ExempleBottomNavigationBar> {
-
-`  `int indexActual = 0;
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return Scaffold(
-
-`      `appBar: ...,
-
-`      `bottomNavigationBar: NavigationBar(...),
-
-`      `),
-
-`      `body: <Widget>[
-
-`        `Container(...), // Widget per al contingut del destí 1
-
-`        `Container(...), // Widget per al contingut del destí 2
-
-...
-
-`      `][indexActual],  // Amb açò seleccionem el contingut corresponent
-
-`    `);
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: ...,
+      bottomNavigationBar: NavigationBar(...),
+      ),
+      body: <Widget>[
+        Container(...), // Widget para el contenido del destino 1
+        Container(...), // Widget para el contenido del destino 1
+        ...
+      ][indexActual],  // Aquí seleccionamos el contenido correspondiente
+    );
+  }
 }
+```
 
-Cuando el usuario selecciona un destino, se dispara el evento **onDestinationSelected**, en cuyo callback actualizaremos el valor del índice seleccionado en el estado, y actualizando éste, provocamos que se actualice también la interfaz (el **body**) con el contenido correspondiente:
+Cuando el usuario selecciona un destino, se dispara el evento `onDestinationSelected`, en cuyo callback actualizaremos el valor del índice seleccionado en el estado, y actualizando éste, provocamos que se actualice también la interfaz (el `body`) con el contenido correspondiente:
 
-onDestinationSelected: (int index) {
-
-`  `setState(() {
-
-`    `indexActual = index;
-
-`  `});
-
+```dart
+ onDestinationSelected: (int index) {
+  setState(() {
+    indexActual = index;
+  });
 }
+```
 
 Podemos verlo esquemáticamente aquí:
 
-![Organització i funcionament del NavigationBar](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.018.png)
+![Organització i funcionament del NavigationBar](./images/imagen18.png)
 
 Vemos el código del ejemplo completo, basado en los ejemplos de la documentación de Flutter:
 
+```dart
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-`  `const MyApp({super.key});
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return const MaterialApp(
-
-`      `title: 'Exemple amb BottomNavigationBar',
-
-`      `home: ExempleBottomNavigationBar(),
-
-`    `);
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: 'Ejemplo con BottomNavigationBar',
+      home: ExempleBottomNavigationBar(),
+    );
+  }
 }
 
 class ExempleBottomNavigationBar extends StatefulWidget {
+  const ExempleBottomNavigationBar({
+    Key? key,
+  }) : super(key: key);
 
-`  `const ExempleBottomNavigationBar({
-
-`    `Key? key,
-
-`  `}) : super(key: key);
-
-`  `@override
-
-`  `State<ExempleBottomNavigationBar> createState() =>
-
-`      `\_ExempleBottomNavigationBarState();
-
+  @override
+  State<ExempleBottomNavigationBar> createState() =>
+      _ExempleBottomNavigationBarState();
 }
 
-class \_ExempleBottomNavigationBarState
+class _ExempleBottomNavigationBarState
+    extends State<ExempleBottomNavigationBar> {
+  int indexActual = 0;
 
-`    `extends State<ExempleBottomNavigationBar> {
-
-`  `int indexActual = 0;
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return Scaffold(
-
-`      `appBar: AppBar(
-
-`        `title: [
-
-`          `const Text('Barra de l\'aplicació del destí 1'),
-
-`          `const Text('Barra de l\'aplicació del destí 2'),
-
-`          `const Text('Barra de l\'aplicació del destí 3')
-
-`        `][indexActual],
-
-`      `),
-
-`      `bottomNavigationBar: NavigationBar(
-
-`        `onDestinationSelected: (int index) {
-
-`          `setState(() {
-
-`            `indexActual = index;
-
-`          `});
-
-`        `},
-
-`        `selectedIndex: indexActual,
-
-`        `destinations: const <Widget>[
-
-`          `NavigationDestination(
-
-`            `icon: Icon(Icons.home\_outlined),
-
-`            `selectedIcon: Icon(Icons.home),
-
-`            `label: 'Destí 1',
-
-`          `),
-
-`          `NavigationDestination(
-
-`            `icon: Icon(Icons.people\_outline),
-
-`            `selectedIcon: Icon(Icons.people),
-
-`            `label: 'Destí 2',
-
-`          `),
-
-`          `NavigationDestination(
-
-`            `icon: Icon(Icons.work\_outline),
-
-`            `selectedIcon: Icon(Icons.work),
-
-`            `label: 'Destí 3',
-
-`          `),
-
-`        `],
-
-`      `),
-
-`      `body: <Widget>[
-
-`        `Container(
-
-`          `color: Colors.amber,
-
-`          `alignment: Alignment.center,
-
-`          `child: const Text('Contingut del destí 1'),
-
-`        `),
-
-`        `Container(
-
-`          `color: Colors.lime,
-
-`          `alignment: Alignment.center,
-
-`          `child: const Text('Contingut del destí 2'),
-
-`        `),
-
-`        `Container(
-
-`          `color: Colors.teal,
-
-`          `alignment: Alignment.center,
-
-`          `child: const Text('Contingut del destí 3'),
-
-`        `),
-
-`      `][indexActual],
-
-`    `);
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: [
+          const Text('Barra de la aplicación del destino 1'),
+          const Text('Barra de la aplicación del destino 2'),
+          const Text('Barra de la aplicación del destino 3')
+        ][indexActual],
+      ),
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() {
+            indexActual = index;
+          });
+        },
+        selectedIndex: indexActual,
+        destinations: const <Widget>[
+          NavigationDestination(
+            icon: Icon(Icons.home_outlined),
+            selectedIcon: Icon(Icons.home),
+            label: 'Destino 1',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.people_outline),
+            selectedIcon: Icon(Icons.people),
+            label: 'Destino 2',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.work_outline),
+            selectedIcon: Icon(Icons.work),
+            label: 'Destino 3',
+          ),
+        ],
+      ),
+      body: <Widget>[
+        Container(
+          color: Colors.amber,
+          alignment: Alignment.center,
+          child: const Text('Contenido del destino 1'),
+        ),
+        Container(
+          color: Colors.lime,
+          alignment: Alignment.center,
+          child: const Text('Contenido del destino 2'),
+        ),
+        Container(
+          color: Colors.teal,
+          alignment: Alignment.center,
+          child: const Text('Contenido del destino 3'),
+        ),
+      ][indexActual],
+    );
+  }
 }
+```
 
-En el ejemplo anterior, notemos que con el fin de modificar el contenido de la AppBar en función del índice, hemos aplicado el mismo mecanismo que para el **body**, de manera que hagamos uso del índice seleccionado actualmente para establecer uno u otro elemento de la lista de AppBar.
+En el ejemplo anterior, notemos que con el fin de modificar el contenido de la AppBar en función del índice, hemos aplicado el mismo mecanismo que para el `body`, de manera que hagamos uso del índice seleccionado actualmente para establecer uno u otro elemento de la lista de AppBar.
 
-Disponemos del ejemplo completo y funcionando en el Gist: <https://dartpad.dev/?id=e806d5bc2e934a662726eacab320c497>.
+[https://dartpad.dev/embed-flutter.html?id=fe8d6ca53dcef2bb137b6c74df73fd60](https://dartpad.dev/embed-flutter.html?id=fe8d6ca53dcef2bb137b6c74df73fd60)
 
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=fe8d6ca53dcef2bb137b6c74df73fd60"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
+
+
+--- 
 ¿Cuándo utilizar barras de navegación o pestañas?
 
 Las barras de navegación se usan para acceder a destinos principales de la aplicación, y que requieren ser accesibles desde cualquier lugar de la misma. 
@@ -2254,217 +2119,146 @@ Las barras de navegación se usan para acceder a destinos principales de la apli
 Además, se aconseja cuando puedan haber entre tres y cinco destinos. En caso de haber más, ya haríamos uso de diferentes pestañas, ya que éstas permiten el desplazamiento horizontal entre ellas.
 
 Además, el uso de estas barras solo se aconseja para dispositivos móviles o tabletas. 
+***
 
 ## Navigation Rail
-![Exemples de Navigation Rail. Font: m3.material.io](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.019.png)
+
+![Navigation Rail](./images/imagen19.png)
 
 El componente *Navigation Rail* o carril de navegación de Material 3 sería el equivalente al *NavigationBar* para aplicaciones de escritorio o de tableta que se muestran en formato apaisado. Se trata de un widget en forma de columna que puede mostrarse tanto a izquierda como a derecha, y permite navegar entre unos pocos destinos, generalmente, de tres a cinco.
 
-La principal diferencia respecto al **NavigationBar** es que ahora no disponemos de una propiedad en el *Scaffold* específica para el widget, y debemos añadirla como una columna dentro de la propiedad **body**. Así pues, el esquema general quedará:
+La principal diferencia respecto al `NavigationBar` es que ahora no disponemos de una propiedad en el *Scaffold* específica para el widget, y debemos añadirla como una columna dentro de la propiedad `body`. Así pues, el esquema general quedará:
 
+```dart
 Scaffold(
-
-` `appBar: AppBar(...), // Internament igual com abans
-
-`  `body: Row(
-
-`    `children: <Widget>[
-
-`      `NavigationRail(...), // Columna amb el Navigarion Rail
-
-`      `const VerticalDivider(thickness: 1, width: 1), // Divisor vertical
-
-`      `Expanded(...) // Contingut Principal
-
-`      `]
-
-`    `)     
-
-`  `)
-
+ appBar: AppBar(...), // Internamente igual que antes
+  body: Row(
+    children: <Widget>[
+      NavigationRail(...), // Columna con el Navigarion Rail
+      const VerticalDivider(thickness: 1, width: 1), // Divisor vertical
+      Expanded(...) // Contenido Principal
+      ]
+    )     
+  )
 }
+```
 
-Como vemos, dentro del **body** hemos añadido una columna (**Row**), cuyo primer elemento es el **NavigationRail**, luego añadimos una línea de separación (**VerticalDivider**) y luego, con un **Expanded** añadiremos el contenido principal, en función de lo que haya seleccionado en el Índice.
+Como vemos, dentro del `body` hemos añadido una columna (`Row`), cuyo primer elemento es el `NavigationRail`, luego añadimos una línea de separación (`VerticalDivider`) y luego, con un `Expanded` añadiremos el contenido principal, en función de lo que haya seleccionado en el Índice.
 
-Algunas de las propiedades básicas del **NavigationRail** son las siguientes:
+Algunas de las propiedades básicas del `NavigationRail` son las siguientes:
 
-- **selectedIndex**: El índice del destino seleccionado.
-- **onDestinationSelected**: Define el callback que se invoca cuando el usuario elige un destino.
-- **destinations**: Una lista de elementos de tipo **NavigationRailDestination**, con los diferentes destinos. Estos elementos, entre otros pueden tener las propiedades **icon** (icono), **selectedIcon** (icono cuando está seleccionada), o **label** con la etiqueta del destino.
-- **labelType**: Un valor de tipo **NavigationRailLabelType** que indica cómo se muestran las etiquetas en los iconos. Sus valores pueden ser **all** para mostrar todas las etiquetas, **none** para no ver ninguna, o **selected**, para mostrar sólo la etiqueta del destino seleccionado.
-- **extended**: Para ver el componente de forma extendida, mostrando el icono y la etiqueta a su derecha, en lugar de debajo, de manera que la columna ocupa un mayor espacio.
+- `selectedIndex`: El índice del destino seleccionado.
+  
+- `onDestinationSelected`: Define el callback que se invoca cuando el usuario elige un destino.
+- `destinations` Una lista de elementos de tipo `NavigationRailDestination`, con los diferentes destinos. Estos elementos, entre otros pueden tener las propiedades `icon` (icono), `selectedIcon` (icono cuando está seleccionada), o `label` con la etiqueta del destino.
+- `labelType`: Un valor de tipo `NavigationRailLabelType` que indica cómo se muestran las etiquetas en los iconos. Sus valores pueden ser `all` para mostrar todas las etiquetas, `none` para no ver ninguna, o `selected`, para mostrar sólo la etiqueta del destino seleccionado.
+- `extended`: Para ver el componente de forma extendida, mostrando el icono y la etiqueta a su derecha, en lugar de debajo, de manera que la columna ocupa un mayor espacio.
 
 Vemos en el siguiente ejemplo cómo adaptaríamos el ejemplo del NavigationBar anterior a un *NavigationRail*:
 
+```dart
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-`  `const MyApp({super.key});
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return const MaterialApp(
-
-`      `title: 'Exemple amb NavigationRail',
-
-`      `home: ExempleNavigationRail(),
-
-`    `);
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: 'Ejemplo con NavigationRail',
+      home: ExempleNavigationRail(),
+    );
+  }
 }
 
 class ExempleNavigationRail extends StatefulWidget {
+  const ExempleNavigationRail({
+    Key? key,
+  }) : super(key: key);
 
-`  `const ExempleNavigationRail({
-
-`    `Key? key,
-
-`  `}) : super(key: key);
-
-`  `@override
-
-`  `State<ExempleNavigationRail> createState() => \_ExempleNavigationRailState();
-
+  @override
+  State<ExempleNavigationRail> createState() => _ExempleNavigationRailState();
 }
 
-class \_ExempleNavigationRailState extends State<ExempleNavigationRail> {
-
-`  `int indexActual = 0;
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return Scaffold(
-
-`      `appBar: AppBar(
-
-`        `title: [
-
-`          `const Text('Barra de l\'aplicació del destí 1'),
-
-`          `const Text('Barra de l\'aplicació del destí 2'),
-
-`          `const Text('Barra de l\'aplicació del destí 3')
-
-`        `][indexActual],
-
-`      `),
-
-`      `body: Row(
-
-`        `children: <Widget>[
-
-`          `NavigationRail(
-
-`            `labelType: NavigationRailLabelType.all,
-
-`            `selectedIndex: indexActual,
-
-`            `onDestinationSelected: (int index) {
-
-`              `setState(() {
-
-`                `indexActual = index;
-
-`              `});
-
-`            `},
-
-`            `destinations: const <NavigationRailDestination>[
-
-`              `NavigationRailDestination(
-
-`                `icon: Icon(Icons.home\_outlined),
-
-`                `selectedIcon: Icon(Icons.home),
-
-`                `label: Text('Destí 1'),
-
-`              `),
-
-`              `NavigationRailDestination(
-
-`                `icon: Icon(Icons.people\_outline),
-
-`                `selectedIcon: Icon(Icons.people),
-
-`                `label: Text('Destí 2'),
-
-`              `),
-
-`              `NavigationRailDestination(
-
-`                `icon: Icon(Icons.work\_outline),
-
-`                `selectedIcon: Icon(Icons.work),
-
-`                `label: Text('Destí 3'),
-
-`              `),
-
-`            `],
-
-`          `),
-
-`          `const VerticalDivider(thickness: 1, width: 1),
-
-`          `// Contingut PRincipal
-
-`          `Expanded(
-
-`            `child: <Widget>[
-
-`              `Container(
-
-`                `color: Colors.amber,
-
-`                `alignment: Alignment.center,
-
-`                `child: const Text('Contingut del destí 1'),
-
-`              `),
-
-`              `Container(
-
-`                `color: Colors.lime,
-
-`                `alignment: Alignment.center,
-
-`                `child: const Text('Contingut del destí 2'),
-
-`              `),
-
-`              `Container(
-
-`                `color: Colors.teal,
-
-`                `alignment: Alignment.center,
-
-`                `child: const Text('Contingut del destí 3'),
-
-`              `),
-
-`            `][indexActual],
-
-`          `),
-
-`        `],
-
-`      `),
-
-`    `);
-
-`  `}
-
+class _ExempleNavigationRailState extends State<ExempleNavigationRail> {
+  int indexActual = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: [
+          const Text('Barra de la aplicación del destino 1'),
+          const Text('Barra de la aplicación del destino 2'),
+          const Text('Barra de la aplicación del destino 3')
+        ][indexActual],
+      ),
+      body: Row(
+        children: <Widget>[
+          NavigationRail(
+            labelType: NavigationRailLabelType.all,
+            selectedIndex: indexActual,
+            onDestinationSelected: (int index) {
+              setState(() {
+                indexActual = index;
+              });
+            },
+            destinations: const <NavigationRailDestination>[
+              NavigationRailDestination(
+                icon: Icon(Icons.home_outlined),
+                selectedIcon: Icon(Icons.home),
+                label: Text('Destino 1'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.people_outline),
+                selectedIcon: Icon(Icons.people),
+                label: Text('Destino 2'),
+              ),
+              NavigationRailDestination(
+                icon: Icon(Icons.work_outline),
+                selectedIcon: Icon(Icons.work),
+                label: Text('Destí 3'),
+              ),
+            ],
+          ),
+          const VerticalDivider(thickness: 1, width: 1),
+          // Contingut PRincipal
+          Expanded(
+            child: <Widget>[
+              Container(
+                color: Colors.amber,
+                alignment: Alignment.center,
+                child: const Text('Contenido del destino 1'),
+              ),
+              Container(
+                color: Colors.lime,
+                alignment: Alignment.center,
+                child: const Text('Contenido del destino 2'),
+              ),
+              Container(
+                color: Colors.teal,
+                alignment: Alignment.center,
+                child: const Text('Contenido del destino 3'),
+              ),
+            ][indexActual],
+          ),
+        ],
+      ),
+    );
+  }
 }
+```
+En *el siguiente gist* podéis encontrar este código funcionando: 
+[https://dartpad.dev/embed-flutter.html?id=ccc983b16b597e01e36948adef557bd8](https://dartpad.dev/embed-flutter.html?id=ccc983b16b597e01e36948adef557bd8)
+
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=ccc983b16b597e01e36948adef557bd8"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
 
 
 1. # Diálogos
