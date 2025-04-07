@@ -848,7 +848,7 @@ Crea un selector de color mediante sus componentes de rojo, verde y azul. Para e
 [**La clase Slider**](https://api.flutter.dev/flutter/material/Slider-class.html)
 
 
-# <a name="_apartado1"></a>2. Trabajando con formularios
+# <a name="_apartado2"></a>2. Trabajando con formularios
 
 ## Formularios con validaciones
 
@@ -1176,7 +1176,8 @@ En *el siguiente gist* podéis encontrar este código funcionando:
 </iframe>
 
 
-1. # Navegación
+# <a name="_apartado3"></a>3. Navegación
+
 Las aplicaciones, tanto móviles como web y de escritorio, generalmente hacen uso de varias pantallas o vistas, entre las que podemos navegar y compartir información.
 
 En Flutter, el componente encargado de facilitar esta navegación es el widget *Navigator*, que se ubica en la parte superior de la jerarquía de widgets y mantiene el historial, en forma de pila, de las diferentes pantallas que se han visitado. Estas pantallas serán widgets secundarios del Navigator.
@@ -1184,764 +1185,598 @@ En Flutter, el componente encargado de facilitar esta navegación es el widget *
 A medida que el usuario navega por las diferentes pantallas de la aplicación, estas van superponiéndose unas sobre otras, de manera que en la parte superior de la pila tendremos la pantalla más reciente, y debajo, el resto de pantallas más antiguas. Cuando el usuario quiere volver a la pantalla anterior en el historial, lo que haremos es desapilar el elemento que se encuentra en la parte superior de la pila, de manera que quede visible la pantalla anterior. En cambio, si el usuario quiere volver a otra pantalla del historial, lo que se hace es reordenar el historial para subir esta pantalla a la parte superior de la pila.
 
 ## Rutas y rutas con nombre
+
 En Flutter, las diferentes páginas o pantallas que componen nuestras aplicaciones y que permiten la navegación entre ellas suelen conocerse como rutas.
 
 Con el fin de navegar entre diferentes rutas, podemos hacer uso del objeto Navigator y sus métodos **push** y **pop**, para apilar y desapilar rutas, o bien hacer uso de rutas con nombre.
+
 ### **Trabajando con rutas**
-Con el fin de apilar una ruta a la pila administrada por el Navigator, y por lo tanto, abrir una nueva pantalla, hacemos uso del método **Navigator.push**, de la siguiente manera:
 
+Con el fin de apilar una ruta a la pila administrada por el Navigator, y por lo tanto, abrir una nueva pantalla, hacemos uso del método `Navigator.push`, de la siguiente manera:
+
+```dart
 Navigator.push<void>(
+    context,
+    MaterialPageRoute<void>(
+      builder: (BuildContext context) => const PaginaNueva(),
+    ),
+  );
+```
 
-`    `context,
 
-`    `MaterialPageRoute<void>(
+Este método recibe como primer argumento el *context*, para saber dónde debe ubicarse, y como segundo una instancia de la clase `MaterialPageRoute`. Esta clase `MaterialPageRoute` sirve para definir una ruta de navegación proporcionando una animación propia del sistema para la transición entre pantallas. El constructor de `MaterialPageRoute` recibe en el argumento `builder` una función para construir la ruta, con el widget de la nueva ruta. 
 
-`      `builder: (BuildContext context) => const PaginaNova(),
+Una vez en la nueva pantalla, podemos navegar a otras rutas, apilando éstas, o bien volver a la ruta anterior, desapilando la pila de rutas con el método `pop`:
 
-`    `),
-
-`  `);
-
-Este método recibe como primer argumento el *context*, para saber dónde debe ubicarse, y como segundo una instancia de la clase **MaterialPageRoute**. Esta clase **MaterialPageRoute** sirve para definir una ruta de navegación proporcionando una animación propia del sistema para la transición entre pantallas. El constructor de **MaterialPageRoute** recibe en el argumento **builder** una función para construir la ruta, con el widget que de la nueva ruta. 
-
-Una vez en la nueva pantalla, podemos navegar a otras rutas, apilando éstas, o bien volver a la ruta anterior, desapilando la pila de rutas con el método **pop**:
-
+```dart
 Navigator.pop(context);
+```
 
-En el caso de que la pila de rutas tenga una única ruta, si invocamos al método **Navigator.pop()**, esta ruta se eliminará de la pila, de manera que la aplicación no tendrá ninguna vista para mostrar. Para evitar esto, disponemos del método **canPop()** en el **Navigator**, que nos indica si quedan más rutas, de manera que sí se puede desapilar con seguridad. Así, si queremos desapilar la pila de rutas de forma segura, podríamos hacer:
+En el caso de que la pila de rutas tenga una única ruta, si invocamos al método `Navigator.pop()`, esta ruta se eliminará de la pila, de manera que la aplicación no tendrá ninguna vista para mostrar. Para evitar esto, disponemos del método `canPop()` en el `Navigator`, que nos indica si quedan más rutas, de manera que sí se puede desapilar con seguridad. Así, si queremos desapilar la pila de rutas de forma segura, podríamos hacer:
 
+```dart
 if (Navigator.canPop(context)) Navigator.pop(context);
+```
 
 Vemos un ejemplo en el que podemos navegar entre tres pantallas a través de varios botones siguiendo el siguiente esquema de navegación:
 
-![Interfaz de usuario gráfica
+![Navegación](./images/imagen11.png)
 
-Descripción generada automáticamente con confianza media](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.011.png)
-
+```dart
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-`  `const MyApp({super.key});
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return const MaterialApp(
-
-`        `// La pàgina inicial del giny MaterialApp
-
-`        `// és el giny Pantalla1.
-
-`        `debugShowCheckedModeBanner: false,
-
-`        `home: Pantalla1());
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+        // La página inicial del widget MaterialApp
+        // es el widget Pantalla1.
+        debugShowCheckedModeBanner: false,
+        home: Pantalla1());
+  }
 }
 
-// Pantalla 1: Incorpora un botó per navegar a
-
-// la segona pantalla
+// Pantalla 1: Incorpora un botón para navegar a
+// la segonda pantalla
 
 class Pantalla1 extends StatelessWidget {
+  const Pantalla1({super.key});
 
-`  `const Pantalla1({super.key});
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return Scaffold(
-
-`      `appBar: AppBar(
-
-`        `title: const Text('Primera Pantalla'),
-
-`      `),
-
-`      `body: Center(
-
-`        `child: Column(
-
-`          `mainAxisAlignment: MainAxisAlignment.center,
-
-`          `children: [
-
-`            `ElevatedButton(
-
-`              `child: const Text('Anar a pantalla 2'),
-
-`              `onPressed: () {
-
-`                `Navigator.push(
-
-`                  `context,
-
-`                  `MaterialPageRoute(builder: (context) => const Pantalla2()),
-
-`                `);
-
-`              `},
-
-`            `),
-
-`          `],
-
-`        `),
-
-`      `),
-
-`    `);
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Primera Pantalla'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              child: const Text('Ir a pantalla 2'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Pantalla2()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
-// Pantalla 2: Incorpora un botó per tornar a la primera
-
-// pantalla i altre per navegar a la tercera pantalla
+// Pantalla 2: Incorpora un botón para volver a la primera
+// pantalla y otro para navegar a la tercera pantalla
 
 class Pantalla2 extends StatelessWidget {
+  const Pantalla2({super.key});
 
-`  `const Pantalla2({super.key});
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return Scaffold(
-
-`      `backgroundColor: Colors.indigo,
-
-`      `appBar: AppBar(
-
-`        `title: const Text("Segona Pantalla"),
-
-`      `),
-
-`      `body: Center(
-
-`        `child: Column(
-
-`          `mainAxisAlignment: MainAxisAlignment.center,
-
-`          `children: [
-
-`            `ElevatedButton(
-
-`              `child: const Text('Tornar a Pantalla 1'),
-
-`              `onPressed: () {
-
-`                `// Utilitzem canPop per evitar quedar-nos sense
-
-`                `// cap pantalla visible en l'aplicació.
-
-`                `if (Navigator.canPop(context)) Navigator.pop(context);
-
-`              `},
-
-`            `),
-
-`            `const Divider(height: 100),
-
-`            `ElevatedButton(
-
-`              `child: const Text('Anar a Pantalla 3'),
-
-`              `onPressed: () {
-
-`                `Navigator.push(
-
-`                  `context,
-
-`                  `MaterialPageRoute(builder: (context) => const Pantalla3()),
-
-`                `);
-
-`              `},
-
-`            `)
-
-`          `],
-
-`        `),
-
-`      `),
-
-`    `);
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.indigo,
+      appBar: AppBar(
+        title: const Text("Segunda Pantalla"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              child: const Text('Volver a Pantalla 1'),
+              onPressed: () {
+                // Utilizamos canPop para evitar quedarnos sin
+                // ninguna pantalla visible en la aplicación.
+                if (Navigator.canPop(context)) Navigator.pop(context);
+              },
+            ),
+            const Divider(height: 100),
+            ElevatedButton(
+              child: const Text('Ir a Pantalla 3'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Pantalla3()),
+                );
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class Pantalla3 extends StatelessWidget {
+  const Pantalla3({super.key});
 
-`  `const Pantalla3({super.key});
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return Scaffold(
-
-`      `backgroundColor: Colors.amber,
-
-`      `appBar: AppBar(
-
-`        `title: const Text("Pantalla 3"),
-
-`      `),
-
-`      `body: Center(
-
-`        `child: ElevatedButton(
-
-`          `child: const Text('Tornar a Pantalla 1'),
-
-`          `onPressed: () {
-
-`            `Navigator.push(
-
-`              `context,
-
-`              `MaterialPageRoute(builder: (context) => const Pantalla1()),
-
-`            `);
-
-`          `},
-
-`        `),
-
-`      `),
-
-`    `);
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.amber,
+      appBar: AppBar(
+        title: const Text("Pantalla 3"),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: const Text('Volver a Pantalla 1'),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Pantalla1()),
+            );
+          },
+        ),
+      ),
+    );
+  }
 }
+```
 
-Podemos ver su funcionamiento en el siguiente Gist: <https://dartpad.dev/?id=f0b67cb8fe0faab9943ffd9f843e1bac>.
+En *el siguiente gist* podéis encontrar este código funcionando: 
+[https://dartpad.dev/embed-flutter.html?id=97a5f1a22f6f4afa82ddf75ea0eec11c](https://dartpad.dev/embed-flutter.html?id=97a5f1a22f6f4afa82ddf75ea0eec11c)
+
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=97a5f1a22f6f4afa82ddf75ea0eec11c"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
 
 Probemos el ejemplo, y observemos el aspecto de la barra de la aplicación de la primera pantalla inicialmente. Después vamos hasta la tercera pantalla y haga clic en el botón para volver a la primera. Veamos de nuevo la barra de la aplicación. ¿Observáis alguna diferencia? ¿A qué creéis que puede deberse?
 
 ### **Paso de argumentos entre pantallas.**
-Cuando pasamos de una ruta a otra mediante **MaterialPageRoute** proporcionamos a través de este un **builder** donde invocamos al constructor del widget que representará la nueva ruta. Este constructor puede admitir argumentos, de manera que supone una forma sencilla de compartir información entre los mismos.
+
+Cuando pasamos de una ruta a otra mediante `MaterialPageRoute` proporcionamos a través de este un `builder` donde invocamos al constructor del widget que representará la nueva ruta. Este constructor puede admitir argumentos, de manera que supone una forma sencilla de compartir información entre los mismos.
 
 Por ejemplo, podríamos definir un widget de esta manera:
 
+```dart
 class Pantalla2 extends StatelessWidget {
+  final String? nom;
 
-`  `final String? nom;
+  const Pantalla2({this.nom, super.key});
 
-`  `const Pantalla2({this.nom, super.key});
-
-...
-
+  ...
 }
+```
 
 Como vemos, hemos definido una nueva propiedad *nom*, que se instancia en el mismo constructor. Como podemos ver, esta propiedad se ha definido como *final*, de manera que podamos declarar al constructor como constante.
 
-Ahora podemos, por ejemplo, desde un widget que contiene algún campo de texto, proporcionarle la información del mismo. En el siguiente código hemos definido un widget con estado que contiene un **TextField** gestionado por un controlador, y un botón, que al ser pulsado envía el valor de este campo de texto a la segunda pantalla:
+Ahora podemos, por ejemplo, desde un widget que contiene algún campo de texto, proporcionarle la información del mismo. En el siguiente código hemos definido un widget con estado que contiene un `TextField` gestionado por un controlador, y un botón, que al ser pulsado envía el valor de este campo de texto a la segunda pantalla:
 
+```dart
+// Pantalla1. Widget con estado donde podemos introducir un texto
+// para enviar a la pantalla 2.
 class Pantalla1 extends StatefulWidget {
+  const Pantalla1({super.key});
 
-`  `const Pantalla1({super.key});
-
-`  `@override
-
-`  `State<Pantalla1> createState() => \_Pantalla1State();
-
+  @override
+  State<Pantalla1> createState() => _Pantalla1State();
 }
 
-class \_Pantalla1State extends State<Pantalla1> {
+class _Pantalla1State extends State<Pantalla1> {
+  // Definimos un controlador para el TextField
+  final TextEditingController _controlador = TextEditingController();
 
-`  `// Definim un controlador privat per al TextField
-
-`  `final TextEditingController \_controlador = TextEditingController();
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return Scaffold(
-
-..
-
-`      `body: Center(
-
-`        `child: Column(
-
-`          `mainAxisAlignment: MainAxisAlignment.center,
-
-`          `children: [
-
-`            `const Text("Com et diuen ?"),
-
-`            `TextField(
-
-`              `// Associem el controlador al controller
-
-`              `// del TextField
-
-`              `controller: \_controlador,
-
-...
-
-`              `),
-
-`            `),
-
-`            `ElevatedButton(
-
-`              `child: const Text('Enviar a pantalla 2'),
-
-`              `onPressed: () {
-
-`                `Navigator.push(
-
-`                  `context,
-
-`                  `MaterialPageRoute(
-
-`                      `builder: (context) => Pantalla2(nom: \_controlador.text)),
-
-`                `);
-
-`              `},
-
-`            `),
-
-`          `],
-
-`        `),
-
-`      `),
-
-`    `);
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Bienvenida'),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const Text("Cómo te llamas?"),
+              TextField(
+                // Associem el controlador al controller
+                // del TextField
+                controller: _controlador,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                child: const Text('Enviar a pantalla 2'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Pantalla2(nombre: _controlador.text)),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
-Podemos ver el ejemplo completo y funcionando en el siguiente Gist: <https://dartpad.dev/?id=b35ef3163b9ffe1de89f8604c2d6d524>.
+// Pantalla 2: Muestra el texto que recibe como argumento del constructor
+
+class Pantalla2 extends StatelessWidget {
+  final String? nombre;
+
+  const Pantalla2({this.nombre, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: const Text("Segunda Pantalla"),
+      ),
+      body: Center(child: Text("Hola $nombre")),
+    );
+  }
+}
+
+```
+
+En *el siguiente gist* podéis encontrar este código funcionando: 
+[https://dartpad.dev/embed-flutter.html?id=f1531398872e313a12618218eeae76f6](https://dartpad.dev/embed-flutter.html?id=f1531398872e313a12618218eeae76f6)
+
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=f1531398872e313a12618218eeae76f6"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
 
 ### **Trabajando con valores de retorno**
+
 A veces, es posible que además de enviar datos a un widget, necesitamos recibir una respuesta por parte del mismo. 
 
 Para conseguir esto, solo debemos proporcionar este valor de retorno, junto con el contexto, cuando *desapilamos* la ruta de la pila con el método pop:
 
+```dart
 Navigator.pop(context, ValorDeRetorn);
+```
 
 Esto implicará también cambios a la hora de *recibir* esta información en la pantalla que quedará ahora en la cima de la pila, ya que **esta respuesta se obtendrá de forma asíncrona**, de manera que la invocación se realizaría siguiendo el siguiente esquema:
 
+```dart
 String resposta = await Navigator.push(
-
-`  `context,
-
-`  `MaterialPageRoute(builder: (context) => Pantalla2(...)),
-
+  context,
+  MaterialPageRoute(builder: (context) => Pantalla2(...)),
 );
+```
 
-De esta manera, esperamos a recibir la respuesta gracias al **await**. Si queremos modificar alguna propiedad del widget de acuerdo con esta respuesta, habrá que hacer uso de un widget con estado, e invocar **a SetState()** una vez se tenga la respuesta.
+
+De esta manera, esperamos a recibir la respuesta gracias al `await`. Si queremos modificar alguna propiedad del widget de acuerdo con esta respuesta, habrá que hacer uso de un widget con estado, e invocar a `SetState()` una vez se tenga la respuesta.
 
 Veámoslo en el siguiente ejemplo, continuación de lo que hemos visto antes, donde ahora, además de enviar datos, vamos a recibirlos en la primera pantalla.
 
 **Modificaciones en la primera pantalla**
 
-En primer lugar, definimos la *Pantalla1* como antes, haciendo uso de un widget con estado. Este estado contendrá el controlador del texto más una propiedad para guardar en este estado el valor de retorno (**String \_valorDeRetorn**):
+En primer lugar, definimos la *Pantalla1* como antes, haciendo uso de un widget con estado. Este estado contendrá el controlador del texto más una propiedad para guardar en este estado el valor de retorno (`String _valorDeRetorno`):
 
-class \_Pantalla1State extends State<Pantalla1> {
+```dart
+class Pantalla1 extends StatefulWidget {
+  const Pantalla1({super.key});
 
-`  `// Definim un controlador per al TextField
+  @override
+  State<Pantalla1> createState() => _Pantalla1State();
+}
 
-`  `final TextEditingController \_controlador = TextEditingController();
+class _Pantalla1State extends State<Pantalla1> {
+  // Definimos un controlador para el TextField
+  final TextEditingController _controlador = TextEditingController();
 
-`  `String \_valorDeRetorn = "";
+  String _valorDeRetorno = "";
 
-`  `//...
+  //...
 
 }
+```
+
 
 Además, dentro de esta clase para el estado de la pantalla, definiremos el siguiente método que se encargará de hacer la invocación en la *Pantalla2*:
 
-\_invocarPantalla2(BuildContext context) async {
-
-`  `String resposta = await Navigator.push(
-
-`     `context,
-
-`    `MaterialPageRoute(builder: (context) => Pantalla2(nom: \_controlador.text)),
-
-`  `);
-
-`  `setState(() {
-
-`    `\_valorDeRetorn = resposta;
-
-`  `});
-
+```dart
+_invocarPantalla2(BuildContext context) async {
+  String respuesta = await Navigator.push(
+     context,
+    MaterialPageRoute(builder: (context) => Pantalla2(nom: _controlador.text)),
+  );
+  setState(() {
+    _valorDeRetorno = respuesta;
+  });
 }
+```
 
-Como vemos, hacemos uso de la palabra clave **async** para definir el método y **await** con el fin de esperarnos al valor de retorno cuando hacemos el **Navigator.push()**. Además, después de obtener la respuesta, actualizamos la propiedad **\_valorDeRetorn** del estado mediante **SetState().**
+Como vemos, hacemos uso de la palabra clave `async` para definir el método y `await` con el fin de esperarnos al valor de retorno cuando hacemos el `Navigator.push()`. Además, después de obtener la respuesta, actualizamos la propiedad `_valorDeRetorno` del estado mediante `SetState()`.
 
-Finalmente, con el fin de mostrar el valor de retorno, hemos incorporado un widget de tipo texto, el cual se renderiza sólo si la propiedad **\_valorDeRetorn** contiene algún texto diferente a la cadena vacía:
+Finalmente, con el fin de mostrar el valor de retorno, hemos incorporado un widget de tipo texto, el cual se renderiza sólo si la propiedad `_valorDeRetorno` contiene algún texto diferente a la cadena vacía:
 
+```dart
 Column(
-
-...  
-
-`  `children: [
-
-`  `// Podem fer ús d'un renderitzat condicional
-
-`    `if (\_valorDeRetorn != "") Text("Hola $\_valorDeRetorn"),
-
-`    `],
-
+  ...  
+  children: [
+  // Podem hacer uso de un renderizadocondicional
+    if (_valorDeRetorno != "") Text("Hola $_valorDeRetorno"),
+    ],
 ),
+```
 
 **Modificaciones en la segunda pantalla**
 
-La segunda pantalla contendrá un **TextField** con el fin de introducir el valor de retorno, de manera que necesitaremos hacer uso de un controlador, y por lo tanto, convertir el widget en un widget con estado. Recuerde que en las acciones de código tenéis disponible la opción *Convert to Stateful*, para convertir un widget sin estado a un widget con estado.
+La segunda pantalla contendrá un `TextField` con el fin de introducir el valor de retorno, de manera que necesitaremos hacer uso de un controlador, y por lo tanto, convertir el widget en un widget con estado. Recuerde que en las acciones de código tenéis disponible la opción *Convert to Stateful*, para convertir un widget sin estado a un widget con estado.
 
 Así pues, la definición de esta clase con su estado quedaría:
 
+```dart
 class Pantalla2 extends StatefulWidget {
+  // Dato que recibios de la pantalla 1
+  final String? nombre;
 
-`  `// Dada que rebem de la pantalla 1
+  // Constructor
+  const Pantalla2({this.nombre, super.key});
 
-`  `final String? nom;
-
-`  `// Constructor
-
-`  `const Pantalla2({this.nom, super.key});
-
-`  `@override // Creació de l'estat
-
-`  `State<Pantalla2> createState() => \_Pantalla2State();
-
+  @override // Creación del estado
+  State<Pantalla2> createState() => _Pantalla2State();
 }
 
-// Estat de la pantalla 2, on definim el controlador
+// Estado de la pantalla 2, donde definimos  el controlador
+class _Pantalla2State extends State<Pantalla2> {
+  final TextEditingController _controlador = TextEditingController();
 
-class \_Pantalla2State extends State<Pantalla2> {
-
-`  `final TextEditingController \_controlador = TextEditingController();
-
-...
-
+  ...
 }
+```
 
-Y dentro del método **build** del estado tendremos el siguiente código, donde establecemos el gestor para el evento **onPressed** del botón de devolver datos, dentro del cual hacemos el **pop** proporcionando el contenido del TextField mediante su controlador.
+Y dentro del método `build` del estado tendremos el siguiente código, donde establecemos el gestor para el evento `onPressed` del botón de devolver datos, dentro del cual hacemos el `pop` proporcionando el contenido del TextField mediante su controlador.
 
+```dart
 Column(
-
+  ...
+  children: [
+    Text("Hola ${widget.nom}, introduce ahora un texto de retorno"),
+      TextField(
+        controller: _controlador,
+        ...
+        ),
+      ElevatedButton(
+        child: const Text('Devuelve datos'),
+          onPressed: () {
+            Navigator.pop(context, _controlador.text);
+            },
+            ),
+    ],
+  )
 ...
+```
 
-`  `children: [
-
-`    `Text("Hola·${widget.nom}, introdueix ara un text de retorn"),
-
-`      `TextField(
-
-`        `controller: \_controlador,
-
-...
-
-`        `),
-
-`      `ElevatedButton(
-
-`        `child: const Text('Retorna dades'),
-
-`          `onPressed: () {
-
-`            `Navigator.pop(context, \_controlador.text);
-
-`            `},
-
-`            `),
-
-`    `],
-
-`  `)
-
-...
-
-<a name="__codelineno-13-1"></a>Como podéis comprobar, el *nombre* que nos proporciona la primera pantalla se guarda en una propiedad nombre del giny *Pantalla2*, pero necesitamos acceder a él al método build de su estado. 
+Como podéis comprobar, el *nombre* que nos proporciona la primera pantalla se guarda en una propiedad nombre del giny *Pantalla2*, pero necesitamos acceder a él en el método `build` de su estado. 
 
 **Con el fin de acceder a una propiedad de un dueño desde su estado, hacemos uso de la propiedad widget del propio estado, que es una referencia al giny asociado a este estado.** Así pues, con el fin de crear un Texto con esta propiedad *nombre* como contenido, hemos hecho:
 
+```dart
 Text("Hola·${widget.nom}, introdueix ara un text de retorn")
+```
 
 En este caso, para hacer la interpolación de variables, sí hemos necesitado hacer uso de las claves para acotar el nombre completo de la variable: ${wigdet.nom}.
 
-Podemos ver el ejemplo completo en el siguiente Gist: <https://dartpad.dev/?id=e00d0a209437630e98997fb52271dff4>.
+En *el siguiente gist* podéis encontrar este código funcionando: 
+[https://dartpad.dev/embed-flutter.html?id=3a67eb229b967dfe1dc428cecad5d1bb](https://dartpad.dev/embed-flutter.html?id=3a67eb229b967dfe1dc428cecad5d1bb)
+
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=3a67eb229b967dfe1dc428cecad5d1bb"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
+
 
 ## Rutas con nombre
-Otra forma de utilizar el **Navigator** es haciendo uso de ***rutas con nombre***, que nos permiten referenciar las diferentes rutas desde diversos lugares de la aplicación. Cuando utilicemos el **Navigator** con rutas con nombre haremos uso del método **pushNamed** en lugar de **push** para apilar una nueva ruta.
 
-Hasta ahora, en las aplicaciones *MaterialApp*, hemos definido su propiedad **title** y su propiedad **home**, que hace referencia al widget que hará de página de inicio de la aplicación. Con el fin de definir *rutas con nombre*, lo que hacemos es añadir al *MaterialApp* una nueva propiedad llamada **routes**, y reemplazar la propiedad **home** por **initialRoute**, para definir así la ruta de inicio. Esta propiedad **routes** es un diccionario que asocia el nombre de la ruta con una función anónima para construir el contenido.
+Otra forma de utilizar el `Navigator` es haciendo uso de ***rutas con nombre***, que nos permiten referenciar las diferentes rutas desde diversos lugares de la aplicación. Cuando utilicemos el `Navigator` con rutas con nombre haremos uso del método `pushNamed` en lugar de `push` para apilar una nueva ruta.
+
+Hasta ahora, en las aplicaciones *MaterialApp*, hemos definido su propiedad `title` y su propiedad `home`, que hace referencia al widget que hará de página de inicio de la aplicación. Con el fin de definir *rutas con nombre*, lo que hacemos es añadir al *MaterialApp* una nueva propiedad llamada `routes`, y reemplazar la propiedad `home` por `initialRoute`, para definir así la ruta de inicio. Esta propiedad `routes` es un diccionario que asocia el nombre de la ruta con una función anónima para construir el contenido.
 
 Vemos un ejemplo donde vamos a adaptar el ejemplo de las tres pantallas anteriores, pero ahora haciendo uso de tres rutas con nombre:
 
+```dart
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-`  `const MyApp({super.key});
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return MaterialApp(
-
-`      `title: 'Rutes',
-
-`      `initialRoute: '/',
-
-`      `routes: {
-
-`        `'/': (context) => const Pantalla1(),
-
-`        `'/pantalla2': (context) => const Pantalla2(),
-
-`        `'/pantalla3': (context) => const Pantalla3(),
-
-`      `},
-
-`    `);
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Rutas',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const Pantalla1(),
+        '/pantalla2': (context) => const Pantalla2(),
+        '/pantalla3': (context) => const Pantalla3(),
+      },
+    );
+  }
 }
+```
 
-Como vemos, la propiedad **routes** define las siguientes rutas:
+Como vemos, la propiedad `routes` define las siguientes rutas:
 
-- El nombre de ruta **/**, que definirá la ruta a la *Pantalla1*, y que tal como indica la propiedad initialRoute es la ruta de inicio.
-- El nombre de ruta **pantalla2**, que definirá la ruta a la *Pantalla2*, y
-- El nombre de ruta **pantalla3**, que definirá la ruta a la *Pantalla3*.
+- El nombre de ruta `/`, que definirá la ruta a la *Pantalla1*, y que tal como indica la propiedad initialRoute es la ruta de inicio.
+  
+- El nombre de ruta `/pantalla2`, que definirá la ruta a la *Pantalla2*, y
+- El nombre de ruta `/pantalla3`, que definirá la ruta a la *Pantalla3*.
 
-Con el fin de realizar la navegación entre las diferentes pantallas mediante estos nombres, haremos uso del método **Navigator.pushNamed** de la siguiente forma:
+Con el fin de realizar la navegación entre las diferentes pantallas mediante estos nombres, haremos uso del método `Navigator.pushNamed` de la siguiente forma:
 
-Navigator.pushNamed(context, '/nom\_de\_la\_ruta');
+```dart
+Navigator.pushNamed(context, '/nombre_de_la_ruta');
+```
 
 Veamos el ejemplo completo con las tres rutas y los diferentes botones para navegar entre ellas:
 
+```dart
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-`  `const MyApp({super.key});
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return MaterialApp(
-
-`      `title: 'Rutes',
-
-`      `// En lloc del home, definim la ruta inicial
-
-`      `// i la llista de rutes amb nom.
-
-`      `initialRoute: '/',
-
-`      `routes: {
-
-`        `'/': (context) => const Pantalla1(),
-
-`        `'/pantalla2': (context) => const Pantalla2(),
-
-`        `'/pantalla3': (context) => const Pantalla3(),
-
-`      `},
-
-`    `);
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Rutas',
+      // En lugar de  home, definimos la ruta inicial
+      // y la lista de rutas con nombre.
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const Pantalla1(),
+        '/pantalla2': (context) => const Pantalla2(),
+        '/pantalla3': (context) => const Pantalla3(),
+      },
+    );
+  }
 }
 
-// Pantalla 1: Incorpora un botó per navegar a
-
-// la segona pantalla
+// Pantalla 1: Incorpora un botón para navegar a
+// la segunda pantalla
 
 class Pantalla1 extends StatelessWidget {
+  const Pantalla1({super.key});
 
-`  `const Pantalla1({super.key});
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return Scaffold(
-
-`      `appBar: AppBar(
-
-`        `title: const Text('Primera Pantalla'),
-
-`      `),
-
-`      `body: Center(
-
-`        `child: Column(
-
-`          `mainAxisAlignment: MainAxisAlignment.center,
-
-`          `children: [
-
-`            `ElevatedButton(
-
-`              `child: const Text('Anar a pantalla 2'),
-
-`              `onPressed: () {
-
-`                `Navigator.pushNamed(context, '/pantalla2');
-
-`              `},
-
-`            `),
-
-`          `],
-
-`        `),
-
-`      `),
-
-`    `);
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Primera Pantalla'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              child: const Text('Ir a pantalla 2'),
+              onPressed: () {
+                Navigator.pushNamed(context, '/pantalla2');
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
-// Pantalla 2: Incorpora un botó per tornar a la primera
-
-// pantalla i altre per navegar a la tercera pantalla
+// Pantalla 2: Incorpora un botón para volver a la primera
+// pantalla y otro para navegar a la tercera pantalla
 
 class Pantalla2 extends StatelessWidget {
+  const Pantalla2({super.key});
 
-`  `const Pantalla2({super.key});
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return Scaffold(
-
-`      `backgroundColor: Colors.indigo,
-
-`      `appBar: AppBar(
-
-`        `title: const Text("Segona Pantalla"),
-
-`      `),
-
-`      `body: Center(
-
-`        `child: Column(
-
-`          `mainAxisAlignment: MainAxisAlignment.center,
-
-`          `children: [
-
-`            `ElevatedButton(
-
-`              `child: const Text('Tornar a Pantalla 1'),
-
-`              `onPressed: () {
-
-`                `// Utilitzem canPop per evitar quedar-nos sense
-
-`                `// cap pantalla visible en l'aplicació.
-
-`                `if (Navigator.canPop(context)) Navigator.pop(context);
-
-`              `},
-
-`            `),
-
-`            `const Divider(height: 100),
-
-`            `ElevatedButton(
-
-`              `child: const Text('Anar a Pantalla 3'),
-
-`              `onPressed: () {
-
-`                `Navigator.pushNamed(context, '/pantalla3');
-
-`              `},
-
-`            `)
-
-`          `],
-
-`        `),
-
-`      `),
-
-`    `);
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.indigo,
+      appBar: AppBar(
+        title: const Text("Segunda Pantalla"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              child: const Text('Volver a la Pantalla 1'),
+              onPressed: () {
+                // Utilizamos canPop para evitar quedarnos sin
+                // ninguna pantalla visible en la aplicación.
+                if (Navigator.canPop(context)) Navigator.pop(context);
+              },
+            ),
+            const Divider(height: 100),
+            ElevatedButton(
+              child: const Text('Ir a Pantalla 3'),
+              onPressed: () {
+                Navigator.pushNamed(context, '/pantalla3');
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class Pantalla3 extends StatelessWidget {
+  const Pantalla3({super.key});
 
-`  `const Pantalla3({super.key});
-
-`  `@override
-
-`  `Widget build(BuildContext context) {
-
-`    `return Scaffold(
-
-`      `backgroundColor: Colors.amber,
-
-`      `appBar: AppBar(
-
-`        `title: const Text("Pantalla 3"),
-
-`      `),
-
-`      `body: Center(
-
-`        `child: ElevatedButton(
-
-`          `child: const Text('Tornar a Pantalla 1'),
-
-`          `onPressed: () {
-
-`            `Navigator.pushNamed(context, '/');
-
-`            `//Navigator.pushReplacementNamed(context, '/');
-
-`          `},
-
-`        `),
-
-`      `),
-
-`    `);
-
-`  `}
-
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.amber,
+      appBar: AppBar(
+        title: const Text("Pantalla 3"),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: const Text('Volver a Pantalla 1'),
+          onPressed: () {
+            Navigator.pushNamed(context, '/');
+            //Navigator.pushReplacementNamed(context, '/');
+          },
+        ),
+      ),
+    );
+  }
 }
+```
 
-- El método **canPop():** En la segunda pantalla se ha hecho uso del orden **canPop()** de la siguiente manera: **if (Navigator.canPop(context)) Navigator.pop(context);**. Este método nos devuelve un valor lógico si, como su nombre indica, la pantalla que tenemos *puede hacer pop*. Básicamente, esto lo podemos utilizar para asegurarnos de que la pantalla que vamos a quitar del tope de la pila no es la única que queda en esta. Si hiciéramos un **pop** en este caso, quitaríamos la pantalla de la pila y se quedaría la aplicación en negro.
-- Como vemos, cuando tenemos más de una pantalla en la pila de rutas, y por lo tanto se puede hacer **pop**, dispondremos de un icono en forma de flecha para ir atrás a la parte izquierda de la barra de la aplicación. Además, algunas plataformas ofrecen un sistema de navegación integrado en la misma interfaz de usuario, como por ejemplo Android, con el botón de ir atrás.
-- Finalmente, en la *Pantalla3* del ejemplo, aparece comentado el método **Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);**. Este método, lo que hace ahora es *vaciar* la pila y añadir la ruta que le indicamos al tope de la misma. Este método recibe un tercer parámetro, que es una función que indica qué rutas se deben eliminar de la pila. En este caso, como devolvemos siempre *false* indicamos que hay que borrar todas las rutas.
+[https://dartpad.dev/embed-flutter.html?id=8b0e80c0974757454d53a0c118aa8a30](https://dartpad.dev/embed-flutter.html?id=8b0e80c0974757454d53a0c118aa8a30)
+
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=8b0e80c0974757454d53a0c118aa8a30"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
+
+
+- El método `canPop()`: En la segunda pantalla se ha hecho uso del orden `canPop()` de la siguiente manera: `if (Navigator.canPop(context)) Navigator.pop(context);`. Este método nos devuelve un valor lógico si, como su nombre indica, la pantalla que tenemos *puede hacer pop*. Básicamente, esto lo podemos utilizar para asegurarnos de que la pantalla que vamos a quitar del tope de la pila no es la única que queda en esta. Si hiciéramos un `pop` en este caso, quitaríamos la pantalla de la pila y se quedaría la aplicación en negro.
+  
+- Como vemos, cuando tenemos más de una pantalla en la pila de rutas, y por lo tanto se puede hacer `pop`, dispondremos de un icono en forma de flecha para ir atrás a la parte izquierda de la barra de la aplicación. Además, algunas plataformas ofrecen un sistema de navegación integrado en la misma interfaz de usuario, como por ejemplo Android, con el botón de ir atrás.
+- Finalmente, en la *Pantalla3* del ejemplo, aparece comentado el método `Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);`. Este método, lo que hace ahora es *vaciar* la pila y añadir la ruta que le indicamos al tope de la misma. Este método recibe un tercer parámetro, que es una función que indica qué rutas se deben eliminar de la pila. En este caso, como devolvemos siempre *false* indicamos que hay que borrar todas las rutas.
 
 
 1. # Widgets de navegación
