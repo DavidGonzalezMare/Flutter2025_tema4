@@ -2260,16 +2260,20 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   frameborder="0">
 </iframe>
 
+# <a name="_apartado5"></a>5. Diálogos
 
-1. # Diálogos
 La [documentación de Material 3](https://m3.material.io/components/dialogs/guidelines#89a9e18e-b7d6-4a8b-9640-07c28a49f8c0) define un diálogo (también conocidos como *cuadros de diálogo*) como una *ventana modal que aparece ante el contenido de la aplicación para proporcionar información crítica o pedir una decisión.*
+
 ## Uso de diálogos
+
 El hecho de que los diálogos sean *modales* significa que se ubican delante de la interfaz, y desactivan todas las funcionalidades de la aplicación hasta que se realice la acción requerida por éstos.
 
 Dada su naturaleza *interruptiva* los diálogos deben utilizarse con moderación, y restringirlos a aquellas acciones que bloquean el funcionamiento normal de la aplicación, como pueda ser requerir una acción por parte del usuario, comunicar información crítica o ayudar a los usuarios a realizar una tarea.
 
 Para mostrar información menos prioritaria es preferible hacer uso de otros widgets que pueden ser descartados o que desaparecen de manera automática, como puedan ser los *SnackBars* o los *MaterialBanners* que ya hemos visto.
+
 ## Tipos de diálogos
+
 En Material distinguimos dos tipos de diálogos en cuanto a su presentación, los básicos y los diálogos a pantalla completa.
 
 Los diálogos básicos ocupan sólo una parte de la pantalla, pero dejan inaccesible el resto de pantalla. Dentro de estos podemos mostrar alertas o mensajes de confirmación que requieran de la atención del usuario y de alguna acción por su parte.
@@ -2278,253 +2282,183 @@ Por su parte, los diálogos a pantalla completa ocupan toda la pantalla y requie
 
 En la documentación de Material se nos explican los diferentes elementos que conforman un diálogo, tanto básico como de pantalla completa:
 
-![Interfaz de usuario gráfica, Aplicación
-
-Descripción generada automáticamente](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.020.png)
+![Diálogos](./images/imagen20.png)
 
 En éste, distinguimos los siguientes elementos:
 
 1. Contenedor del diálogo
-1. Icono (opcional)
-1. Cabecera (Opcional)
-1. Texto del diálogo
-1. Divisor (Divider, opcional)
-1. Acciones
-1. *Scrim*, una capa temporal entre el diálogo y la interfaz sobre la que se superpone, ocultándola parcialmente, y que hace posible este comportamiento *modal*.
+2. Icono (opcional)
+3. Cabecera (Opcional)
+4. Texto del diálogo
+5. Divisor (Divider, opcional)
+6. Acciones
+7. *Scrim*, una capa temporal entre el diálogo y la interfaz sobre la que se superpone, ocultándola parcialmente, y que hace posible este comportamiento *modal*.
 
 Por su parte, los diálogos modales tienen la siguiente estructura:
 
-![Interfaz de usuario gráfica
-
-Descripción generada automáticamente con confianza baja](Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.021.png)
+![Diálogos modales](./images/imagen21.png)
 
 Que contiene los siguientes elementos:
 
 1. Contenedor
-1. Espacio de la cabecera
-1. Icono para poder cerrar el diálogo
-1. Cabecera (opcional)
-1. Acciones
-1. Divisor (opcional)
+2. Espacio de la cabecera
+3. Icono para poder cerrar el diálogo
+4. Cabecera (opcional)
+5. Acciones
+6. Divisor (opcional)
 
 ## La clase Dialog y la función showDialog
-La clase base para trabajar con diálogos en Flutter es **Dialog**, aunque generalmente se hará uso de sus subclases **AlertDialog** y **SimpleDialog**.
 
-Para mostrar cualquier diálogo, hacemos uso de la función **showDialog**, definida en la librería *Material*. Esta función nos permite especificar diversos parámetros como los colores, las animaciones o el comportamiento de la barrera modal (*Scrim*).
+La clase base para trabajar con diálogos en Flutter es `Dialog`, aunque generalmente se hará uso de sus subclases `AlertDialog` y `SimpleDialog`.
+
+Para mostrar cualquier diálogo, hacemos uso de la función `showDialog`, definida en la librería *Material*. Esta función nos permite especificar diversos parámetros como los colores, las animaciones o el comportamiento de la barrera modal (*Scrim*).
 
 La definición de esta función es la siguiente:
 
+```dart
 Future<T?> showDialog<T>({
-
-`  `required BuildContext context,
-
-`  `required Widget Function(BuildContext) builder,
-
-`  `bool barrierDismissible = true,
-
-`  `Color? barrierColor = Colors.black54,
-
-`  `String? barrierLabel,
-
-`  `bool useSafeArea = true,
-
-`  `bool useRootNavigator = true,
-
-`  `RouteSettings? routeSettings,
-
-`  `Offset? anchorPoint,
-
+  required BuildContext context,
+  required Widget Function(BuildContext) builder,
+  bool barrierDismissible = true,
+  Color? barrierColor = Colors.black54,
+  String? barrierLabel,
+  bool useSafeArea = true,
+  bool useRootNavigator = true,
+  RouteSettings? routeSettings,
+  Offset? anchorPoint,
 })
+```
+
 
 Que contiene los siguientes parámetros obligatorios:
 
-- **context**: El contexto de construcción. Este se usará para conocer el *Navigator* y el *Theme* para el diálogo, pero no será un contexto compartido entre el diálogo y la ventana que lo invoca.
-- **builder**: Este segundo parámetro obligatorio es una función anónima que nos devuelve el widget correspondiente al diálogo. Dentro de esta función es donde deberemos crear su contenido.
+- `context`: El contexto de construcción. Este se usará para conocer el *Navigator* y el *Theme* para el diálogo, pero no será un contexto compartido entre el diálogo y la ventana que lo invoca.
+  
+- `builder`: Este segundo parámetro obligatorio es una función anónima que nos devuelve el widget correspondiente al diálogo. Dentro de esta función es donde deberemos crear su contenido.
 
 Además de estos, tenemos otros argumentos opcionales, entre ellos:
 
-- ***barrierDismisable***: un valor lógico con el que damos la posibilidad de cerrar el diálogo tocando en la parte exterior del mismo (la barrera modal o *scrim*). De manera predeterminada, toma valor *true*.
-- ***barrierColor***: nos permite especificar el color de la barrera modal (*scrim*).
-- ***useSafeArea***: Un valor lógico con valor predeterminado a cierto, y que establece si el campo de diálogo sólo debe mostrarse en áreas *seguras*, o lo que es lo mismo, zonas de la pantalla que no utiliza el sistema operativo.
+- `barrierDismisable`: un valor lógico con el que damos la posibilidad de cerrar el diálogo tocando en la parte exterior del mismo (la barrera modal o *scrim*). De manera predeterminada, toma valor *true*.
+  
+- `barrierColor`: nos permite especificar el color de la barrera modal (*scrim*).
+- `useSafeArea`: Un valor lógico con valor predeterminado a cierto, y que establece si el campo de diálogo sólo debe mostrarse en áreas *seguras*, o lo que es lo mismo, zonas de la pantalla que no utiliza el sistema operativo.
 
 Al igual que cuando trabajamos con la pila de rutas, el diálogo devuelve un Future mediante el método Navigator.pop() cuando cerramos el cuadro de diálogo.
 
 ### **AlertDialog**
-El **AlertDialog** se usa cuando queremos informar al usuario sobre ciertas situaciones que requieren alguna respuesta por su parte. Generalmente, se compone de un título (**title**), un contenido (**content**) y una lista de acciones (**actions**). Cuando el contenido es demasiado grande para caber en la pantalla, el título y las acciones se mantienen, y es el contenido el que se desborda. Para evitar esto, a menudo suele recurrirse a un **SingleChildScrollView** para que gestione el scroll en el contenido.
 
-Vemos cómo sería el código para crear un **AlertDialog** sencillo cuando se apriete un botón:
+El `AlertDialog` se usa cuando queremos informar al usuario sobre ciertas situaciones que requieren alguna respuesta por su parte. Generalmente, se compone de un título (`title`), un contenido (`content`) y una lista de acciones (`actions`). Cuando el contenido es demasiado grande para caber en la pantalla, el título y las acciones se mantienen, y es el contenido el que se desborda. Para evitar esto, a menudo suele recurrirse a un `SingleChildScrollView` para que gestione el scroll en el contenido.
+
+Vemos cómo sería el código para crear un `AlertDialog` sencillo cuando se apriete un botón:
+
+```dart
 
 ElevatedButton(
-
 onPressed: () {
-
-`    `// Quan es prem el botó mostrem el diàleg
-
-`    `showDialog(
-
-`        `// Proporcionem el context
-
-`        `context: context,
-
-`        `// I la funció (builder) que constueix el diàleg
-
-`        `builder: (context) {
-
-`        `// Aquesta consistirà en un AlertDialog que contindrà
-
-`        `// \* Un títol (title)
-
-`        `// \* El contingut (content)
-
-`        `// \* I un botó d'accions (De tipus TextButton)
-
-`        `return AlertDialog(
-
-`            `title: const Text("Exemple d'Alert Dialog"),
-
-`            `content: const Text("Contingut del quadre de diàleg"),
-
-`            `actions: [
-
-`            `TextButton(
-
-`                `// Quan es fa clic en aquest botó, es desapila
-
-`                `// el diàleg per tornar a la vista anterior.
-
-`                `onPressed: () {
-
-`                `Navigator.pop(context, "Cancel·lar");
-
-`                `},
-
-`                `child: const Text("Cancel·lar"),
-
-`            `),
-
-`            `],
-
-`        `);
-
-`        `});
-
+    // Cuando se pulse el botón mostramos el diálogo
+    showDialog(
+        // Proporcionamos el context
+        context: context,
+        // Y la función (builder) que construye el diálogo
+        builder: (context) {
+        // Consistirà en un AlertDialog que tendrá
+        // * Un título (title)
+        // * El contenido (content)
+        // * Y un botón de acciones(De tipus TextButton)
+        return AlertDialog(
+            title: const Text("Ejemplo de Alert Dialog"),
+            content: const Text("Contenido del cuadro de diálogo"),
+            actions: [
+            TextButton(
+                // Cuando se hace click en este botón se desapila
+                // el diálogo para volver a la vista anterior.
+                onPressed: () {
+                Navigator.pop(context, "Cancelar");
+                },
+                child: const Text("Cancelar"),
+            ),
+            ],
+        );
+        });
 },
-
-// Contingut de l'ElevatedButton
-
-child: const Text("Mostra un AlertDialog"),
-
+// Contenido del ElevatedButton
+child: const Text("Muestra un AlertDialog"),
 )
+```
 
-Como vemos, lo más habitual es proporcionarle al **AlertDialog** el título para la cabecera, el contenido del mismo y una lista con los diferentes botones de acción. Observe que estos botones son de tipo **TextButton**. Como el diálogo ya es un widget que contiene elevación, según las indicaciones de *Material Design*, no se deberían incluir otros elementos con elevación dentro, por eso dentro de un diálogo se hace uso de este tipo de botones. Ten en cuenta que, aunque al ejemplo solo hemos añadido un botón para simplificar, se trata de una lista en la que caben más botones.
+Como vemos, lo más habitual es proporcionarle al `AlertDialog` el título para la cabecera, el contenido del mismo y una lista con los diferentes botones de acción. Observe que estos botones son de tipo `TextButton`. Como el diálogo ya es un widget que contiene elevación, según las indicaciones de *Material Design*, no se deberían incluir otros elementos con elevación dentro, por eso dentro de un diálogo se hace uso de este tipo de botones. Ten en cuenta que, aunque al ejemplo solo hemos añadido un botón para simplificar, se trata de una lista en la que caben más botones.
 
-Finalmente, como veis, la forma de *cerrar* el diálogo es desapilando este de la pila de rutas mediante un **Navigator.pop**. Para ello es para lo que necesitamos proporcionarle el ***context*** en su creación, ya que sin él, no tendría acceso al *Navigator*. En este caso, además, cuando hacemos el ***pop***, devolvemos también el valor Cancelar.
+Finalmente, como veis, la forma de *cerrar* el diálogo es desapilando este de la pila de rutas mediante un `Navigator.pop`. Para ello es para lo que necesitamos proporcionarle el ***context*** en su creación, ya que sin él, no tendría acceso al *Navigator*. En este caso, además, cuando hacemos el ***pop***, devolvemos también el valor Cancelar.
 
 Como en todo widget de Material, necesitamos que este *AlertDialog* se encuentre dentro de un widget que tenga un ascendiente de tipo *Material*, como por ejemplo *MaterialApp*. En caso contrario, obtendremos la excepción *No MaterialLocalizations found*.
 
-Recuerde que no será suficiente con añadir el código directamente al **body** de un *MaterialApp*, sino que debe estar en otro widget y añadir éste al ***body***.
+Recuerde que no será suficiente con añadir el código directamente al `body` de un *MaterialApp*, sino que debe estar en otro widget y añadir éste al `body`.
 
 ### **Capturando el valor de retorno**
-Para informarnos sobre el valor que el usuario ha seleccionado al diálogo, se hace uso de un **Future**, con el valor de retorno. Podemos bien hacer uso de **async/await** para capturarlo, o bien tratando con este *Future* con el **then**. Por ejemplo:
 
+Para informarnos sobre el valor que el usuario ha seleccionado al diálogo, se hace uso de un `Future`, con el valor de retorno. Podemos bien hacer uso de `async/await` para capturarlo, o bien tratando con este *Future* con el `then`. Por ejemplo:
+
+```dart
 ElevatedButton(
-
-`  `onPressed: () {
-
-`    `// Quan es prem el botó mostrem el diàleg
-
-`    `Future<String?> resposta = showDialog(
-
-`        `// ...
-
-`    `);
-
-`    `// Quan es reba resposta la mostrarem per la consola
-
-`    `resposta.then((value) => debugPrint(value));
-
-`  `} 
-
-...
-
+  onPressed: () {
+    // Cuando se apriete el botón mostraremos el diálogo
+    Future<String?> resposta = showDialog(
+        // ...
+    );
+    // Cuando se reciba la respuesta la mostraremos por consola
+    resposta.then((value) => debugPrint(value));
+  } 
+  ...
 ),
-
+```
 En este ejemplo, si hacemos clic en el botón de *Cancelar*, se mostrará en la consola el texto *Cancelar*. 
 
-Otra forma de cerrar el diálogo, ya que no hemos especificado lo contrario a la propiedad **barrierDismisable** es haciendo clic en la parte exterior del diálogo. En este caso, el valor que nos devolverá será *null*. Si queremos que el usuario obligatoriamente haga clic en algún botón del diálogo para cerrar el mismo, deberíamos especificar este valor a *false* (**barrierDimisable: false**). 
+Otra forma de cerrar el diálogo, ya que no hemos especificado lo contrario a la propiedad `barrierDismisable` es haciendo clic en la parte exterior del diálogo. En este caso, el valor que nos devolverá será *null*. Si queremos que el usuario obligatoriamente haga clic en algún botón del diálogo para cerrar el mismo, deberíamos especificar este valor a *false* (`barrierDimisable: false`). 
 
-Otra opción es no devolver nada cuando se trata del valor Cancelar, y hacer directamente un **Navigator.pop(context)**, de manera que retorne *null* en ambos casos. Sabremos así que este es el valor que se nos devolverá cuando se cancela el diálogo de cualquiera de las dos formas.
+Otra opción es no devolver nada cuando se trata del valor Cancelar, y hacer directamente un `Navigator.pop(context)`, de manera que retorne *null* en ambos casos. Sabremos así que este es el valor que se nos devolverá cuando se cancela el diálogo de cualquiera de las dos formas.
 
 ## SimpleDialog
-La subclase **SimpleDialog** representa un diálogo un poco más avanzado, donde se ofrece al usuario la posibilidad de escoger entre diferentes opciones.
 
-Este diálogo contiene un título (aunque es opcional) y una lista con las diferentes opciones, que generalmente son widgets del tipo **SimpleDialogOption**. Estos widgets tendrán dos componentes: **onPressed** con la función anónima que determina la acción a realizar para la opción (generalmente cerrar el diálogo devolviendo un valor concreto), y el componente **child**, con el contenido que se mostrará en la opción (generalmente un texto).
+La subclase `SimpleDialog` representa un diálogo un poco más avanzado, donde se ofrece al usuario la posibilidad de escoger entre diferentes opciones.
+
+Este diálogo contiene un título (aunque es opcional) y una lista con las diferentes opciones, que generalmente son widgets del tipo `SimpleDialogOption`. Estos widgets tendrán dos componentes: `onPressed` con la función anónima que determina la acción a realizar para la opción (generalmente cerrar el diálogo devolviendo un valor concreto), y el componente `child`, con el contenido que se mostrará en la opción (generalmente un texto).
 
 Veámoslo en el siguiente ejemplo que presenta un diálogo con tres opciones:
 
+```dart
 showDialog(
-
-// Proporcionem el context
-
+// Proporcionamos el context
 context: context,
-
-// I la funció (builder) que constueix el diàleg
-
+// Y la función  (builder) que constituye el diálogo
 builder: (context) {
-
-`    `// Aquesta consistirà en un AlertDialog que contindrà
-
-`    `// \* Un títol (title)
-
-`    `// \* Diferents ginys (SimpleDialogOpcion) amb les opcions
-
-`    `return SimpleDialog(
-
-`    `title: const Text("Exemple d'Alert Dialog"),
-
-`    `children: <Widget>[
-
-`        `SimpleDialogOption(
-
-`        `onPressed: () {
-
-`            `Navigator.pop(context, "Opcio 1");
-
-`        `},
-
-`        `child: const Text('Opció 1'),
-
-`        `),
-
-`        `SimpleDialogOption(
-
-`        `onPressed: () {
-
-`            `Navigator.pop(context, "Opcio 2");
-
-`        `},
-
-`        `child: const Text('Opcio 2'),
-
-`        `),
-
-`        `SimpleDialogOption(
-
-`        `onPressed: () {
-
-`            `Navigator.pop(context, "Opcio 3");
-
-`        `},
-
-`        `child: const Text('Opcio 3'),
-
-`        `),
-
-`    `],
-
-`    `);
-
+    // Consistirá en un AlertDialog que contendrá
+    // * Un título (title)
+    // * Diferentes widgets (SimpleDialogOpcion) con las opciones
+    return SimpleDialog(
+    title: const Text("Ejemplo de Simple Dialog"),
+    children: <Widget>[
+        SimpleDialogOption(
+        onPressed: () {
+            Navigator.pop(context, "Opción 1");
+        },
+        child: const Text('Opción 1'),
+        ),
+        SimpleDialogOption(
+        onPressed: () {
+            Navigator.pop(context, "Opción 2");
+        },
+        child: const Text('Opción 2'),
+        ),
+        SimpleDialogOption(
+        onPressed: () {
+            Navigator.pop(context, "Opción 3");
+        },
+        child: const Text('Opción 3'),
+        ),
+    ],
+    );
 });
+```
 
 Como podemos ver, a pesar de tener una estructura diferente, se trabaja de manera parecida al AlertDialog.
 
@@ -2532,12 +2466,15 @@ Como podemos ver, a pesar de tener una estructura diferente, se trabaja de maner
 ### **Dialog**
 Las clases AlertDialog y SimpleDialog suelen ser suficientes para un gran número de situaciones. Sin embargo, a veces podemos necesitar hacer uso de la clase *Dialog* para generar un diálogo más personalizado.
 
-De momento **no lo vamos a ver**, aunque lo tenéis desarrollado en los enlaces en valenciano.
+De momento **no lo vamos a ver**.
 
-Podemos ver un ejemplo completo, con los tres tipos de Diálogos en el siguiente Gist: <https://dartpad.dev/?id=1b5ca965e57012bd287561f9fd516ff2>.
+Podemos ver un ejemplo completo, con los tres tipos de Diálogos en el siguiente Gist: 
 
+[https://dartpad.dev/embed-flutter.html?id=41ef2f48813d24726b2e657ed097047d](https://dartpad.dev/embed-flutter.html?id=41ef2f48813d24726b2e657ed097047d)
 
-[Interfaz de usuario gráfica, Aplicación
-
-Descripción generada automáticamente]: Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.012.png
-[Exemples de Drawer. Font: m3.material.io]: Aspose.Words.9c9cf301-0692-4c13-9505-e685ac591fdd.013.png
+<iframe
+  src="https://dartpad.dev/embed-inline.html?id=41ef2f48813d24726b2e657ed097047d"
+  width="100%"
+  height="500px"
+  frameborder="0">
+</iframe>
