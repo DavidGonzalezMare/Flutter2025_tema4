@@ -1,12 +1,17 @@
-﻿# Unidad 4. Formularios y Navegación
+﻿![Union europea](./images/union_europea.jpeg)  ![Generalitat](./images/generalitat.jpeg) ![Mare Nostrum](./images/mare_nostrum.png)
+
+<br>
+<br>
+
+# Unidad 4. Formularios y Navegación
 
 ![Navegación](./images/imagen01.png)
 
 En la unidad anterior vimos cómo organizar las interfaces de usuario mediante widgets en diferentes pantallas. En esta unidad vamos a abordar los dos aspectos que quedan con el fin de implementar interfaces en una aplicación informática: Los formularios y la navegación.
 
-La librería Material nos ofrece varios widgets con el fin de recoger la interacción y la entrada de datos por parte del usuario. Veremos cuáles son estos, y cómo Flutter hace uso de widgets con estado (Stateful con el fin de mantener su estado).
+La librería **Material** nos ofrece varios widgets con el fin de recoger la interacción y la entrada de datos por parte del usuario. Veremos cuáles son estos, y cómo Flutter hace uso de widgets con estado (`Stateful` con el fin de mantener su estado).
 
-En la segunda parte de la unidad veremos el widget Navigator, que será el encargado de facilitar la navegación entre las diferentes pantallas de la aplicación.
+En la segunda parte de la unidad veremos el widget `Navigator`, que será el encargado de facilitar la navegación entre las diferentes pantallas de la aplicación.
 
 [*1. Formularios. Widgets para formularios*](#_apartado1)
 
@@ -18,7 +23,8 @@ En la segunda parte de la unidad veremos el widget Navigator, que será el encar
 
 [*5. Diálogos*](#_apartado5)
 
-
+<br>
+<br>
 
 # <a name="_apartado1"></a> 1. Formularios. Widgets para formularios
 
@@ -32,6 +38,7 @@ Por otro lado, al tratarse de widgets de la librería Material, deben tener un a
 A continuación, vamos a ver algunos de estos widgets y sus principales propiedades, y se os proporcionarán referencias a la documentación oficial de Flutter para cada widget, donde podéis encontrar su descripción completa, más ejemplos y vídeos.
 
 ## El widget TextField
+
 Para capturar la entrada de texto del usuario podemos hacer uso de una caja de texto mediante el widget `TextField`. 
 
 ![TextField](./images/imagen02.png)
@@ -41,25 +48,37 @@ Algunas de las propiedades más interesantes de este widget son:
 - `bool autofocus`: Para poner el foco de la aplicación sobre este widget,
   
 - `int? maxLength`: Nos permite establecer el número máximo de caracteres.
+  
 - `TextInputType? keyboardType`: Establece el tipo de teclado en función de la información a introducir. Para ello hace uso de la clase TextInputType, con valores como TextInputType.datetime, TextInputType.emailAddress, TextInputType.multiline, TextInputType.name, TextInputType.number o TextInputType.phone.
+  
 - `InputDecoration? decoration` Permite establecer una decoración para la caja que rodea el widget.
+  
 - `bool obscureText`: Se trata de un valor booleano con el fin de ocultar los caracteres que escribimos, en campos que puedan contener información sensible, como un *password*.
+  
 - `String osbcuringCharanter`: Nos permite modificar el carácter a utilizar para ocultar campos sensibles.
+  
 - `void Function(String)? onChanged`: Se trata de una propiedad que contiene una función de *callback* que se dispara cuando el valor del texto cambia.
+  
 - `TextEditingController?` nos permite controlar el texto contenido en el TextView.
 
-### **Sobre el atributo decoration
-**
+### Sobre el atributo decoration
+
 El atributo `decoration` nos permite especificar mediante un widget de tipo `inputDecoration` el aspecto de la caja que rodea el campo de texto. Algunos de los aspectos que podemos modificar son:
 
 - `hintText`: Un texto de ayuda que se mostrará como valor cuando todavía no hemos introducido nada.
   
 - `labelText`: Un texto descriptivo que acompaña al TextInput.
+  
 - `Widget? label`: Sirve para añadir un texto como etiqueta. Esta propiedad no es compatible con la etiqueta labelText.
+  
 - `Widget? icon`: Para añadir un icono antes del cuadro de texto.
+  
 - `Widget? prefixIcon`: Para añadir un icono al inicio del cuadro de texto, pero dentro del mismo.
+  
 - `Widget? suffixIcon`: Para añadir un icono al final del cuadro de texto.
+  
 - `counterText`: Indica un texto que aparece en lugar del contador de caracteres, en la parte de abajo y a la derecha de la caja de texto.
+  
 - `helperText`: Indica un texto que aparece en la parte de abajo y a la izquierda de la caja de texto.
 
 Veamos algunas de estas propiedades en el siguiente ejemplo:
@@ -91,6 +110,8 @@ Veamos algunas de estas propiedades en el siguiente ejemplo:
 
 ![TextField3](./images/imagen04.png)
 
+<br>
+
 ### **Accediendo al valor del TextField**
 
 Si queremos acceder al valor del campo de texto, debemos hacerlo a través del evento `onChanged`, que se dispara cuando se modifica su contenido.
@@ -100,7 +121,7 @@ Un sencillo ejemplo, para mostrar el resultado por la terminal sería:
 ```dart
 TextField(
     onChanged: (text) {
-        debugPrint("Texto instroducido: "+text);
+        debugPrint("Texto instroducido: " + text);
     },
 )
 ```
@@ -175,6 +196,8 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   frameborder="0">
 </iframe>
 
+<br>
+
 ### **TextEditingController**
 
 En el ejemplo anterior hemos visto cómo acceder al contenido de un `TextField` cuando se producen cambios en el mismo, pero no hemos visto cómo acceder directamente a su contenido, bien sea para consultarlo o para establecer, por ejemplo, un valor inicial.
@@ -218,7 +241,7 @@ class _EjemploFormTextEditControllerState
   // un TextField, un Divider y un botón.
   // Tanto el TextField como el botón, se crean en
   // métodos aparte (creaTextField() i 
-  // creaBotonSubmit()) per facilitar la legibilitat.
+  // creaBotonSubmit()) para facilitar la legibilidad.
 
   @override
   Widget build(BuildContext context) {
@@ -279,7 +302,9 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   frameborder="0">
 </iframe>
 
-Ten en cuenta que para ver el mensaje que se muestra por consola tenéis que abrir ésta en el Visual Studio Code.
+Tened en cuenta que para ver el mensaje que se muestra por consola tenéis que abrir ésta en el Visual Studio Code.
+
+<br>
 
 ## Los Widgets DropDownButton y DropDownMenuItem
 
@@ -294,6 +319,7 @@ Los parámetros más importantes del constructor son:
 - `required List<DropDownMenuItem<T>> children`: Con la lista de elementos de tipo *DropDownMenuItem* parametrizada a un tipo *T*, que será el tipo genérico al que corresponderá el `value`. Los diferentes *DropDownMenuItems* necesitarán dos parámetros para construirse: un `child` con el widget que queremos visualizar, y un `value` con el valor 
   
 - `required void Function(<T>) onChanged`: Que especifica el callback que se disparará cuando cambie la selección del usuario.
+  
 - `<T> value`: Con el valor asociado al elemento de la lista.
 
 Veámoslo con un ejemplo sencillo:
@@ -328,8 +354,7 @@ Hay que tener en cuenta que cuando el usuario cambie la selección, en este ejem
 Para actualizar la interfaz, deberemos:
 
 1. Definir el widget donde se ubica el botón como un widget con estado,
-   
-2. Guardarnos en el estado del widget la opción seleccionada. En caso de querer darle un valor inicial, podemos hacerlo al `initState()`.
+2. Guardarnos en el estado del widget la opción seleccionada. En caso de querer darle un valor inicial, podemos hacerlo en `initState()`.
 3. Enlazar la propiedad `value` del widget con el valor del estado.
 4. Hacer uso del método `setState()` cuando se modifique la opción y, por lo tanto, cambie el value, con el fin de redibujar el widget con la nueva selección.
 
@@ -401,7 +426,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
 </iframe>
 
 
-El tipo de datos que usamos tanto para el `value` del DropdownButton, como para el `value` del DropdownMenuItem, como para el valor que guardaremos en el estado (`valorSeleccionado` en el ejemplo), así como para el tipo de datos que recibimos en el `onChanged` debe ser el mismo.
+El **tipo de datos** que usamos tanto para el `value` del DropdownButton, como para el `value` del DropdownMenuItem, como para el valor que guardaremos en el estado (`valorSeleccionado` en el ejemplo), así como para el tipo de datos que recibimos en el `onChanged` debe ser el mismo.
 
 Tengamos en cuenta  que la lista de opciones no tiene por qué ser una lista de elementos estática, sino que la podemos obtener también desde una estructura dinámica. Vemos en el siguiente ejemplo cómo añadiríamos una lista al estado y cómo crearíamos esta lista de opciones. Además, vamos ahora a utilizar valores de tipo *String* en lugar de enteros.
 
@@ -480,31 +505,37 @@ En *el siguiente gist* podéis encontrar este código funcionando:
 
 [Referència a la classe DropdownButton](https://api.flutter.dev/flutter/material/DropdownButton-class.html)
 
+<br>
+
 ---
 ### Actividad Voluntaria
 
 Crea un widget con estado que contenga los tres elementos siguientes organizados en forma de columna:
 
-- Un *DropdownButton*, con una lista de tres elementos.
-- Una división *Divider()*
-- Un *TextField*.
+- Un *`DropdownButton`*, con una lista de tres elementos.
+- Una división *`Divider()`*
+- Un *`TextField`*.
 
 El comportamiento será el siguiente:
 
-El usuario puede escribir lo que desee sobre el *TextField*, y cuando prema la tecla *Enter* (se lanza el evento onSubmit), deberá:
+El usuario puede escribir lo que desee sobre el *`TextField`*, y cuando pulse la tecla *Enter* (se lanza el evento onSubmit), deberá:
 
 - Añadir una nueva opción al *DropDownButton* con el valor del TextField.
 - Dejar esta última opción añadida como seleccionada.
 - Borrar el contenido del TextField.
+  
 ---
 
+<br>
 
 ## Los widgets Checkbox y CheckboxListTile
+
 ![CheckBox](./images/imagen06.png)
 
-Los widgets `Checkbox` y `CheckboxListTile` representan una casilla de selección típica de *Material Design*. El giny `Checkbox` representa una casilla aislada, mientras que el giny `CheckboxListTile`, además, acompaña esta casilla de selección con determinado contenido, generalmente un texto.
+Los widgets `Checkbox` y `CheckboxListTile` representan una casilla de selección típica de *Material Design*. El widget `Checkbox` representa una casilla aislada, mientras que el widget `CheckboxListTile`, además, acompaña esta casilla de selección con determinado contenido, generalmente un texto.
 
 Estas clases, por sí mismas no representarán visualmente su estado, sino que deberemos ser nosotros quienes proporcionemos esta funcionalidad. Para ello, cuando el usuario hace clic en la casilla provoca que se dispare el evento `onChanged()`, proporcionando el estado de la selección. El callback que gestione este evento será pues quien reconstruya el *checkbox* con el nuevo valor.
+
 
 Las casillas de selección pueden llegar a contener hasta tres estados. Aparte de *cierto* y *falso*, su valor también puede ser ***null*** si definimos la propiedad `tristate` a `true`. En este caso, cuando el valor del *Checkbox* sea nulo, se muestra un guión.
 
@@ -515,8 +546,10 @@ El constructor del `Checkbox` tiene varios parámetros, entre los que podemos de
 - `required bool? value`: con el valor que contendrá el Checkbox (*true*, *false* o *null*). Lo que haremos será utilizar una propiedad en el estado del widget que mantenga este valor.
   
 - `required void Function(bool?)? onChanged`: Define el *callback* que se dispara cuando el usuario hace click para cambiar la selección del botón.
+  
 - `{bool tristate = false}`: Indica si el *Checkbox* admitirá también como valor null o no.
-- `{Widget? title}`: Para los guiños de tipo `CheckboxListTile` contiene un widget que será el que acompañe, a modo de título en la casilla. Generalmente, contendrá un Text, pero puede contener cualquier elemento.
+  
+- `{Widget? title}`: Para los guiños de tipo `CheckboxListTile` contiene un widget que será el que acompañe, a modo de título en la casilla. Generalmente, contendrá un `Text`, pero puede contener cualquier elemento.
 
 Veamos un ejemplo de uso:
 
@@ -574,6 +607,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
 - [La classe Checkbox](https://api.flutter.dev/flutter/material/Checkbox-class.html)
 - [La classe CheckboxListTile](https://api.flutter.dev/flutter/material/CheckboxListTile-class.html)
 
+<br>
 
 ## Los widgets Switch y SwitchListTile
 ![Switch](./images/imagen07.png)
@@ -590,7 +624,7 @@ Las propiedades más relevantes del Switch son:
 
 Hay que tener en cuenta que no tiene el mismo efecto asociar una función vacía al evento `onChanged` que asociarle un valor *nulo*. En el primer caso, el widget estará activo, aunque no cambiará de estado cuando hagamos *clic* en él, mientras que en el segundo, el componente estará inhabilitado.
 
-Por su parte, el widget `SwitchListTile` sería para el Switch lo que el `heckBoxListTile` es para el `Checkbox` Es decir, un Switch con un widget (generalmente un texto) asociado. Además de las propiedades value y onChanged este widget, entre otros, admite:
+Por su parte, el widget `SwitchListTile` sería para el Switch lo que el `CheckBoxListTile` es para el `Checkbox` Es decir, un Switch con un widget (generalmente un texto) asociado. Además de las propiedades `value` y `onChanged` este widget, entre otros, admite:
 
 - `title`: Un widget que sirve como título para el switch y que se ubica a la izquierda del interruptor. En este caso, el widget ocupará todo el ancho disponible del contenedor padre.
   
@@ -601,7 +635,7 @@ Por su parte, el widget `SwitchListTile` sería para el Switch lo que el `heckBo
 Si deseamos gestionar el estado del componente, será necesario que creamos un wiget con estado personalizado y lo actualicemos siempre que se interactúe con él, al igual que hacemos en el *CheckBox*. El código para ello será:
 
 ```dart
-// 1. Deinimos el widger con estado
+// 1. Definimos el widget con estado
 class MySwitch extends StatefulWidget {
   const MySwitch({
     Key? key,
@@ -658,6 +692,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
 - [Referència de la classe Switch](https://api.flutter.dev/flutter/material/Switch-class.html)
 - [Referència de la classe SwitchListTile](https://api.flutter.dev/flutter/material/SwitchListTile-class.html)
 
+<br>
 
 ## Los widgets Radio y RadioListTile
 
@@ -669,11 +704,12 @@ Estas clases deben estar parametrizadas por un tipo genérico, que generalmente 
 
 Como los widgets vistos anteriormente, también dependen de un antecesor de tipo Material, y tampoco mantienen el estado, por lo que debemos gestionarlos nosotros.
 
-Las propiedades obligatorias para estos tipos de giny son:
+Las propiedades obligatorias para estos tipos de widget son:
 
 - `value`: El valor asociado al botón en sí, y será del tipo genérico del mismo.
   
 - `groupValue`: El valor seleccionado actualmente en un grupo de botones de opciones. 
+  
 - `onChanged`: El callback que se llama cuando se selecciona un botón.
 
 El widget `Radio`, por sí mismo no tiene ningún texto asociado, por lo que si queremos utilizarlo habría que crear otro widget donde el `Radio` estuviera acompañado por algún `Text`, como un `Row` o un `Column`. 
@@ -753,7 +789,7 @@ class _MyRadioWidgetState extends State<MyRadioWidget> {
 }
 ```
 
-La clave para gestionar este tipo de widgets se encuentra en la propiedad privada `_value` que es la que define el estado del widget, así como en las propiedades `value` y `groupValue` de cada `Radio`. La primera (`value`) define el valor predeterminado para cada opción, mientras que la segunda (`groupValue`) define para el mismo grupo de botones qué valor está seleccionado. Como asociamos con los botones al valor `_valor` definido en el estado, ambos botones estarán en el mismo grupo.
+La clave para gestionar este tipo de widgets se encuentra en la propiedad privada `_value` que es la que define el estado del widget, así como en las propiedades `value` y `groupValue` de cada `Radio`. La primera (`value`) define el valor predeterminado para cada opción, mientras que la segunda (`groupValue`) define **para el mismo grupo de botones** qué valor está seleccionado. Como asociamos con los botones al valor `_valor` definido en el estado, ambos botones estarán en el mismo grupo.
 
 En *el siguiente gist* podéis encontrar este código funcionando: 
 [https://dartpad.dev/embed-flutter.html?id=0143d202d9fdabb65acb8c933916a9a5](https://dartpad.dev/embed-flutter.html?id=0143d202d9fdabb65acb8c933916a9a5)
@@ -769,24 +805,28 @@ En *el siguiente gist* podéis encontrar este código funcionando:
 - [La classe Radio](https://api.flutter.dev/flutter/material/Radio-class.html)
 - [La classe RadioListTile](https://api.flutter.dev/flutter/material/RadioListTile-class.html)
 
+<br>
 
 ## El widget Slider
+
 ![Slider](./images/imagen10.png)
 
 Este componente de Material consiste en una barra de desplazamiento utilizada con el fin de escoger un valor en un rango de valores posibles.
 
-Las propiedades obligatorias para el constructor serán:
+Las propiedades **obligatorias** para el constructor serán:
 
 - `value`: Contendrá el valor actual del Slider.
   
-- `onChanged`* Define el método que se invocará cuando se produce un cambio en la barra de desplazamiento.
+- `onChanged` Define el método que se invocará cuando se produce un cambio en la barra de desplazamiento.
 
 Otras propiedades que podremos establecer en el constructor, entre otras son:
 
 - `min`: El valor mínimo que se puede seleccionar. Si no se especifica nada, este valor será 0.0.
   
 - `max`: El valor máximo que se puede seleccionar. Si no se especifica, el valor másimo será 1.0.
+  
 - `divisions`: El número de divisiones *discretas* que tiene el Slider. Si no se indica nada, podrá tomar cualquier valor entre el mínimo y el máximo definidos. El valor que nos devolverá siempre el Slider será con decimales, por lo que, si queremos valores enteros habrá que hacer una conversión.
+  
 - `label`: El texto que se muestra al lado del widget cuando cambia de valor.
 
 Como el resto de elementos vistos en este apartado, la gestión del estado del giny la tendremos que hacer nosotros.
@@ -839,24 +879,27 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   frameborder="0">
 </iframe>
 
+[**La clase Slider**](https://api.flutter.dev/flutter/material/Slider-class.html)
+
 ---
 ### Ejercicio voluntario
 
 Crea un selector de color mediante sus componentes de rojo, verde y azul. Para ello utiliza un contenedor de 500x500, que muestre el color resultante, y tres Sliders, con valores posibles  del 0 al 255, y que nos permitan seleccionar la cantidad de rojo, verde y azul del color del contenedor.
-***
+<hr>
 
-[**La clase Slider**](https://api.flutter.dev/flutter/material/Slider-class.html)
-
+<br>
+<br>
+<br>
 
 # <a name="_apartado2"></a>2. Trabajando con formularios
 
 ## Formularios con validaciones
 
-A menudo, cuando trabajamos con formularios necesitamos realizar validaciones o acceder desde un componente del formulario a otro. Para ello necesitaremos indicar de alguna manera qué widgets pertenecen al mismo formulario, y por lo tanto, tienen acceso al resto de widgets del mismo.
+A menudo, cuando trabajamos con formularios necesitamos realizar validaciones o acceder desde un componente del formulario a otro. Para ello necesitaremos indicar de alguna manera **qué widgets pertenecen al mismo formulario**, y por lo tanto, tienen acceso al resto de widgets del mismo.
 
 El widget `Form` es un contenedor pensado expresamente para esta finalidad: agrupar diversos widgets y, además, posibilitar las validaciones sobre determinados campos. Para ello, cada widget individual debe rodearse de un widget de tipo `FormField` que aporta diversas funcionalidades al widget como las validaciones y actualizaciones del formulario.
 
-Ahí es donde vamos a hacer uso, por primera vez de las claves de los widgets. Con ellas podremos identificar el formulario con el que estamos trabajando y hacer posibles las validaciones posteriormente.
+Ahí es donde vamos a hacer uso, por primera vez de **las claves de los widgets**. Con ellas podremos identificar el formulario con el que estamos trabajando y hacer posibles las validaciones posteriormente.
 
 En el cookbook [*Build a form with validation*](https://docs.flutter.dev/cookbook/forms/validation) de la documentación oficial de Flutter se nos presenta el proceso general para realizar validaciones en un formulario.
 
@@ -865,6 +908,7 @@ En general, y tal y como se comenta en la documentación, el procedimiento a seg
 1. Crear un widget con estado personalizado, cuyo estado contenga una clave global (*GlobalKey*) con el que identificar el formulario. El método build del estado devolverá un widget de tipo Form con el formulario.
    
 2. Dentro del `Form`, añadiremos tantos widgets de tipo `FormField` como necesitemos, con la lógica de validación de cada uno.
+   
 3. Añadir un botón para la validación y procesado del formulario.
 
 La clase `GlobalKey` es una subclase de `Key`, con la peculiaridad de que no sólo permite su acceso desde la propia jerarquía en el árbol de widgets, sino que lo permite desde cualquier lugar de la aplicación.
@@ -912,8 +956,9 @@ class FormularioPersonalizadoState extends State<FormularioPersonalizado> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      // Añadimos como clave del formulario la clave _formKey que hemos generado      key: _formKey,
-      // Organitzem els diferents ginys del formulari dins un ListView
+      // Añadimos como clave del formulario la clave _formKey que hemos generado      
+      key: _formKey,
+      // Organizamos los distintos widgets del formulario dentro de un ListView
       child: ListView(
         children: <Widget>[
            ... // Aquí van los diferentes widgets del formulario
@@ -943,7 +988,7 @@ FormField(
     // En este caso queremos comprobar que se haya marcado el check.
     validator: (value) {
       // La primera "!" és para hacer la negación
-      // La segona "!" para  indicar que el valor no será null
+      // La segunda "!" para  indicar que el valor no será null
       if (!value!) { 
         return 'Se debe marcar la casilla';
       }
@@ -973,13 +1018,14 @@ FormField(
   );
 ```
 
-Observe bien cómo se producen los cambios de estado en el ***FormField***: Cuando el `Checkbox` captura el evento `onChanged` recibe en este el nuevo valor del estado `(bool? value)`. Entonces, lo que hacemos es actualitar el estado invocando el método `didChange` del field, y proporcionándole a éste el nuevo valor (`SetState(){ field.diChanhe(value); }`). Este método actualizará el estado del campo con el valor que le proporcionamos. Por otro lado, observamos también cómo este valor del campo debe asignarse a la propiedad `value` del `Checkbox`, para que el widget refleje el estado.
+Observe bien cómo se producen los cambios de estado en el ***FormField***: Cuando el `Checkbox` captura el evento `onChanged` recibe en este el nuevo valor del estado `(bool? value)`. Entonces, lo que hacemos es actualitar el estado invocando el método `didChange` del field, y proporcionándole a éste el nuevo valor (`SetState(){ field.didChange(value); }`). Este método actualizará el estado del campo con el valor que le proporcionamos. Por otro lado, observamos también cómo este valor del campo debe asignarse a la propiedad `value` del `Checkbox`, para que el widget refleje el estado.
 
 Un caso particular de ***FormField*** es el widget ***TextFormField***. Este widget es equivalente a un ***TextField*** pero con propiedades características de un ***FormField***, como por ejemplo, el parámetro `validator` para realizar las validaciones.
 
 Otra opción que suele usarse en lugar de rodear nuestro widget con el ***FormField*** es crear una nueva clase que sea una especialización del FormField, de manera que herede todas sus propiedades, y que defina adicionalmente el widget que queremos representar. De esta manera, podremos utilizar nuestro widget de manera similar a como utilizaríamos el TextFormField. Podéis leer el procedimiento en los artículos [Making en Custom FordField y Flutter](https://uncoded-decimal.medium.com/making-a-custom-formfield-in-flutter-135558c22f05) y [Creating Custom Form Fields in Flutter](https://medium.com/saugo360/creating-custom-form-fields-in-flutter-85a8f46c2f41).
 
 ### **Paso 3. Procesamiento del formulario**
+
 Generalmente, haremos uso de un botón con el fin de validar y procesar la información del formulario. En caso de que los campos del mismo sean correctos se procesará el formulario, y en caso contrario, se marcarán los errores que se han cometido.
 
 Aquí es donde entrará en juego la ***key*** asociada al ***Form***. Esta clave ofrece el método `currentState` para acceder al estado (objeto de la clase `FormState`) del formulario, que es generado de manera automática cuando se crea el formulario. 
@@ -999,8 +1045,10 @@ ElevatedButton(
   child: const Text('Enviar'),
 )
 ```
+<br>
 
 ## Ejemplo completo
+
 En el siguiente código dispone de un ejemplo completo, que simula un formulario de registro simplificado, con un campo de texto para recoger un correo electrónico y un ***checkbox*** para aceptar las condiciones del registro.
 
 Las validaciones que se realizarán serán:
@@ -1026,9 +1074,9 @@ class MyRegisterForm extends StatefulWidget {
 
 // Creamos una clase de tipo State
 class MyRegisterFormState extends State<MyRegisterForm> {
-  // Para esta clase vamos a crear una clve global, de tipo
+  // Para esta clase vamos a crear una clave global, de tipo
   // FormState que nos sirva para identificar el widget en 
-  // el árbolo de widgets y por tanto poder validar el formulario.
+  // el árbol de widgets y por tanto poder validar el formulario.
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _controlador = TextEditingController();
@@ -1091,7 +1139,8 @@ class MyRegisterFormState extends State<MyRegisterForm> {
             borderRadius: BorderRadius.circular(10),
           ),
           icon: const Icon(Icons.email),
-          labelText: "Dirección de correo"),
+          labelText: "Dirección de correo",
+      ),
     );
   }
 
@@ -1175,6 +1224,8 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   frameborder="0">
 </iframe>
 
+<br>
+<br>
 
 # <a name="_apartado3"></a>3. Navegación
 
@@ -1186,7 +1237,7 @@ A medida que el usuario navega por las diferentes pantallas de la aplicación, e
 
 ## Rutas y rutas con nombre
 
-En Flutter, las diferentes páginas o pantallas que componen nuestras aplicaciones y que permiten la navegación entre ellas suelen conocerse como rutas.
+En Flutter, las diferentes páginas o pantallas que componen nuestras aplicaciones y que permiten la navegación entre ellas suelen conocerse como **rutas**.
 
 Con el fin de navegar entre diferentes rutas, podemos hacer uso del objeto Navigator y sus métodos **push** y **pop**, para apilar y desapilar rutas, o bien hacer uso de rutas con nombre.
 
@@ -1221,6 +1272,8 @@ if (Navigator.canPop(context)) Navigator.pop(context);
 Vemos un ejemplo en el que podemos navegar entre tres pantallas a través de varios botones siguiendo el siguiente esquema de navegación:
 
 ![Navegación](./images/imagen11.png)
+
+<br>
 
 ```dart
 import 'package:flutter/material.dart';
@@ -1368,7 +1421,7 @@ class Pantalla2 extends StatelessWidget {
 }
 ```
 
-Como vemos, hemos definido una nueva propiedad *nom*, que se instancia en el mismo constructor. Como podemos ver, esta propiedad se ha definido como *final*, de manera que podamos declarar al constructor como constante.
+Como vemos, hemos definido una nueva propiedad *`nom`*, que se instancia en el mismo constructor. Como podemos ver, esta propiedad se ha definido como *`final`*, de manera que podamos declarar al constructor como constante.
 
 Ahora podemos, por ejemplo, desde un widget que contiene algún campo de texto, proporcionarle la información del mismo. En el siguiente código hemos definido un widget con estado que contiene un `TextField` gestionado por un controlador, y un botón, que al ser pulsado envía el valor de este campo de texto a la segunda pantalla:
 
@@ -1465,7 +1518,7 @@ A veces, es posible que además de enviar datos a un widget, necesitamos recibir
 Para conseguir esto, solo debemos proporcionar este valor de retorno, junto con el contexto, cuando *desapilamos* la ruta de la pila con el método pop:
 
 ```dart
-Navigator.pop(context, ValorDeRetorn);
+Navigator.pop(context, ValorDeRetorno);
 ```
 
 Esto implicará también cambios a la hora de *recibir* esta información en la pantalla que quedará ahora en la cima de la pila, ya que **esta respuesta se obtendrá de forma asíncrona**, de manera que la invocación se realizaría siguiendo el siguiente esquema:
@@ -1509,7 +1562,7 @@ class _Pantalla1State extends State<Pantalla1> {
 Además, dentro de esta clase para el estado de la pantalla, definiremos el siguiente método que se encargará de hacer la invocación en la *Pantalla2*:
 
 ```dart
-_invocarPantalla2(BuildContext context) async {
+void _invocarPantalla2(BuildContext context) async {
   String respuesta = await Navigator.push(
      context,
     MaterialPageRoute(builder: (context) => Pantalla2(nom: _controlador.text)),
@@ -1576,18 +1629,18 @@ Column(
           onPressed: () {
             Navigator.pop(context, _controlador.text);
             },
-            ),
+        ),
     ],
   )
 ...
 ```
 
-Como podéis comprobar, el *nombre* que nos proporciona la primera pantalla se guarda en una propiedad nombre del giny *Pantalla2*, pero necesitamos acceder a él en el método `build` de su estado. 
+Como podéis comprobar, el *nombre* que nos proporciona la primera pantalla se guarda en una propiedad `nombre` del widget *Pantalla2*, pero necesitamos acceder a él en el método `build` de su estado. 
 
 **Con el fin de acceder a una propiedad de un dueño desde su estado, hacemos uso de la propiedad widget del propio estado, que es una referencia al giny asociado a este estado.** Así pues, con el fin de crear un Texto con esta propiedad *nombre* como contenido, hemos hecho:
 
 ```dart
-Text("Hola·${widget.nom}, introdueix ara un text de retorn")
+Text("Hola·${widget.nom}, introduce ahora un texto de retorno")
 ```
 
 En este caso, para hacer la interpolación de variables, sí hemos necesitado hacer uso de las claves para acotar el nombre completo de la variable: ${wigdet.nom}.
@@ -1602,6 +1655,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   frameborder="0">
 </iframe>
 
+<br>
 
 ## Rutas con nombre
 
@@ -1635,7 +1689,6 @@ class MyApp extends StatelessWidget {
 Como vemos, la propiedad `routes` define las siguientes rutas:
 
 - El nombre de ruta `/`, que definirá la ruta a la *Pantalla1*, y que tal como indica la propiedad initialRoute es la ruta de inicio.
-  
 - El nombre de ruta `/pantalla2`, que definirá la ruta a la *Pantalla2*, y
 - El nombre de ruta `/pantalla3`, que definirá la ruta a la *Pantalla3*.
 
@@ -1776,13 +1829,17 @@ class Pantalla3 extends StatelessWidget {
 - El método `canPop()`: En la segunda pantalla se ha hecho uso del orden `canPop()` de la siguiente manera: `if (Navigator.canPop(context)) Navigator.pop(context);`. Este método nos devuelve un valor lógico si, como su nombre indica, la pantalla que tenemos *puede hacer pop*. Básicamente, esto lo podemos utilizar para asegurarnos de que la pantalla que vamos a quitar del tope de la pila no es la única que queda en esta. Si hiciéramos un `pop` en este caso, quitaríamos la pantalla de la pila y se quedaría la aplicación en negro.
   
 - Como vemos, cuando tenemos más de una pantalla en la pila de rutas, y por lo tanto se puede hacer `pop`, dispondremos de un icono en forma de flecha para ir atrás a la parte izquierda de la barra de la aplicación. Además, algunas plataformas ofrecen un sistema de navegación integrado en la misma interfaz de usuario, como por ejemplo Android, con el botón de ir atrás.
+  
 - Finalmente, en la *Pantalla3* del ejemplo, aparece comentado el método `Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);`. Este método, lo que hace ahora es *vaciar* la pila y añadir la ruta que le indicamos al tope de la misma. Este método recibe un tercer parámetro, que es una función que indica qué rutas se deben eliminar de la pila. En este caso, como devolvemos siempre *false* indicamos que hay que borrar todas las rutas.
+
+<br>
+<br>
 
 # <a name="_apartado4"></a>4. Widgets de navegación
 
 En el apartado anterior hemos visto cómo trabaja la navegación entre diferentes pantallas mediante el componente *Navigator* y las rutas. 
 
-Presentaremos ahora algunos widgets que nos serán de gran ayuda en la navegación, como los Drawers (literalmente *cajoneras*, por su aspecto), las pestañas o las barras y *raíls* de navegación.
+Presentaremos ahora algunos widgets que nos serán de gran ayuda en la navegación, como los `Drawers` (literalmente *cajoneras*, por su aspecto), las pestañas o las barras y *`rails`* de navegación.
 
 ## El componente Drawer
 
@@ -1812,10 +1869,14 @@ Con `ModalRoute.of(context)` obtenemos la ruta más cercana a nuestro contexto, 
 De esta manera, compararemos esta *ruta actual* con la ruta destino, de manera que sólo realizamos la navegación si esta ruta no es la misma:
 
 ```dart
-String currentRoute = (ModalRoute.of(context)?.settings.name).toString();
+  if (currentRoute != "/") {
+    Navigator.of(context).pushReplacementNamed('/');
+  }
 ```
 
 Observe también que estamos haciendo uso del método `pushReplacementNamed`, con el fin de reemplazar la ruta en la pila, de manera que sea el *Drawer* quien gestione la navegación y no nos aparezca el icono de *Ir Atrás*. De hecho, en su lugar, aparecerá el icono del menú para desplegar el Drawer.
+
+En *el siguiente gist* podéis encontrar este código funcionando: 
 
 [https://dartpad.dev/embed-flutter.html?id=4714cff25cc4fb552c81763132234601](https://dartpad.dev/embed-flutter.html?id=4714cff25cc4fb552c81763132234601)
 
@@ -1826,8 +1887,10 @@ Observe también que estamos haciendo uso del método `pushReplacementNamed`, co
   frameborder="0">
 </iframe>
 
+<br>
 
 ## Navegación con Tabs
+
 Otro mecanismo de navegación definido en la librería Material son los Tabs o pestañas, que nos permiten organizar el contenido en diferentes pantallas o agrupaciones de datos.
 
 Material define dos tipos de pestañas: las principales y las secundarias, de manera que hacen posible la organización del contenido en categorías para facilitar el acceso a la información por parte del usuario.
@@ -1835,6 +1898,7 @@ Material define dos tipos de pestañas: las principales y las secundarias, de ma
 Estas pestañas se ubican una al lado de la otra, distinguiendo entre categorías de igual importancia, y admiten desplazamiento horizontal, de manera que podemos disponer de tantas pestañas como sea necesario.
 
 ### **Los Widgets TabBar y TabBarView**
+
 ![TabBar](./images/imagen15.png)
 
 Con Flutter podemos crear una fila de pestañas con el componente `TabBar`, que generalmente se ubicará en la parte inferior de la barra de la aplicación. Además, el `TabBar` trabajará conjuntamente con el widget `TabBarView`, que será el contenedor donde se visualizará el contenido de las diferentes pestañas, y con un `TabController`, para controlar el comportamiento de las mismas.
@@ -1933,6 +1997,8 @@ class MyStatelessWidget extends StatelessWidget {
 }
 ```
 
+En *el siguiente gist* podéis encontrar este código funcionando: 
+
 [https://dartpad.dev/embed-flutter.html?id=37a03cce1d60ad90865f1ab200afbe83](https://dartpad.dev/embed-flutter.html?id=37a03cce1d60ad90865f1ab200afbe83)
 
 <iframe
@@ -1942,8 +2008,11 @@ class MyStatelessWidget extends StatelessWidget {
   frameborder="0">
 </iframe>
 
+<br>
 
 Como veis, cada elemento hijo del `TabBarView` lo hemos definido como un widget de tipo `Center` con un texto. Cuando creamos nuestras aplicaciones con esta navegación, lo que haremos será instanciar aquí **nuestros widgets personalizados**.
+
+<br>
 
 ## Navigation bar
 
@@ -2101,6 +2170,8 @@ class _ExempleBottomNavigationBarState
 
 En el ejemplo anterior, notemos que con el fin de modificar el contenido de la AppBar en función del índice, hemos aplicado el mismo mecanismo que para el `body`, de manera que hagamos uso del índice seleccionado actualmente para establecer uno u otro elemento de la lista de AppBar.
 
+En *el siguiente gist* podéis encontrar este código funcionando: 
+
 [https://dartpad.dev/embed-flutter.html?id=fe8d6ca53dcef2bb137b6c74df73fd60](https://dartpad.dev/embed-flutter.html?id=fe8d6ca53dcef2bb137b6c74df73fd60)
 
 <iframe
@@ -2111,15 +2182,17 @@ En el ejemplo anterior, notemos que con el fin de modificar el contenido de la A
 </iframe>
 
 
---- 
-¿Cuándo utilizar barras de navegación o pestañas?
+<hr> 
+### ¿Cuándo utilizar barras de navegación o pestañas?
 
 Las barras de navegación se usan para acceder a destinos principales de la aplicación, y que requieren ser accesibles desde cualquier lugar de la misma. 
 
 Además, se aconseja cuando puedan haber entre tres y cinco destinos. En caso de haber más, ya haríamos uso de diferentes pestañas, ya que éstas permiten el desplazamiento horizontal entre ellas.
 
 Además, el uso de estas barras solo se aconseja para dispositivos móviles o tabletas. 
-***
+<hr>
+
+<br>
 
 ## Navigation Rail
 
@@ -2148,7 +2221,6 @@ Como vemos, dentro del `body` hemos añadido una columna (`Row`), cuyo primer el
 Algunas de las propiedades básicas del `NavigationRail` son las siguientes:
 
 - `selectedIndex`: El índice del destino seleccionado.
-  
 - `onDestinationSelected`: Define el callback que se invoca cuando el usuario elige un destino.
 - `destinations` Una lista de elementos de tipo `NavigationRailDestination`, con los diferentes destinos. Estos elementos, entre otros pueden tener las propiedades `icon` (icono), `selectedIcon` (icono cuando está seleccionada), o `label` con la etiqueta del destino.
 - `labelType`: Un valor de tipo `NavigationRailLabelType` que indica cómo se muestran las etiquetas en los iconos. Sus valores pueden ser `all` para mostrar todas las etiquetas, `none` para no ver ninguna, o `selected`, para mostrar sólo la etiqueta del destino seleccionado.
@@ -2260,6 +2332,9 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   frameborder="0">
 </iframe>
 
+<br>
+<br>
+
 # <a name="_apartado5"></a>5. Diálogos
 
 La [documentación de Material 3](https://m3.material.io/components/dialogs/guidelines#89a9e18e-b7d6-4a8b-9640-07c28a49f8c0) define un diálogo (también conocidos como *cuadros de diálogo*) como una *ventana modal que aparece ante el contenido de la aplicación para proporcionar información crítica o pedir una decisión.*
@@ -2307,6 +2382,8 @@ Que contiene los siguientes elementos:
 5. Acciones
 6. Divisor (opcional)
 
+<br>
+
 ## La clase Dialog y la función showDialog
 
 La clase base para trabajar con diálogos en Flutter es `Dialog`, aunque generalmente se hará uso de sus subclases `AlertDialog` y `SimpleDialog`.
@@ -2345,7 +2422,9 @@ Además de estos, tenemos otros argumentos opcionales, entre ellos:
 
 Al igual que cuando trabajamos con la pila de rutas, el diálogo devuelve un Future mediante el método Navigator.pop() cuando cerramos el cuadro de diálogo.
 
-### **AlertDialog**
+<br>
+
+## **AlertDialog**
 
 El `AlertDialog` se usa cuando queremos informar al usuario sobre ciertas situaciones que requieren alguna respuesta por su parte. Generalmente, se compone de un título (`title`), un contenido (`content`) y una lista de acciones (`actions`). Cuando el contenido es demasiado grande para caber en la pantalla, el título y las acciones se mantienen, y es el contenido el que se desborda. Para evitar esto, a menudo suele recurrirse a un `SingleChildScrollView` para que gestione el scroll en el contenido.
 
@@ -2361,10 +2440,10 @@ onPressed: () {
         context: context,
         // Y la función (builder) que construye el diálogo
         builder: (context) {
-        // Consistirà en un AlertDialog que tendrá
+        // Consistirá en un AlertDialog que tendrá
         // * Un título (title)
         // * El contenido (content)
-        // * Y un botón de acciones(De tipus TextButton)
+        // * Y un botón de acciones(De tipo TextButton)
         return AlertDialog(
             title: const Text("Ejemplo de Alert Dialog"),
             content: const Text("Contenido del cuadro de diálogo"),
@@ -2388,7 +2467,7 @@ child: const Text("Muestra un AlertDialog"),
 
 Como vemos, lo más habitual es proporcionarle al `AlertDialog` el título para la cabecera, el contenido del mismo y una lista con los diferentes botones de acción. Observe que estos botones son de tipo `TextButton`. Como el diálogo ya es un widget que contiene elevación, según las indicaciones de *Material Design*, no se deberían incluir otros elementos con elevación dentro, por eso dentro de un diálogo se hace uso de este tipo de botones. Ten en cuenta que, aunque al ejemplo solo hemos añadido un botón para simplificar, se trata de una lista en la que caben más botones.
 
-Finalmente, como veis, la forma de *cerrar* el diálogo es desapilando este de la pila de rutas mediante un `Navigator.pop`. Para ello es para lo que necesitamos proporcionarle el ***context*** en su creación, ya que sin él, no tendría acceso al *Navigator*. En este caso, además, cuando hacemos el ***pop***, devolvemos también el valor Cancelar.
+Finalmente, como veis, la forma de *cerrar* el diálogo es desapilando este de la pila de rutas mediante un `Navigator.pop`. Para ello es para lo que necesitamos proporcionarle el ***context*** en su creación, ya que sin él, no tendría acceso al *Navigator*. En este caso, además, cuando hacemos el ***pop***, devolvemos también el valor **Cancelar**.
 
 Como en todo widget de Material, necesitamos que este *AlertDialog* se encuentre dentro de un widget que tenga un ascendiente de tipo *Material*, como por ejemplo *MaterialApp*. En caso contrario, obtendremos la excepción *No MaterialLocalizations found*.
 
@@ -2402,11 +2481,11 @@ Para informarnos sobre el valor que el usuario ha seleccionado al diálogo, se h
 ElevatedButton(
   onPressed: () {
     // Cuando se apriete el botón mostraremos el diálogo
-    Future<String?> resposta = showDialog(
+    Future<String?> respuesta = showDialog(
         // ...
     );
     // Cuando se reciba la respuesta la mostraremos por consola
-    resposta.then((value) => debugPrint(value));
+    respuesta.then((value) => debugPrint(value));
   } 
   ...
 ),
@@ -2416,6 +2495,8 @@ En este ejemplo, si hacemos clic en el botón de *Cancelar*, se mostrará en la 
 Otra forma de cerrar el diálogo, ya que no hemos especificado lo contrario a la propiedad `barrierDismisable` es haciendo clic en la parte exterior del diálogo. En este caso, el valor que nos devolverá será *null*. Si queremos que el usuario obligatoriamente haga clic en algún botón del diálogo para cerrar el mismo, deberíamos especificar este valor a *false* (`barrierDimisable: false`). 
 
 Otra opción es no devolver nada cuando se trata del valor Cancelar, y hacer directamente un `Navigator.pop(context)`, de manera que retorne *null* en ambos casos. Sabremos así que este es el valor que se nos devolverá cuando se cancela el diálogo de cualquiera de las dos formas.
+
+<br>
 
 ## SimpleDialog
 
