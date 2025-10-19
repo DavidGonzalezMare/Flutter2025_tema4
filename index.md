@@ -7,7 +7,9 @@
 
 ![Navegación](./images/imagen01.png)
 
-En la unidad anterior vimos cómo organizar las interfaces de usuario mediante widgets en diferentes pantallas. En esta unidad vamos a abordar los dos aspectos que quedan con el fin de implementar interfaces en una aplicación informática: Los formularios y la navegación.
+En la unidad anterior vimos cómo organizar las interfaces de usuario mediante widgets en pantallas. 
+
+En esta unidad vamos a abordar los dos aspectos que quedan con el fin de implementar interfaces en una aplicación informática: Los **formularios** y la **navegación**.
 
 La librería **Material** nos ofrece varios widgets con el fin de recoger la interacción y la entrada de datos por parte del usuario. Veremos cuáles son estos, y cómo Flutter hace uso de widgets con estado (`Stateful` con el fin de mantener su estado).
 
@@ -43,7 +45,7 @@ Para capturar la entrada de texto del usuario podemos hacer uso de una caja de t
 
 ![TextField](./images/imagen02.png)
 
-Algunas de las propiedades más interesantes de este widget son:
+Algunas de las **propiedades** más interesantes de este widget son:
 
 - `bool autofocus`: Para poner el foco de la aplicación sobre este widget,
   
@@ -193,6 +195,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   src="https://dartpad.dev/embed-inline.html?id=b2d92eaf6e3fd76d9f1ad7a43dd73524"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
 
@@ -299,6 +302,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   src="https://dartpad.dev/embed-inline.html?id=792d2c8f3966077da10240c9fa9acd48"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
 
@@ -422,6 +426,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   src="https://dartpad.dev/embed-inline.html?id=a220026119048ef7803a5c8ab10454ab"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
 
@@ -499,6 +504,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   src="https://dartpad.dev/embed-inline.html?id=b8ea5457046bd348f41c33c6aaa5b5fa"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
 
@@ -600,6 +606,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   src="https://dartpad.dev/embed-inline.html?id=9256717e898d633d67dc990d3838593b"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
 
@@ -684,6 +691,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   src="https://dartpad.dev/embed-inline.html?id=c2fd1aff0e23e49daba43e058baa67f7"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
 
@@ -798,6 +806,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   src="https://dartpad.dev/embed-inline.html?id=0143d202d9fdabb65acb8c933916a9a5"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
 
@@ -876,6 +885,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   src="https://dartpad.dev/embed-inline.html?id=063baba175f67f9037e43e2e7849c59d"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
 
@@ -1221,6 +1231,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   src="https://dartpad.dev/embed-inline.html?id=7295ca31234ec8ec2141452868436365"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
 
@@ -1400,6 +1411,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   src="https://dartpad.dev/embed-inline.html?id=97a5f1a22f6f4afa82ddf75ea0eec11c"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
 
@@ -1508,6 +1520,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   src="https://dartpad.dev/embed-inline.html?id=f1531398872e313a12618218eeae76f6"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
 
@@ -1652,6 +1665,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   src="https://dartpad.dev/embed-inline.html?id=3a67eb229b967dfe1dc428cecad5d1bb"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
 
@@ -1822,6 +1836,7 @@ class Pantalla3 extends StatelessWidget {
   src="https://dartpad.dev/embed-inline.html?id=8b0e80c0974757454d53a0c118aa8a30"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
 
@@ -1884,6 +1899,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   src="https://dartpad.dev/embed-inline.html?id=4714cff25cc4fb552c81763132234601"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
 
@@ -2005,6 +2021,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   src="https://dartpad.dev/embed-inline.html?id=37a03cce1d60ad90865f1ab200afbe83"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
 
@@ -2178,6 +2195,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   src="https://dartpad.dev/embed-inline.html?id=fe8d6ca53dcef2bb137b6c74df73fd60"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
 
@@ -2329,6 +2347,7 @@ En *el siguiente gist* podéis encontrar este código funcionando:
   src="https://dartpad.dev/embed-inline.html?id=ccc983b16b597e01e36948adef557bd8"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
 
@@ -2544,7 +2563,7 @@ builder: (context) {
 Como podemos ver, a pesar de tener una estructura diferente, se trabaja de manera parecida al AlertDialog.
 
 
-### **Dialog**
+## Dialog
 Las clases AlertDialog y SimpleDialog suelen ser suficientes para un gran número de situaciones. Sin embargo, a veces podemos necesitar hacer uso de la clase *Dialog* para generar un diálogo más personalizado.
 
 De momento **no lo vamos a ver**.
@@ -2557,5 +2576,6 @@ Podemos ver un ejemplo completo, con los tres tipos de Diálogos en el siguiente
   src="https://dartpad.dev/embed-inline.html?id=41ef2f48813d24726b2e657ed097047d"
   width="100%"
   height="500px"
+  loading="lazy"
   frameborder="0">
 </iframe>
