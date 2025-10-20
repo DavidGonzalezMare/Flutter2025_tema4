@@ -9,7 +9,7 @@
 
 En la unidad anterior vimos cómo organizar las interfaces de usuario mediante widgets en pantallas. 
 
-En esta unidad vamos a abordar los dos aspectos que quedan con el fin de implementar interfaces en una aplicación informática: Los **formularios** y la **navegación**.
+**En esta unidad** vamos a abordar los dos aspectos que quedan con el fin de implementar interfaces en una aplicación informática: Los **formularios** y la **navegación**.
 
 La librería **Material** nos ofrece varios widgets con el fin de recoger la interacción y la entrada de datos por parte del usuario. Veremos cuáles son estos, y cómo Flutter hace uso de widgets con estado (`Stateful` con el fin de mantener su estado).
 
@@ -191,13 +191,15 @@ class _EjemploForms2State extends State<EjemploForms2> {
 En *el siguiente gist* podéis encontrar este código funcionando: 
 [https://dartpad.dev/embed-flutter.html?id=b2d92eaf6e3fd76d9f1ad7a43dd73524](https://dartpad.dev/embed-flutter.html?id=b2d92eaf6e3fd76d9f1ad7a43dd73524)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=b2d92eaf6e3fd76d9f1ad7a43dd73524"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=b2d92eaf6e3fd76d9f1ad7a43dd73524"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
 
 <br>
 
@@ -298,13 +300,15 @@ class _EjemploFormTextEditControllerState
 En *el siguiente gist* podéis encontrar este código funcionando: 
 [https://dartpad.dev/embed-flutter.html?id=792d2c8f3966077da10240c9fa9acd48](https://dartpad.dev/embed-flutter.html?id=792d2c8f3966077da10240c9fa9acd48)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=792d2c8f3966077da10240c9fa9acd48"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=792d2c8f3966077da10240c9fa9acd48"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
 
 Tened en cuenta que para ver el mensaje que se muestra por consola tenéis que abrir ésta en el Visual Studio Code.
 
@@ -422,14 +426,15 @@ class _MyDropdownButtonState extends State<MyDropdownButton> {
 En *el siguiente gist* podéis encontrar este código funcionando: 
 [https://dartpad.dev/embed-flutter.html?id=a220026119048ef7803a5c8ab10454ab](https://dartpad.dev/embed-flutter.html?id=a220026119048ef7803a5c8ab10454ab)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=a220026119048ef7803a5c8ab10454ab"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
-
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=a220026119048ef7803a5c8ab10454ab"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
 
 El **tipo de datos** que usamos tanto para el `value` del DropdownButton, como para el `value` del DropdownMenuItem, como para el valor que guardaremos en el estado (`valorSeleccionado` en el ejemplo), así como para el tipo de datos que recibimos en el `onChanged` debe ser el mismo.
 
@@ -500,14 +505,15 @@ class _MyDropdownButtonState extends State<MyDropdownButton> {
 En *el siguiente gist* podéis encontrar este código funcionando: 
 [https://dartpad.dev/embed-flutter.html?id=b8ea5457046bd348f41c33c6aaa5b5fa](https://dartpad.dev/embed-flutter.html?id=b8ea5457046bd348f41c33c6aaa5b5fa)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=b8ea5457046bd348f41c33c6aaa5b5fa"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
-
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=b8ea5457046bd348f41c33c6aaa5b5fa"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
 
 [Referència a la classe DropdownButton](https://api.flutter.dev/flutter/material/DropdownButton-class.html)
 
@@ -602,14 +608,15 @@ class _MyCheckboxState extends State<MyCheckbox> {
 En *el siguiente gist* podéis encontrar este código funcionando: 
 [https://dartpad.dev/embed-flutter.html?id=9256717e898d633d67dc990d3838593b](https://dartpad.dev/embed-flutter.html?id=9256717e898d633d67dc990d3838593b)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=9256717e898d633d67dc990d3838593b"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
-
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=9256717e898d633d67dc990d3838593b"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
 
 - [La classe Checkbox](https://api.flutter.dev/flutter/material/Checkbox-class.html)
 - [La classe CheckboxListTile](https://api.flutter.dev/flutter/material/CheckboxListTile-class.html)
@@ -687,14 +694,15 @@ class _MySwitchState extends State<MySwitch> {
 En *el siguiente gist* podéis encontrar este código funcionando: 
 [https://dartpad.dev/embed-flutter.html?id=c2fd1aff0e23e49daba43e058baa67f7](https://dartpad.dev/embed-flutter.html?id=c2fd1aff0e23e49daba43e058baa67f7)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=c2fd1aff0e23e49daba43e058baa67f7"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
-
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=c2fd1aff0e23e49daba43e058baa67f7"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
 
 
 - [Referència de la classe Switch](https://api.flutter.dev/flutter/material/Switch-class.html)
@@ -802,14 +810,15 @@ La clave para gestionar este tipo de widgets se encuentra en la propiedad privad
 En *el siguiente gist* podéis encontrar este código funcionando: 
 [https://dartpad.dev/embed-flutter.html?id=0143d202d9fdabb65acb8c933916a9a5](https://dartpad.dev/embed-flutter.html?id=0143d202d9fdabb65acb8c933916a9a5)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=0143d202d9fdabb65acb8c933916a9a5"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
-
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=0143d202d9fdabb65acb8c933916a9a5"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
 
 - [La classe Radio](https://api.flutter.dev/flutter/material/Radio-class.html)
 - [La classe RadioListTile](https://api.flutter.dev/flutter/material/RadioListTile-class.html)
@@ -881,13 +890,15 @@ class _MySliderState extends State<MySlider> {
 En *el siguiente gist* podéis encontrar este código funcionando: 
 [https://dartpad.dev/embed-flutter.html?id=063baba175f67f9037e43e2e7849c59d](https://dartpad.dev/embed-flutter.html?id=063baba175f67f9037e43e2e7849c59d)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=063baba175f67f9037e43e2e7849c59d"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=063baba175f67f9037e43e2e7849c59d"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
 
 [**La clase Slider**](https://api.flutter.dev/flutter/material/Slider-class.html)
 
@@ -1227,13 +1238,15 @@ class MyRegisterFormState extends State<MyRegisterForm> {
 En *el siguiente gist* podéis encontrar este código funcionando: 
 [https://dartpad.dev/embed-flutter.html?id=7295ca31234ec8ec2141452868436365](https://dartpad.dev/embed-flutter.html?id=7295ca31234ec8ec2141452868436365)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=7295ca31234ec8ec2141452868436365"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=7295ca31234ec8ec2141452868436365"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
 
 <br>
 <br>
@@ -1407,13 +1420,15 @@ class Pantalla3 extends StatelessWidget {
 En *el siguiente gist* podéis encontrar este código funcionando: 
 [https://dartpad.dev/embed-flutter.html?id=97a5f1a22f6f4afa82ddf75ea0eec11c](https://dartpad.dev/embed-flutter.html?id=97a5f1a22f6f4afa82ddf75ea0eec11c)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=97a5f1a22f6f4afa82ddf75ea0eec11c"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=97a5f1a22f6f4afa82ddf75ea0eec11c"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
 
 Probemos el ejemplo, y observemos el aspecto de la barra de la aplicación de la primera pantalla inicialmente. Después vamos hasta la tercera pantalla y haga clic en el botón para volver a la primera. Veamos de nuevo la barra de la aplicación. ¿Observáis alguna diferencia? ¿A qué creéis que puede deberse?
 
@@ -1516,13 +1531,15 @@ class Pantalla2 extends StatelessWidget {
 En *el siguiente gist* podéis encontrar este código funcionando: 
 [https://dartpad.dev/embed-flutter.html?id=f1531398872e313a12618218eeae76f6](https://dartpad.dev/embed-flutter.html?id=f1531398872e313a12618218eeae76f6)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=f1531398872e313a12618218eeae76f6"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=f1531398872e313a12618218eeae76f6"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
 
 ### **Trabajando con valores de retorno**
 
@@ -1661,13 +1678,15 @@ En este caso, para hacer la interpolación de variables, sí hemos necesitado ha
 En *el siguiente gist* podéis encontrar este código funcionando: 
 [https://dartpad.dev/embed-flutter.html?id=3a67eb229b967dfe1dc428cecad5d1bb](https://dartpad.dev/embed-flutter.html?id=3a67eb229b967dfe1dc428cecad5d1bb)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=3a67eb229b967dfe1dc428cecad5d1bb"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=3a67eb229b967dfe1dc428cecad5d1bb"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
 
 <br>
 
@@ -1832,14 +1851,15 @@ class Pantalla3 extends StatelessWidget {
 
 [https://dartpad.dev/embed-flutter.html?id=8b0e80c0974757454d53a0c118aa8a30](https://dartpad.dev/embed-flutter.html?id=8b0e80c0974757454d53a0c118aa8a30)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=8b0e80c0974757454d53a0c118aa8a30"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
-
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=8b0e80c0974757454d53a0c118aa8a30"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
 
 - El método `canPop()`: En la segunda pantalla se ha hecho uso del orden `canPop()` de la siguiente manera: `if (Navigator.canPop(context)) Navigator.pop(context);`. Este método nos devuelve un valor lógico si, como su nombre indica, la pantalla que tenemos *puede hacer pop*. Básicamente, esto lo podemos utilizar para asegurarnos de que la pantalla que vamos a quitar del tope de la pila no es la única que queda en esta. Si hiciéramos un `pop` en este caso, quitaríamos la pantalla de la pila y se quedaría la aplicación en negro.
   
@@ -1895,13 +1915,15 @@ En *el siguiente gist* podéis encontrar este código funcionando:
 
 [https://dartpad.dev/embed-flutter.html?id=4714cff25cc4fb552c81763132234601](https://dartpad.dev/embed-flutter.html?id=4714cff25cc4fb552c81763132234601)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=4714cff25cc4fb552c81763132234601"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=4714cff25cc4fb552c81763132234601"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
 
 <br>
 
@@ -2017,13 +2039,15 @@ En *el siguiente gist* podéis encontrar este código funcionando:
 
 [https://dartpad.dev/embed-flutter.html?id=37a03cce1d60ad90865f1ab200afbe83](https://dartpad.dev/embed-flutter.html?id=37a03cce1d60ad90865f1ab200afbe83)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=37a03cce1d60ad90865f1ab200afbe83"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=37a03cce1d60ad90865f1ab200afbe83"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
 
 <br>
 
@@ -2191,14 +2215,15 @@ En *el siguiente gist* podéis encontrar este código funcionando:
 
 [https://dartpad.dev/embed-flutter.html?id=fe8d6ca53dcef2bb137b6c74df73fd60](https://dartpad.dev/embed-flutter.html?id=fe8d6ca53dcef2bb137b6c74df73fd60)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=fe8d6ca53dcef2bb137b6c74df73fd60"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
-
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=fe8d6ca53dcef2bb137b6c74df73fd60"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
 
 <hr> 
 ### ¿Cuándo utilizar barras de navegación o pestañas?
@@ -2343,13 +2368,15 @@ class _ExempleNavigationRailState extends State<ExempleNavigationRail> {
 En *el siguiente gist* podéis encontrar este código funcionando: 
 [https://dartpad.dev/embed-flutter.html?id=ccc983b16b597e01e36948adef557bd8](https://dartpad.dev/embed-flutter.html?id=ccc983b16b597e01e36948adef557bd8)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=ccc983b16b597e01e36948adef557bd8"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=ccc983b16b597e01e36948adef557bd8"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
 
 <br>
 <br>
@@ -2572,10 +2599,12 @@ Podemos ver un ejemplo completo, con los tres tipos de Diálogos en el siguiente
 
 [https://dartpad.dev/embed-flutter.html?id=41ef2f48813d24726b2e657ed097047d](https://dartpad.dev/embed-flutter.html?id=41ef2f48813d24726b2e657ed097047d)
 
-<iframe
-  src="https://dartpad.dev/embed-inline.html?id=41ef2f48813d24726b2e657ed097047d"
-  width="100%"
-  height="500px"
-  loading="lazy"
-  frameborder="0">
-</iframe>
+<div style="overflow-x: auto; width: 100%;">
+  <iframe
+    src="https://dartpad.dev/embed-inline.html?id=41ef2f48813d24726b2e657ed097047d"
+    width="100%"
+    height="500px"
+    loading="lazy"
+    frameborder="0">
+  </iframe>
+</div>
