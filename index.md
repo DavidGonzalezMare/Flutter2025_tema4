@@ -789,8 +789,8 @@ class _MyRadioWidgetState extends State<MyRadioWidget> {
         ),
         // Segon botó de ràdio, amb el comportament semblant a l'anterior
         RadioListTile(
-          title: const Text("Text per a la segona opció"),
-          subtitle: Text("El valor associat és: ${ValoresEnumerados.enumerado2}"),
+          title: const Text("Texto para la segunda opción"),
+          subtitle: Text("El valor asociado es: ${ValoresEnumerados.enumerado2}"),
           groupValue: _valor,
           onChanged: (ValoresEnumerados? valor) {
             setState(() {
@@ -805,7 +805,7 @@ class _MyRadioWidgetState extends State<MyRadioWidget> {
 }
 ```
 
-La clave para gestionar este tipo de widgets se encuentra en la propiedad privada `_value` que es la que define el estado del widget, así como en las propiedades `value` y `groupValue` de cada `Radio`. La primera (`value`) define el valor predeterminado para cada opción, mientras que la segunda (`groupValue`) define **para el mismo grupo de botones** qué valor está seleccionado. Como asociamos con los botones al valor `_valor` definido en el estado, ambos botones estarán en el mismo grupo.
+La clave para gestionar este tipo de widgets se encuentra en la propiedad privada `_valor` que es la que define el estado del widget, así como en las propiedades `value` y `groupValue` de cada `Radio`. La primera (`value`) define el valor predeterminado para cada opción, mientras que la segunda (`groupValue`) define **para el mismo grupo de botones** qué valor está seleccionado. Como asociamos con los botones al valor `_valor` definido en el estado, ambos botones estarán en el mismo grupo.
 
 En *el siguiente gist* podéis encontrar este código funcionando: 
 [https://dartpad.dev/embed-flutter.html?id=0143d202d9fdabb65acb8c933916a9a5](https://dartpad.dev/embed-flutter.html?id=0143d202d9fdabb65acb8c933916a9a5)
